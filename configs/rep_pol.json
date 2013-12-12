@@ -1,0 +1,19 @@
+{
+    "data_keys": ["mc2011", "mc2012"],
+    "label": "mc:syst:pol_y{ns}",
+    "title": "Ratio between unpolarized and polarized in $\\chi_{{b}}\\to \\Upsilon({ns}S) \\gamma$ decays",
+    "data_titles": {
+        "mc2011": "\\sqs=7\\tev",
+        "mc2012": "\\sqs=8\\tev"
+    },
+    "pt_range_title": "$\\Upsilon({ns}S)$ transverse momentum range, \\gevc",
+    "bin_title": "{pt0} --- {pt1}",
+    "subtable_title": "${pt0} < p_{{T}}^{{\\Upsilon({ns}S}} < {pt1}$",
+
+    "scale": 0.55,
+    "maxbins": 4,
+
+    "rows": [
+        {"key": "chib{nb}{np}p", "title": "\\chi_{{b{nb}}}({np}P)}}$"},
+    ]
+}

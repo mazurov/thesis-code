@@ -1,0 +1,53 @@
+#!/usr/bin/env ganga
+
+my_area = "/afs/cern.ch/user/a/amazurov/cmtuser"
+my_opts = "/afs/cern.ch/user/a/amazurov/thesis-flat/mctuples.py"
+
+
+sim = "2012"
+year = sim
+
+paths = {
+    "mc11a": "/MC/MC11a/Beam3500GeV-2011-MagDown-Nu2-EmNoCuts/Sim05d/Trig0x40760037Flagged/Reco12a/Stripping17NoPrescalingFlagged/{dk}/ALLSTREAMS.DST",
+    "2011": "/MC/2011/Beam3500GeV-2011-MagDown-Nu2-Pythia6/Sim08c/Digi13/Trig0x40760037/Reco14a/Stripping20r1NoPrescalingFlagged/{dk}/ALLSTREAMS.DST",
+    "2012": "/MC/2012/Beam4000GeV-2012-MagDown-Nu2.5-Pythia6/Sim08c/Digi13/Trig0x409f0045/Reco14a/Stripping20NoPrescalingFlagged/{dk}/ALLSTREAMS.DST"
+}
+
+dkfiles = {
+    "chib11p": 18112261,
+    "chib12p": 18212262,
+    "chib13p": 18212263,
+    "chib21p": 18112271,
+    "chib22p": 18212272,
+    "chib23p": 18212273
+}
+
+# for p in range(1, 4):
+#     for b in range(1, 3):
+
+for p in range(1, 3):
+    for b in range(1, 3):
+        dk = "chib%d%dp" % (b, p)
+        name = "%s_sim_%s" % (dk, sim)
+        j = Job(
+            #
+            name=name,
+            #== configure Bender
+            application=Bender(
+                events=-1,
+                version='v22r8',
+                module=my_opts,
+                user_release_area=my_area,
+                params={"nb": b, "np": p, "year": year},
+                platform="x86_64-slc5-gcc46-opt"
+            ),
+
+            #== configure Job
+            outputfiles=['chib_tuples.root', 'chib_histos.root'],
+            backend=Dirac(),
+            splitter=SplitByFiles(filesPerJob=30),
+        )
+        j.inputdata = dataset_from_string(paths[sim].format(dk=dkfiles[dk]))
+        j.backend.settings['BannedSites'] = ['LCG.GRIDKA.de']
+        j.submit()
+jobs

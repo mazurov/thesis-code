@@ -1,0 +1,24 @@
+{*#header?*}
+\begin{table}[H]
+\centering
+\caption{\small {*title*}}
+{*/header?*}
+{*#subtable?*}\subtable[${*first*} < p_T^{{*pt*}} < {*last*} \gevc$]{ {*/subtable?*}
+\scalebox{{*scale*}}{
+    \begin{tabular}{l{*cc*}}\toprule
+    & \multicolumn{{*nallcols*}}{c}{{*pt*} transverse momentum intervals (\gevc)} \\
+    {*#bins*}&& \multicolumn{2}{c}{{*first*} --- {*last*}}{*/bins*} \\
+    {*#cmidrule*}\cmidrule{{*first*}-{*last*}}{*/cmidrule*}
+    \midrule
+    {*#lines*}
+    {*#vspace?*}\rule{0pt}{4ex}{*/vspace?*} {*field*} {*#values*} && {*#all*}\multicolumn{2}{c}{{*all*}}{*/all*}{*^all*}{*2011*} & {*2012*}{*/all*} {*/values*}\\
+    {*/lines*}
+
+    \bottomrule
+    \end{tabular}
+} % scalebox
+{*#subtable?*}} % subtable {*/subtable?*}
+{*#footer?*}
+\label{tab:{*label*}}
+\end{table}
+{*/footer?*}
