@@ -11,6 +11,7 @@ from IPython import embed as shell  # noqa
 from array import array
 from math import cos
 from math import sin
+from pprint import pprint
 
 from AnalysisPython import LHCbStyle  # noqa
 LHCbStyle.lhcbStyle.SetOptTitle(1)
@@ -180,8 +181,8 @@ def process(ns, nb, np, chain, cut, axis):
     print chain.GetName(), "Cut: ", cut_str
     chain.Draw(">>%s" % list_id, cut_str, "entrylist")
     entry_list = ROOT.gROOT.FindObject(list_id)
-
-    print "Start reweigting...",
+    print "Entry list", entry_list.GetN()
+    print "Start reweigting..."
     for i in range(entry_list.GetN()):
         chain.GetEntry(entry_list.GetEntry(i))
         theta, thetap, cosphi = angles(cols)
@@ -195,23 +196,39 @@ def process(ns, nb, np, chain, cut, axis):
     return histos
 
 
-def save(data_key, ns, np, nb, hists):
+def save(data_key, ns, np, nb, hists, d, n):
     db = tools.get_db("polarization")
     data = db.get(data_key, {})
     ups_key = "ups%ds" % ns
     ups = data.get(ups_key, {})
-    for w, hw in enumerate(hists):
-        for ibin in hw:
-            pt_bin = (int(hw.GetBinLowEdge(ibin)),
-                      int(hw.GetBinLowEdge(ibin)) + int(hw.GetBinWidth(ibin))
-                      )
+
+    binning = []
+    for ibin in hists[0]:
+        binning.append(
+            (int(hists[0].GetBinLowEdge(ibin)),
+             int(hists[0].GetBinLowEdge(ibin)) +
+             int(hists[0].GetBinWidth(ibin))
+             )
+        )
+    for i in range(4):
+        for ibin, pt_bin in enumerate(binning, start=1):
             bin = ups.get(pt_bin, {})
             chib_key = "chib%d%dp" % (nb, np)
             chib = bin.get(chib_key, {})
-            w_key = "w%d" % w
-            chib[w_key] = (hw[ibin].value(), hw[ibin].error())
+            if i < len(hists):
+                w_key = "w%d" % i
+                chib[w_key] = (hists[i][ibin].value(), hists[i][ibin].error())
+
+            d_key = "d%d" % i
+            n_key = "n%d" % i
+            chib[d_key] = (d[i][ibin].value(), d[i][ibin].error())
+            chib[n_key] = (n[i][ibin].value(), n[i][ibin].error())
+
             bin[chib_key] = chib
             ups[pt_bin] = bin
+    print "NS", ns
+    pprint(ups)
+
     data[ups_key] = ups
     db[data_key] = data
     db.close()
@@ -228,6 +245,7 @@ def main():
         chib_chain.Reset()
         ups_chain.Reset()
         for ntuple_file in cfg_tuples[data_key]:
+            print "NTuple ", ntuple_file
             chib_chain.Add(ntuple_file)
             ups_chain.Add(ntuple_file)
 
@@ -236,7 +254,8 @@ def main():
             cfg_cuts = cfg_decays["ups%ds" % ns]
             chib_cut = cfg_cuts["cut"]
             ups_cut = cfg_cuts["ucut"]
-
+            # tools.tree_preselect(chib_chain, chib_cut)
+            # tools.tree_preselect(ups_chain, ups_cut)
             for np in range(1, 4):
                 if ns == 2 and np == 1:
                     continue
@@ -277,7 +296,9 @@ def main():
                                   "chib{nb}{np}p_ups{ns}s_w{w}_ratio"
                                   .format(nb=nb, np=np, ns=ns, w=i))
                         )
-                    save(data_key, ns, np, nb, res)
+                    save(data_key, ns, np, nb, res, d, n)
+            # chib_chain.SetEntryList(0)
+            # ups_chain.SetEntryList(0)
     shell()
                 # shell()
 if __name__ == '__main__':

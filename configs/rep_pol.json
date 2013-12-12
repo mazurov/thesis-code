@@ -1,5 +1,5 @@
 {
-    "data_keys": ["mc2011", "mc2012"],
+    "data_keys": ["mc2011"],
     "label": "mc:syst:pol_y{ns}",
     "title": "Ratio between unpolarized and polarized in $\\chi_{{b}}\\to \\Upsilon({ns}S) \\gamma$ decays",
     "data_titles": {
