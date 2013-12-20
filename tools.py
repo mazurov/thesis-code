@@ -141,3 +141,15 @@ def tree_preselect(tree, cut, select=True):
     if select:
         tree.SetEntryList(lst)
     return lst
+
+
+def draw_hists(hists, minimum=None):
+    ordered = sorted(hists, key=lambda h: -h.GetMaximum())
+    y_minimum = (min([h.GetMinimum() for h in hists])
+                 if not minimum else minimum)
+    opts = "E1"
+
+    for h in ordered:
+        h.SetMinimum(y_minimum)
+        h.Draw(opts)
+        opts = "E1 same"

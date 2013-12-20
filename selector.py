@@ -47,3 +47,74 @@ class Selector(SelectorWithCuts):
 
         self.data.add(self.varset)
         return 1
+
+# class WeightSelectror(SelectorWithCuts):
+#     def angles(cols):
+#         v_chib = TVector3(cols["px_cb"], cols["py_cb"], cols["pz_cb"])
+
+#         # for boosting to chib lab
+#         v_bchib = TVector3(
+#             -cols["px_cb"] / cols["e_chib"],
+#             -cols["py_cb"] / cols["e_chib"],
+#             cols["pz_cb"] / cols["e_chib"]
+#         )
+#         # v_ups = TVector3(px_y, py_y, pz_y)
+
+#         # boosting
+#         lv_ups = TLorentzVector(
+#             cols["px_y"],
+#             cols["py_y"],
+#             cols["pz_y"],
+#             cols["e_y"]
+#         )
+#         lv_mup = TLorentzVector(
+#             cols["px_mup"],
+#             cols["py_mup"],
+#             cols["pz_mup"],
+#             cols["e_mup"]
+#         )
+#         lv_mum = TLorentzVector(
+#             cols["px_mum"],
+#             cols["py_mum"],
+#             cols["pz_mum"],
+#             cols["e_mum"]
+#         )
+
+#         lv_ups.Boost(v_bchib)
+#         lv_mup.Boost(v_bchib)
+#         lv_mum.Boost(v_bchib)
+
+#         v_ups_chib = TVector3(
+#             lv_ups.Px(), lv_ups.Py(), lv_ups.Pz())
+#         v_mup_chib = TVector3(
+#             lv_mup.Px(), lv_mup.Py(), lv_mup.Pz())
+#         v_mum_chib = TVector3(
+#             lv_mum.Px(), lv_mum.Py(), lv_mum.Pz())
+
+#         # First result
+#         theta = v_ups_chib.Angle(v_chib)
+#         # print cos(theta_chib), lv
+
+#         n_chib = v_chib.Unit()
+#         n_ups = v_ups_chib.Unit()
+#         n_mup = v_mup_chib.Unit()
+#         n_mum = v_mum_chib.Unit()
+
+#         n_perp_ups = n_mup.Cross(n_mum)
+#         n_perp_chib = n_ups.Cross(n_chib)
+
+#         cosphi = n_perp_chib.Dot(n_perp_ups)
+
+#         v_bups = TVector3(-lv_ups.Px() / lv_ups.E(),
+#                           -lv_ups.Py() / lv_ups.E(),
+#                           -lv_ups.Pz() / lv_ups.E())
+#         lv_mup.Boost(v_bups)
+#         lv_mum.Boost(v_bups)
+
+#         thetap = lv_mup.Angle(v_ups_chib)
+
+#         return theta, thetap, cosphi
+
+#     def __init__(self, selection, columns):
+#         self.selection = selection
+#         SelectorWithCuts.__init__(self, self.selection)

@@ -11,14 +11,14 @@ from IPython import embed as shell  # noqa
 from array import array
 from math import cos
 from math import sin
-from pprint import pprint
+from collections import defaultdict
 
 from AnalysisPython import LHCbStyle  # noqa
-LHCbStyle.lhcbStyle.SetOptTitle(1)
-LHCbStyle.lhcbStyle.SetTitleX(0.15)
-LHCbStyle.lhcbStyle.SetTitleY(0.92)
-LHCbStyle.lhcbStyle.SetTitleBorderSize(0)
-LHCbStyle.lhcbStyle.SetTitleFillColor(0)
+# LHCbStyle.lhcbStyle.SetOptTitle(1)
+# LHCbStyle.lhcbStyle.SetTitleX(0.15)
+# LHCbStyle.lhcbStyle.SetTitleY(0.92)
+# LHCbStyle.lhcbStyle.SetTitleBorderSize(0)
+# LHCbStyle.lhcbStyle.SetTitleFillColor(0)
 
 
 class Columns(object):
@@ -52,7 +52,7 @@ def angles(cols):
     v_bchib = TVector3(
         -cols["px_cb"] / cols["e_chib"],
         -cols["py_cb"] / cols["e_chib"],
-        cols["pz_cb"] / cols["e_chib"]
+        -cols["pz_cb"] / cols["e_chib"]
     )
     # v_ups = TVector3(px_y, py_y, pz_y)
 
@@ -96,8 +96,8 @@ def angles(cols):
     n_mup = v_mup_chib.Unit()
     n_mum = v_mum_chib.Unit()
 
-    n_perp_ups = n_mup.Cross(n_mum)
-    n_perp_chib = n_ups.Cross(n_chib)
+    n_perp_ups = n_mup.Cross(n_mum).Unit()
+    n_perp_chib = n_ups.Cross(n_chib).Unit()
 
     cosphi = n_perp_chib.Dot(n_perp_ups)
 
@@ -164,14 +164,22 @@ def get_weights(j, theta, thetap, cosphi):
 def process(ns, nb, np, chain, cut, axis):
     # w3 - from simulation (unpolarized)
     histos = []
+    hangles = defaultdict(list)
     cols = Columns(chain=chain)
 
     for w in range(4):
-        h = pyroot.h1_axis(
-            axis=axis,
-            title="w%d; p_{T}^{#Upsilon(%dS)};events" % (w, ns))
+        h = pyroot.h1_axis(axis=axis)
+            # title="w%d; p_{T}^{#Upsilon(%dS)};events" % (w, ns))
         h.Sumw2()
         histos.append(h)
+
+    for a in ["theta", "thetap", "cosphi"]:
+        for w in range(4):
+            x0, x1 = (-1, 1) if a != "theta" else (-1, 0)
+            h = ROOT.TH1D(pyroot.hID(), "{angle}".format(angle=a), 100, x0, x1)
+            h.Sumw2()
+            h.red() if w != 3 else h.blue()
+            hangles[a].append(h)
 
     list_id = pyroot.rootID()
 
@@ -183,6 +191,7 @@ def process(ns, nb, np, chain, cut, axis):
     entry_list = ROOT.gROOT.FindObject(list_id)
     print "Entry list", entry_list.GetN()
     print "Start reweigting..."
+
     for i in range(entry_list.GetN()):
         chain.GetEntry(entry_list.GetEntry(i))
         theta, thetap, cosphi = angles(cols)
@@ -191,13 +200,21 @@ def process(ns, nb, np, chain, cut, axis):
         for i, w in enumerate(weights):
             if w:
                 histos[i].Fill(cols["pt_ups"], w)
+                hangles["theta"][i].Fill(cos(theta), w)
+                hangles["thetap"][i].Fill(cos(thetap), w)
+                hangles["cosphi"][i].Fill(cosphi, w)
+
         histos[3].Fill(cols["pt_ups"])
+        hangles["theta"][3].Fill(cos(theta))
+        hangles["thetap"][3].Fill(cos(thetap))
+        hangles["cosphi"][3].Fill(cosphi)
+
     print "End"
-    return histos
+    return histos, hangles
 
 
 def save(data_key, ns, np, nb, hists, d, n):
-    db = tools.get_db("polarization")
+    db = tools.get_db("polarization1")
     data = db.get(data_key, {})
     ups_key = "ups%ds" % ns
     ups = data.get(ups_key, {})
@@ -226,8 +243,6 @@ def save(data_key, ns, np, nb, hists, d, n):
 
             bin[chib_key] = chib
             ups[pt_bin] = bin
-    print "NS", ns
-    pprint(ups)
 
     data[ups_key] = ups
     db[data_key] = data
@@ -242,6 +257,7 @@ def main():
     # ups_chain = ROOT.TChain("UpsilonAlg/Upsilon")
 
     for data_key in cfg_pol["data_keys"]:
+        save_to = "polarization1/{data_key}/".format(data_key=data_key)
         chib_chain.Reset()
         ups_chain.Reset()
         for ntuple_file in cfg_tuples[data_key]:
@@ -250,24 +266,24 @@ def main():
             ups_chain.Add(ntuple_file)
 
         cfg_decays = tools.load_config("mc")["decays"]
-        for ns in range(1, 4):
+        for ns in cfg_pol["ns"]:
             cfg_cuts = cfg_decays["ups%ds" % ns]
             chib_cut = cfg_cuts["cut"]
             ups_cut = cfg_cuts["ucut"]
             # tools.tree_preselect(chib_chain, chib_cut)
             # tools.tree_preselect(ups_chain, ups_cut)
-            for np in range(1, 4):
+            for np in cfg_pol["np"]:
                 if ns == 2 and np == 1:
                     continue
                 if ns == 3 and (np == 1 or np == 2):
                     continue
 
-                for nb in range(1, 3):
+                for nb in cfg_pol["nb"]:
 
-                    d = process(ns=ns, nb=nb, np=np, chain=chib_chain,
-                                cut=chib_cut, axis=cfg_cuts["axis"])
-                    n = process(ns=ns, nb=nb, np=np, chain=ups_chain,
-                                cut=ups_cut, axis=cfg_cuts["axis"])
+                    d, dangles = process(ns=ns, nb=nb, np=np, chain=chib_chain,
+                                         cut=chib_cut, axis=cfg_cuts["axis"])
+                    n, nangles = process(ns=ns, nb=nb, np=np, chain=ups_chain,
+                                         cut=ups_cut, axis=cfg_cuts["axis"])
                     ref = d[3] // n[3]
                     res = []
 
@@ -277,26 +293,41 @@ def main():
                         h = ref / (d[i] // n[i])
                         h.red()
 
-                        h.GetYaxis().SetTitle(
-                            "#varepsilon_{#gamma}^{unpol} / "
-                            "#varepsilon_{#gamma}^{w%d}" % i
-                        )
-                        h.SetTitle("w{w}, #chi_{{b{nb}}}({np}P)"
-                                   " #rightarrow #Upsilon({ns}S) #gamma"
-                                   .format(nb=nb, np=np, w=i, ns=ns)
-                                   )
+                        # h.GetYaxis().SetTitle(
+                        # "#varepsilon_{#gamma}^{unpol} / "
+                        # "#varepsilon_{#gamma}^{w%d}" % i
+                        # )
+                        # h.SetTitle("w{w}, #chi_{{b{nb}}}({np}P)"
+                        # " #rightarrow #Upsilon({ns}S) #gamma"
+                        #            .format(nb=nb, np=np, w=i, ns=ns)
+                        #            )
                         res.append(h)
 
                         h.Draw()
                         h.level(1)
 
                         tools.save_figure(
-                            name=("polarization/{data_key}/"
-                                  .format(data_key=data_key) +
+                            name=(save_to +
                                   "chib{nb}{np}p_ups{ns}s_w{w}_ratio"
                                   .format(nb=nb, np=np, ns=ns, w=i))
                         )
-                    save(data_key, ns, np, nb, res, d, n)
+                    for angle in dangles:
+                        hunpol = dangles[angle][3]
+                        hunpol.scale()
+
+                        for i in range(0, 3):
+                            h = dangles[angle][i]
+                            if not h.GetEntries():
+                                continue
+                            h.scale()
+                            wname = "w%d" % i
+                            tools.draw_hists([h, hunpol], minimum=0)
+                            tools.save_figure(
+                                save_to +
+                                "/angles/{wname}_{angle}_chib{nb}{np}p_ups{ns}s".format(
+                                    wname=wname, angle=angle, nb=nb, np=np, ns=ns)
+                            )
+                    save(data_key, ns, np, nb, res,  d, n)
             # chib_chain.SetEntryList(0)
             # ups_chain.SetEntryList(0)
     shell()

@@ -17,7 +17,7 @@ def process(db_name, data_key, ns, np):
 
 
 def create_table(label, title, scale, cfg_rows, ns, np):
-    tab = table.Table(label=label, title=titl2e, scale=scale)
+    tab = table.Table(label=label, title=title, scale=scale)
     for nb in range(1, 3):
         for i in range(3):
             key = cfg_rows[i]["key"].format(nb=nb, np=np, ns=ns)

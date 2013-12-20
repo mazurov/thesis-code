@@ -152,9 +152,9 @@ def main():
                                 nbins=cfg['nbins'])
 
     # Use 2012 MC if we fit joined datasset
-    mc_year = cli_args["--year"] if cli_args["--year"] != "all" else "2012"
-    mc = tools.get_db(tuples_cfg["mc"], "r")["mc%s" % mc_year]["ups1s"]
-
+    #mc_year = cli_args["--year"] if cli_args["--year"] != "all" else "2012"
+    #mc = tools.get_db(tuples_cfg["mc"], "r")["mc%s" % mc_year]["ups1s"]
+    mc = None
     new_cfg = dict(cfg)
     new_cfg.update(cfg['profiles'].get(cli_args["--profile"], {}))
     del new_cfg["profiles"]
