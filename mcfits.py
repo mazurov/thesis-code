@@ -9,7 +9,7 @@ Usage:
 # =============================================================================
 # External
 # =============================================================================
-import env  # noqa @UnusedImport
+import env  # noqa
 from docopt import docopt
 from IPython import embed as shell  # noqa
 # =============================================================================
@@ -89,9 +89,8 @@ def count_upsilons(name, data_key, tree, ns, nb, np, pt_axis, cut, is_save):
         usave(name, data_key, ns, nb, np, h)
 
 
-def process(
-    name, data_key, tree, models, ns, nb, np, cut, pt_axis, is_unbinned,
-        binning, is_save):
+def process(name, data_key, tree, models, ns, nb, np, cut, pt_axis,
+            is_unbinned, binning, is_save):
     def fit():
         model.fitData()
         print model
@@ -158,8 +157,9 @@ def main():
     tree = ROOT.TChain("ChibAlg/Chib")
     utree = ROOT.TChain("UpsilonAlg/Upsilon")
 
-    tree.Add(tuples_cfg[args["--data"]])
-    utree.Add(tuples_cfg[args["--data"]])
+    for filename in tuples_cfg[args["--data"]]:
+        tree.Add(filename)
+        utree.Add(filename)
 
     # TODO: create arrays with respect to ns
     if not args["--ns"]:
@@ -182,6 +182,9 @@ def main():
             for nb in nb_arr:
                 if (ns == 2 and np == 1) or (ns == 3 and np < 3):
                     continue
+                axis = decay_cfg["axis"]
+                if isinstance(axis, dict):
+                    axis = axis[str(np)]
                 process(
                     name=mc_cfg["name"],
                     data_key=args["--data"],
@@ -191,7 +194,7 @@ def main():
                     np=np,
                     nb=nb,
                     cut=decay_cfg["cut"],
-                    pt_axis=decay_cfg["axis"],
+                    pt_axis=axis,
                     is_unbinned=mc_cfg["unbinned?"],
                     binning=decay_cfg["binning"]["%d" % np],
                     is_save=args["-s"]

@@ -3,41 +3,36 @@
     "mc": "mc",
     "unbinned?": false,
     "splot?": false,
-    "field": "dmplusm1s",
-    "name": "ups1s/test",
+    "field": "dmplusm2s",
+    "name": "ups2s/test",
     "nbins": 56,
     "save?": false,
-    "bgorder": [[8, 5], [12, 4], [100, 2]],
-    "chib3p_min_pt_ups": 10,
+    "bgorder": 3,
     "_lambda": 1,
 
-    "fixed_mean": 9.892,
+    
+    "fixed_mean": 10.250,
     "fixed_mean_3p": 10.507,
     "fixed_sigma": true,
-
-    "mc_sigma_scale": 1.17,
-
-    "mc_sigma_scale_min": 1.14,
-    "mc_sigma_scale_max": 1.2,
-
-    "mc_sigma_2p_1p": 1.5,
-    "mc_sigma_3p_1p": 1.9,
+    
 
     "cut": {
-        "dmplusm1s": [9.77, 10.89]
-        ,"mups_dtf": [9.310, 9.600]
-        , "pt_ups": [6, null]
+        "dmplusm2s": [10.16, 11.04],
+        "mups_dtf": [9.870, 10.090]
+        , "pt_ups": [18, null]
         , "pt_g": [0.6, null]
         , "lv01": [0, null]
         , "cl_g": [0.01, null]
         , "c2_dtf": [0, 4]
         , "dll_min": [0, null]
         , "minprob": [0.5, null]
+        , "y":[2, 4.5]
         ,"(Ups_l0tos & 2)": 2
         ,"(Ups_l1tos & 2)": 2
         ,"(Ups_l2tos & 2)": 2
     },
+
     "profiles": {
-        "fits": {}
-    }    
+
+    }
 }

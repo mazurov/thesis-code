@@ -12,6 +12,8 @@ class MC(object):
         ret = None
         curr = self.data
         for key in args:
+            if not key in curr:
+                return None
             curr = curr[key]
             ret = curr
         return pyroot.VE(str(ret))

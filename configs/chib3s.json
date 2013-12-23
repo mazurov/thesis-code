@@ -1,0 +1,36 @@
+{
+    "tree": "ChibAlg/Chib",
+    "mc": "mc",
+
+    "unbinned?": false,
+    "splot?": false,
+    "field": "dmplusm3s",
+    "name": "ups3s/test",
+    "nbins": 32,
+    "save?": false,
+    "bgorder": 3,
+    "_lambda": 1,
+
+
+    "fixed_sigma": true,
+    
+    "cut": {
+        "dmplusm3s": [10.44, 10.76]
+        , "mups_dtf": [10.3, 10.526]
+        , "pt_ups": [25, null]
+        , "pt_g": [0.6, null]
+        , "lv01": [0, null]
+        , "cl_g": [0.01, null]
+        , "c2_dtf": [0, 4]
+        , "dll_min": [0, null]
+        , "minprob": [0.5, null]
+        , "y":[2, 4.5]
+        ,"(Ups_l0tos & 2)": 2
+        ,"(Ups_l1tos & 2)": 2
+        ,"(Ups_l2tos & 2)": 2
+    },
+
+    "profiles": {
+        
+    }
+}

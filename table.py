@@ -95,6 +95,12 @@ class Group(object):
         self.subgroups.append(group)
         return group
 
+    def get_subgroup(self, key):
+        for g in self.subgroups:
+            if g.key == key:
+                return g
+        return None
+
     def add_value(self, key, value, **kwargs):
         if isinstance(value, Value):
             self.values[key] = value
@@ -272,3 +278,20 @@ def subtables2tex(subtable):
 
     tex = tmpl.tex_renderer()
     return tex.render_name("subtables", context)
+
+
+class PtTable(Table):
+
+    def __init__(self, title, label, ns, binning, scale=1):
+        super(PtTable, self).__init__(title=title, label=label, scale=scale)
+        cfg = tools.load_config("pttable")
+        self.ns = ns
+        self.binning = binning
+
+        self.ups = self.add_subgroup(key="ups", title=cfg["title"].format(ns=ns))
+        for bin in binning:
+            self.ups.add_subgroup(key=bin,
+                             title=cfg['range'].format(bin[0], bin[1]))
+
+    def get_bin(self, bin):
+        return self.ups.get_subgroup(key=bin)

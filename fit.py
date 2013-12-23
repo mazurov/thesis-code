@@ -13,11 +13,15 @@ Usage:
        [--profile=<profile>]
 
 Options:
-  -i --interactive  Run ipython shell
-  -h --help     Show this screen.
+  --decay=<decay>       One of "ups", "chib1s", "chib2s", "chib3s"
+  --year=<year>         One of "2011", "2012", "all" [default: all]
+  --ptbegin=<ptbegin>   Begin of pT(Y) range
+  --ptend=<ptend>       End of pT(Y) range
+  -i --interactive      Run ipython shell
+  -h --help             Show this screen.
 """
 
-import env
+import env  # noqa
 
 from docopt import docopt
 
@@ -33,27 +37,6 @@ import source
 from IPython import embed as shell
 
 
-# def get_cli_args():
-#     parser = argparse.ArgumentParser(description='Process some integers.')
-#     parser.add_argument(
-#         '--complete', help='Show completion list', action='store_true')
-#     parser.add_argument(
-#         '-i', "--interective", help='Interective session',
-#         action='store_true')
-#     parser.add_argument(
-#         '--decay', help='Decay name', choices=['ups', '1s', '2s', '3s'])
-#     parser.add_argument(
-#         '--profile', help='Update default properties')
-#     parser.add_argument(
-#         '--year', help='Show completion list',
-#         choices=['all', '2011', '2012'])
-#     parser.add_argument(
-#         '--ptbegin', help='Start p_T', type=int)
-#     parser.add_argument(
-#         '--ptend', help='End p_T', type=int)
-#     return parser.parse_args()
-
-
 def get_fitter(name):
     if name == "ups":
         import ups_fit
@@ -62,6 +45,15 @@ def get_fitter(name):
     if name == "chib1s":
         import chib1s_fit
         return chib1s_fit
+
+    if name == "chib2s":
+        import chib2s_fit
+        return chib2s_fit
+
+    if name == "chib3s":
+        import chib3s_fit
+        return chib3s_fit
+
     return None
 
 
@@ -117,11 +109,12 @@ def main():
         exit(0)
     tuples_cfg = tools.load_config("tuples")
 
-    if cli_args["--year"]:
+    if cli_args["--year"] != "all":
         tuples = [tuples_cfg[cli_args["--year"]]]
     else:  # all
         tuples = [tuples_cfg[year] for year in ['2011', '2012']]
-
+    log.info("Tuples: " + str(tuples))
+    
     cfg = tools.load_config(cli_args["--decay"])
     tree = ROOT.TChain(cfg["tree"])
     for file_name in tuples:
@@ -151,19 +144,17 @@ def main():
                                 field=cfg['field'],
                                 nbins=cfg['nbins'])
 
-    # Use 2012 MC if we fit joined datasset
-    #mc_year = cli_args["--year"] if cli_args["--year"] != "all" else "2012"
-    #mc = tools.get_db(tuples_cfg["mc"], "r")["mc%s" % mc_year]["ups1s"]
-    mc = None
+    # mc = None
     new_cfg = dict(cfg)
     new_cfg.update(cfg['profiles'].get(cli_args["--profile"], {}))
+
     del new_cfg["profiles"]
 
     log.info("Profile:" + pprint.pformat(new_cfg, indent=2))
     model = fitter.prepare_model(
         canvas=canvas,
         data=data,
-        mc=mc,
+        year=cli_args['--year'],
         interval=cfg['cut'][cfg['field']],
         nbins=cfg['nbins'],
         name=cfg['name'],

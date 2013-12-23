@@ -118,8 +118,15 @@ def axis2bins(axis):
     return ret
 
 
+def get_axis(np, lst_or_dict):
+    if isinstance(lst_or_dict, dict):
+        return lst_or_dict[str(np)]
+    return lst_or_dict
+
+
 def get_db(name, flag='c'):
-    return shelve.open('data/%s.db' % name, flag=flag)
+    filepath = name if name.split('.')[-1] == 'db' else 'data/%s.db' % name
+    return shelve.open(filepath, flag=flag)
 
 
 def latex_ve(ve):

@@ -1,5 +1,6 @@
 from chib1s_model import ChibModel
 from mctools import MC
+import tools
 
 
 def get_lambda_b1b2(pt_ups1):
@@ -36,8 +37,13 @@ def get_sfracs(mct_arr, pt_bin):
                 )
 
 
-def prepare_model(canvas, name, data, mc, interval, nbins, pt_ups,
+def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
                   has_splot, profile):
+
+    # Use 2012 MC if we fit joined datasset
+    mc_year = year if year != "all" else "2012"
+    mc = tools.get_db(profile["mc"], "r")["mc%s" % mc_year]['ups1s']
+
     order = 2
     pt_ups1, pt_ups2 = pt_ups
     for min_pt, order_ in profile["bgorder"]:
@@ -48,7 +54,7 @@ def prepare_model(canvas, name, data, mc, interval, nbins, pt_ups,
     lambda_b1b2 = get_lambda_b1b2(
         pt_ups1) if "lambda_b1b2" not in profile else profile["lambda_b1b2"]
     mct_arr = [MC(db=mc, ns=1, np=np) for np in range(1, 4)]
-    
+
     if profile["fixed_sigma"]:
         sigma = get_sigma(mct_arr[0], pt_bin=pt_ups, scale=1)
         sfracs = get_sfracs(mct_arr=mct_arr, pt_bin=pt_ups)
@@ -66,21 +72,3 @@ def prepare_model(canvas, name, data, mc, interval, nbins, pt_ups,
                       has_3p=has_3p
                       )
     return model
-    # if "fixed_m1s" in profile:
-    #     model.m1s.fix(profile["fixed_m1s"])
-
-#     return model
-
-#         model = ChibModel(canvas=canvas,
-#                           data=data,
-#                           interval=interval
-#                           nbins=nbins,
-#                           bgorder=order,
-#                           frac=frac,
-#                           sfracs=sfracs,
-#                           mean_3p=mean_3p,
-#                           has_3p=has_3p)
-
-
-# if "fixed_mean" in cfg:
-#     model.chib1p.mean1.fix(cfg["fixed_mean"])

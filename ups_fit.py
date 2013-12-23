@@ -1,7 +1,7 @@
 from ups_model import UpsModel
 
 
-def prepare_model(canvas, name, data, mc, interval, nbins, pt_ups, has_splot,
+def prepare_model(canvas, name, year, data, interval, nbins, pt_ups, has_splot,
                   profile):
     m1, m2 = interval
     model = UpsModel(canvas=canvas,
