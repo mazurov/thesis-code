@@ -1,6 +1,16 @@
 #!/usr/bin/env python
+""" Polarization
 
+Usage:
+  polarization [-s] [--name=<name>]
+
+Options:
+  -s --save  Save results
+  --name=<name>     Name of output database [default: "polarization"]
+"""
 import env  # noqa
+from docopt import docopt
+
 import PyRoUts as pyroot
 import tools
 # from th.model.selector import Selector
@@ -214,7 +224,7 @@ def process(ns, nb, np, chain, cut, axis):
 
 
 def save(data_key, ns, np, nb, hists, d, n):
-    db = tools.get_db("polarization1")
+    db = tools.get_db("polarization")
     data = db.get(data_key, {})
     ups_key = "ups%ds" % ns
     ups = data.get(ups_key, {})
@@ -250,14 +260,18 @@ def save(data_key, ns, np, nb, hists, d, n):
 
 
 def main():
+    cli_args = docopt(__doc__, version='v1.0')
+
     cfg_tuples = tools.load_config("tuples")
     cfg_pol = tools.load_config("polarization")
     chib_chain = ROOT.TChain("ChibAlg/Chib")
     ups_chain = ROOT.TChain("UpsilonAlg/Upsilon")
+    cfg_decays = tools.load_config("mc")["decays"]
     # ups_chain = ROOT.TChain("UpsilonAlg/Upsilon")
 
+    name = cli_args["--name"]
     for data_key in cfg_pol["data_keys"]:
-        save_to = "polarization1/{data_key}/".format(data_key=data_key)
+        save_to = "{name}/{data_key}/".format(name=name, data_key=data_key)
         chib_chain.Reset()
         ups_chain.Reset()
         for ntuple_file in cfg_tuples[data_key]:
@@ -265,7 +279,6 @@ def main():
             chib_chain.Add(ntuple_file)
             ups_chain.Add(ntuple_file)
 
-        cfg_decays = tools.load_config("mc")["decays"]
         for ns in cfg_pol["ns"]:
             cfg_cuts = cfg_decays["ups%ds" % ns]
             chib_cut = cfg_cuts["cut"]
@@ -278,12 +291,16 @@ def main():
                 if ns == 3 and (np == 1 or np == 2):
                     continue
 
+                axis = cfg_cuts["axis"]
+                if isinstance(axis, dict):
+                    axis = cfg_cuts["axis"][str(np)]
+
                 for nb in cfg_pol["nb"]:
 
                     d, dangles = process(ns=ns, nb=nb, np=np, chain=chib_chain,
-                                         cut=chib_cut, axis=cfg_cuts["axis"])
+                                         cut=chib_cut, axis=axis)
                     n, nangles = process(ns=ns, nb=nb, np=np, chain=ups_chain,
-                                         cut=ups_cut, axis=cfg_cuts["axis"])
+                                         cut=ups_cut, axis=axis)
                     ref = d[3] // n[3]
                     res = []
 
@@ -322,12 +339,14 @@ def main():
                             h.scale()
                             wname = "w%d" % i
                             tools.draw_hists([h, hunpol], minimum=0)
-                            tools.save_figure(
-                                save_to +
-                                "/angles/{wname}_{angle}_chib{nb}{np}p_ups{ns}s".format(
-                                    wname=wname, angle=angle, nb=nb, np=np, ns=ns)
-                            )
-                    save(data_key, ns, np, nb, res,  d, n)
+                            if cli_args['--save']:
+                                tools.save_figure(
+                                    save_to +
+                                    "/angles/{wname}_{angle}_chib{nb}{np}p_ups{ns}s".format(
+                                        wname=wname, angle=angle, nb=nb, np=np, ns=ns)
+                                )
+                    if cli_args['--save']:
+                        save(data_key, ns, np, nb, res,  d, n)
             # chib_chain.SetEntryList(0)
             # ups_chain.SetEntryList(0)
     shell()
