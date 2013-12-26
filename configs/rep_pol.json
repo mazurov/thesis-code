@@ -2,8 +2,8 @@
     "data_key": "mcall",
     "db": "data/polarization.db",
     "label": "mc:syst:pol_y{ns}",
-    "title": "Maximum uncertainty for different polarized states in $\\boldsymbol{{\\chi_{{b}}({np}P)\\to \\Upsilon({ns}S) \\gamma}}$ decays",
-    "row_title": "Uncertainty, \\%",
+    "title": "Maximum deviation of ratio between efficiency measured for unpolarized particles and all possible polarization scenarios in $\\boldsymbol{{\\chi_{{b}}({np}P)\\to \\Upsilon({ns}S) \\gamma}}$ decays",
+    "row_title": "Maximum deviation, \\%",
     "subtable_title": "${pt0} < p_{{T}}^{{\\Upsilon({ns}S}} < {pt1}$",
 
     "scale": 0.55,
