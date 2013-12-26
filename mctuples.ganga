@@ -9,8 +9,9 @@ year = sim
 
 paths = {
     "mc11a": "/MC/MC11a/Beam3500GeV-2011-MagDown-Nu2-EmNoCuts/Sim05d/Trig0x40760037Flagged/Reco12a/Stripping17NoPrescalingFlagged/{dk}/ALLSTREAMS.DST",
-    "2011": "/MC/2011/Beam3500GeV-2011-MagDown-Nu2-Pythia6/Sim08c/Digi13/Trig0x40760037/Reco14a/Stripping20r1NoPrescalingFlagged/{dk}/ALLSTREAMS.DST",
-    "2012": "/MC/2012/Beam4000GeV-2012-MagDown-Nu2.5-Pythia6/Sim08c/Digi13/Trig0x409f0045/Reco14a/Stripping20NoPrescalingFlagged/{dk}/ALLSTREAMS.DST"
+    
+    "2011": "/MC/2011/Beam3500GeV-2011-MagDown-Nu2-Pythia6/Sim08d/Digi13/Trig0x40760037/Reco14a/Stripping20r1NoPrescalingFlagged/{dk}/ALLSTREAMS.DST",
+    "2012": "/MC/2012/Beam4000GeV-2012-MagDown-Nu2.5-Pythia6/Sim08d/Digi13/Trig0x409f0045/Reco14a/Stripping20NoPrescalingFlagged/{dk}/ALLSTREAMS.DST"
 }
 
 dkfiles = {
@@ -25,13 +26,13 @@ dkfiles = {
 # for p in range(1, 4):
 #     for b in range(1, 3):
 
-for p in range(1, 3):
-    for b in range(1, 3):
+for p in range(1, 4):
+    for b in range(2, 3):
         dk = "chib%d%dp" % (b, p)
         name = "%s_sim_%s" % (dk, sim)
         j = Job(
             #
-            name=name,
+            name=name + "_Sim08d",
             #== configure Bender
             application=Bender(
                 events=-1,
