@@ -26,8 +26,6 @@ def get_cli_args():
     return parser.parse_args()
 
 
-
-
 def complete():
     print "--year"
     print "--profile"
