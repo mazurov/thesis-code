@@ -1,0 +1,11 @@
+{
+    "db": "data/mc.db",
+    "output_dir": "mc/{data_key}/{decay}/graphs",
+
+    "ups1s": {
+        "axis": [6,8,10,12,14,18,22,40]
+    },
+    "ups2s": {
+        "axis": [18, 25, 40]
+    }
+}

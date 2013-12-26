@@ -1,0 +1,5 @@
+{
+    "mc": "data/mc.db",
+    "data": "data/ups1s/frees.db",
+    "axis": [12, 14, 18, 22, 40]
+}
