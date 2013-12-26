@@ -18,7 +18,7 @@ def get_sfrac(mct_arr, pt_bin):
         return None
     else:
         sigma3 = mct_arr[1].sigma(pt_bin)
-        return round((sigma3 / sigma2).value(), 1)
+        return round((sigma3 / sigma2).value(), 2)
 
 
 def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,

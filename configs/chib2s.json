@@ -14,6 +14,7 @@
     "fixed_mean": 10.250,
     "fixed_mean_3p": 10.507,
     "fixed_sigma": true,
+    "mc_sigma_3p_2p": 1.7,
     
 
     "cut": {
