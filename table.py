@@ -3,6 +3,7 @@ import tmpl
 import tools
 
 from collections import deque
+import copy
 from IPython import embed as shell  # noqa
 
 import AnalysisPython.PyRoUts as pyroot
@@ -282,16 +283,43 @@ def subtables2tex(subtable):
 
 class PtTable(Table):
 
-    def __init__(self, title, label, ns, binning, scale=1):
+    def __init__(self, title, label, ns, binning, scale=1, maxbins=None):
         super(PtTable, self).__init__(title=title, label=label, scale=scale)
         cfg = tools.load_config("pttable")
         self.ns = ns
         self.binning = binning
+        self.maxbins = maxbins
 
-        self.ups = self.add_subgroup(key="ups", title=cfg["title"].format(ns=ns))
+        self.ups = self.add_subgroup(
+            key="ups", title=cfg["title"].format(ns=ns))
+
         for bin in binning:
             self.ups.add_subgroup(key=bin,
-                             title=cfg['range'].format(bin[0], bin[1]))
+                                  title=cfg['range'].format(bin[0], bin[1]))
 
     def get_bin(self, bin):
         return self.ups.get_subgroup(key=bin)
+
+    def texify(self):
+        if self.maxbins > len(self.binning):
+            return table2tex(self)
+
+        tables = SubTables()
+        ntables = len(self.binning) / self.maxbins
+        mod = len(self.binning) % self.maxbins
+        for i in range(ntables + (0 if mod == 0 else 1)):
+            table = copy.deepcopy(self)
+            start_bin = i * self.maxbins
+            end_bin = i * self.maxbins + self.maxbins - 1
+
+            table.ups.subgroups = (
+                table.ups.subgroups[start_bin:end_bin + 1]
+            )
+            title = "$%d < p_T(\\Y%dS) < %d$" % (
+                    self.binning[start_bin][0],
+                self.ns,
+                self.binning[:end_bin + 1][-1][1]
+            )
+            tables.add_table(table, title=title)
+
+        return subtables2tex(tables)
