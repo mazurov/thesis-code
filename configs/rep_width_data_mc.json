@@ -1,5 +1,6 @@
 {
     "mc": "data/mc.db",
     "data": "data/ups1s/frees.db",
+    "output_dir": "ups1s/frees",
     "axis": [12, 14, 18, 22, 40]
 }

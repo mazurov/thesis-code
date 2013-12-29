@@ -8,6 +8,6 @@
     "chib1s": {
         "decay": "chib1s",
         "binning": [[6, 8], [8, 10], [10, 12], [10, 14], [12, 14], [14, 18], [18, 22], [22,40]],
-        "profile": "fits"
+        "profiles": ["mass3p_max"]
     }
 }

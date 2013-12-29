@@ -33,6 +33,8 @@ def main():
 
         h_ratio = h_data / h_mc
         h_ratio.Draw()
+        h_ratio.Fit("pol0")
+        tools.save_figure("%s/sigma_data_mc_%s" % (cfg["output_dir"], year))
         shell()
 
 if __name__ == '__main__':

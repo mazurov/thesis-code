@@ -4,6 +4,7 @@ import tools
 import table
 import pdg
 
+from IPython import embed as shell  # noqa
 
 def collect(cfg_pol):
     cfg_mc = tools.load_config('mc')['decays']
@@ -51,13 +52,13 @@ def publish(ret, cfg_pol):
             label = "syst:pol:{chip_key}_{ups_key}".format(chip_key=chip_key,
                                                            ups_key=ups_key)
             tab = table.PtTable(title=title, label=label, ns=ns,
-                                binning=binning)
+                                binning=binning, maxbins=4)
             tab.add_row("max", cfg_pol['row_title'])
             for bin in binning:
                 cell = tab.get_bin(bin)
                 cell.add_value("max", max(chip[bin][0], chip[bin][1]))
 
-            print table.table2tex(tab)
+            print tab.texify()
 
 if __name__ == '__main__':
     cfg_pol = tools.load_config('rep_pol')

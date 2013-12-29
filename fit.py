@@ -116,6 +116,9 @@ def main():
     log.info("Tuples: " + str(tuples))
     
     cfg = tools.load_config(cli_args["--decay"])
+    cfg.update(cfg['profiles'].get(cli_args["--profile"], {}))
+    del cfg["profiles"]
+
     tree = ROOT.TChain(cfg["tree"])
     for file_name in tuples:
         tree.Add(file_name)
@@ -145,12 +148,8 @@ def main():
                                 nbins=cfg['nbins'])
 
     # mc = None
-    new_cfg = dict(cfg)
-    new_cfg.update(cfg['profiles'].get(cli_args["--profile"], {}))
 
-    del new_cfg["profiles"]
-
-    log.info("Profile:" + pprint.pformat(new_cfg, indent=2))
+    log.info("Profile:" + pprint.pformat(cfg, indent=2))
     model = fitter.prepare_model(
         canvas=canvas,
         data=data,
@@ -159,7 +158,7 @@ def main():
         nbins=cfg['nbins'],
         name=cfg['name'],
         has_splot=cfg['splot?'],
-        profile=new_cfg,
+        profile=cfg,
         pt_ups=cut["pt_ups"]
     )
 

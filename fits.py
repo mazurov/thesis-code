@@ -47,18 +47,28 @@ def main():
 
     args = []
     sleep = 0
-    for year in years:
-        for bin in cfg["binning"]:
 
-            args += ["--tab-with-profile", "Tomorrow"]
-            args += ["--title", "{0}-{1} {2}".format(bin[0], bin[1], year)]
-            args += ["-e", "./fit.sh" +
-                     " {0} {1} {2} {3} {4} {5}".format(sleep, cfg["decay"],
-                                                       year, bin[0], bin[1],
-                                                       cfg["profile"]
-                                                       )
-                     ]
-            sleep += 2
+    if "lambda" in cfg["profiles"]:
+        cfg["profiles"].remove("lambda")
+        cfg["profiles"] += ["lambda%d" % i for i in range(0, 11)]
+
+    for profile in cfg["profiles"]:
+        for year in years:
+            for bin in cfg["binning"]:
+
+                args += ["--tab-with-profile", "Tomorrow"]
+                args += ["--title",
+                         "{0}-{1} {2} {3}".format(
+                             bin[0], bin[1], year, profile
+                         )]
+                args += ["-e", "./fit.sh" +
+                         " {0} {1} {2} {3} {4} {5}".format(sleep, cfg["decay"],
+                                                           year, bin[
+                                                               0], bin[1],
+                                                           profile
+                                                           )
+                         ]
+                sleep += 2
 
     gnome_terminal(args)
     # print(gnome_terminal.bake(args))
