@@ -4,7 +4,7 @@
     "unbinned?": true,
     "splot?": false,
     "field": "dmplusm1s",
-    "name": "ups1s/frees",
+    "name": "ups1s/nominal",
     "nbins": 56,
     "save?": true,
     "bgorder": [[8, 5], [12, 4], [100, 2]],
@@ -14,13 +14,10 @@
     "fixed_mean": 9.892,
     "fixed_mean_3p": 10.507,
     
-    "fixed_sigma": false,
+    "fixed_sigma": true,
     "fixed_sigma_ratio": true,
 
-    "mc_sigma_scale": 1.17,
-
-    "mc_sigma_scale_min": 1.14,
-    "mc_sigma_scale_max": 1.2,
+    "mc_sigma_scale": 1.16,
 
     "mc_sigma_2p_1p": 1.5,
     "mc_sigma_3p_1p": 1.86,
@@ -40,6 +37,67 @@
         ,"(Ups_l2tos & 2)": 2
     },
     "profiles": {
-        "fits": {}
+        "default": {},
+        "sigma_min": {
+            "name": "ups1s/syst/sigma_min",
+            "mc_sigma_scale": 1.13
+        },
+        "sigma_max": {
+            "name": "ups1s/syst/sigma_max",
+            "mc_sigma_scale": 1.20
+        },
+
+        "mass3p_min": {
+            "name": "ups1s/syst/mass3p_10502",
+            "fixed_mean_3p": 10.502
+        },
+        "mass3p_max": {
+            "name": "ups1s/syst/mass3p_10518",
+            "fixed_mean_3p": 10.518
+        },       
+        "lambda0": {
+            "name": "ups1s/syst/lambda0",
+            "lambda_b1b2": 0.0
+        },
+        "lambda1": {
+            "name": "ups1s/syst/lambda1",
+            "lambda_b1b2": 0.1
+        },
+        "lambda2": {
+            "name": "ups1s/syst/lambda2",
+            "lambda_b1b2": 0.2
+        },
+        "lambda3": {
+            "name": "ups1s/syst/lambda3",
+            "lambda_b1b2": 0.3
+        },
+        "lambda4": {
+            "name": "ups1s/syst/lambda4",
+            "lambda_b1b2": 0.4
+        },
+        "lambda5": {
+            "name": "ups1s/syst/lambda5",
+            "lambda_b1b2": 0.5
+        },
+        "lambda6": {
+            "name": "ups1s/syst/lambda6",
+            "lambda_b1b2": 0.6
+        },
+        "lambda7": {
+            "name": "ups1s/syst/lambda7",
+            "lambda_b1b2": 0.7
+        },
+        "lambda8": {
+            "name": "ups1s/syst/lambda8",
+            "lambda_b1b2": 0.8
+        },
+        "lambda9": {
+            "name": "ups1s/syst/lambda9",
+            "lambda_b1b2": 0.9
+        },
+        "lambda10": {
+            "name": "ups1s/syst/lambda10",
+            "lambda_b1b2": 1.0
+        }                
     }    
 }

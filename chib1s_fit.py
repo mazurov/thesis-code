@@ -58,7 +58,8 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
 
     sigma = None
     if profile["fixed_sigma"]:
-        sigma = get_sigma(mct_arr[0], pt_bin=pt_ups, scale=1)
+        sigma_scale = profile.get("mc_sigma_scale", 1)
+        sigma = get_sigma(mct_arr[0], pt_bin=pt_ups, scale=sigma_scale)
         sfracs = get_sfracs(mct_arr=mct_arr, pt_bin=pt_ups)
     elif profile["fixed_sigma_ratio"]:
         sfracs = get_sfracs(mct_arr=mct_arr, pt_bin=pt_ups)
