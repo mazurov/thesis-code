@@ -1,0 +1,92 @@
+{
+    "ups1s": {
+        "db": "data/ups1s/nominal.db",
+        "ns": 1,
+        "scale": 0.45,
+        "binning": [[6, 8], [8, 10], [10, 12], [12, 14], [10, 14],
+                            [14, 18], [18, 22], [22, 40]],
+        "maxbins": 3,
+        "nchib": [1, 2, 3],
+        "tables": [
+            {
+                "title": "Systematic uncertainties (\\%) related to the Data-MonteCarlo resolution difference in $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
+                "label": "syst:sigma_ups1s",
+                "rows": [
+                    {
+                        "title": "$\\frac{\\sigma_{\\chiboneOneP}^{data}}{\\sigma_{\\chiboneOneP}^{MC}} = 1.13$",
+                        "key": "min",
+                        "db": "data/ups1s/syst/sigma_min.db"
+                    },
+                    {
+                        "title": "$\\frac{\\sigma_{\\chiboneOneP}^{data}}{\\sigma_{\\chiboneOneP}^{MC}} = 1.20$",
+                        "key": "max",
+                        "db": "data/ups1s/syst/sigma_max.db"
+                    }                    
+                ]
+            },
+            {
+                "title": "Systematic uncertainties (\\%) related to $\\lambda$ values in $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
+                "label": "syst:lambda_ups1s",
+                "rows": [
+                    {
+                        "title": "$\\lambda=0.0$",
+                        "key": "l0",
+                        "db": "data/ups1s/syst/lambda0.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.1$",
+                        "key": "l1",
+                        "db": "data/ups1s/syst/lambda1.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.2$",
+                        "key": "l2",
+                        "db": "data/ups1s/syst/lambda2.db",
+                        "space": true
+                    },
+                    {
+                        "title": "$\\lambda=0.3$",
+                        "key": "l3",
+                        "db": "data/ups1s/syst/lambda3.db"
+                    },                    
+                    {
+                        "title": "$\\lambda=0.4$",
+                        "key": "l4",
+                        "db": "data/ups1s/syst/lambda4.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.5$",
+                        "key": "l5",
+                        "db": "data/ups1s/syst/lambda5.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.6$",
+                        "key": "l6",
+                        "db": "data/ups1s/syst/lambda6.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.7$",
+                        "key": "l7",
+                        "db": "data/ups1s/syst/lambda7.db",
+                        "space": true
+                    },
+                    {
+                        "title": "$\\lambda=0.8$",
+                        "key": "l8",
+                        "db": "data/ups1s/syst/lambda8.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.9$",
+                        "key": "l9",
+                        "db": "data/ups1s/syst/lambda9.db"
+                    },                    
+                    {
+                        "title": "$\\lambda=1.0$",
+                        "key": "l10",
+                        "db": "data/ups1s/syst/lambda10.db"
+                    }
+                ]
+            }            
+        ]
+    }
+}

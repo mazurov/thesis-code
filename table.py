@@ -14,7 +14,8 @@ class Format(object):
     def __init__(self, value, options):
         self.options = {
             "is_bold": False,
-            "span": None
+            "span": None,
+            "round": None
         }
         self.value = value
         self.options.update(options)
@@ -26,11 +27,23 @@ class Format(object):
 
     def texify(self):
         ret = self.value
+
+        if ret is None:
+            return "---"
+
+        if isinstance(ret, float):
+            if self.round is not None:
+                ret = round(ret, self.round)
+
+        if isinstance(ret, tuple):
+            ret = pyroot.VE(str(ret))
+
         if isinstance(ret, pyroot.VE):
             ret = tools.latex_ve(ret)
+
         if self.is_bold:
             ret = "\\textbf{%s}" % ret
-        return ret
+        return str(ret)
 
 
 class Value(Format):
@@ -83,16 +96,16 @@ class RowIterator(object):
 
 class Group(object):
 
-    def __init__(self, key, title):
+    def __init__(self, key, title, is_cmidrule=False):
         self.key = key
         self.title = title
-        self.is_cmidrule = False
+        self.is_cmidrule = is_cmidrule
 
         self.subgroups = []
         self.values = {}
 
-    def add_subgroup(self, key, title):
-        group = Group(key, title)
+    def add_subgroup(self, key, title, is_cmidrule=False):
+        group = Group(key, title, is_cmidrule)
         self.subgroups.append(group)
         return group
 
@@ -295,7 +308,8 @@ class PtTable(Table):
 
         for bin in binning:
             self.ups.add_subgroup(key=bin,
-                                  title=cfg['range'].format(bin[0], bin[1]))
+                                  title=cfg['range'].format(bin[0], bin[1]),
+                                  is_cmidrule=True)
 
     def get_bin(self, bin):
         return self.ups.get_subgroup(key=bin)
@@ -315,7 +329,7 @@ class PtTable(Table):
             table.ups.subgroups = (
                 table.ups.subgroups[start_bin:end_bin + 1]
             )
-            title = "$%d < p_T(\\Y%dS) < %d$" % (
+            title = "$%d < p_T^{\\Y%dS} < %d \\gevc$" % (
                     self.binning[start_bin][0],
                 self.ns,
                 self.binning[:end_bin + 1][-1][1]
@@ -323,3 +337,31 @@ class PtTable(Table):
             tables.add_table(table, title=title)
 
         return subtables2tex(tables)
+
+
+class SystTable(PtTable):
+
+    def __init__(self, title, label, ns, nchib, binning, scale=1,
+                 maxbins=None):
+        super(SystTable, self).__init__(
+            title=title, label=label, ns=ns, binning=binning, scale=scale,
+            maxbins=maxbins
+        )
+        self.nchib = nchib
+
+        # cycle throw bins
+        for group in self.ups.subgroups:
+            for sqs in ["7", "8"]:
+                sqsgroup = group.add_subgroup(
+                    key="%s" % sqs, title=r"\sqs=%s\tev" % sqs,
+                    is_cmidrule=True)
+                for np in self.nchib:
+                    sqsgroup.add_subgroup(
+                        key=str(np), title="$N_{\\chi_{b}(%dP)}$" % np
+                    )
+
+    def get_group(self, bin, sqs, np):
+        return (
+            self.get_bin(bin).get_subgroup(key=str(sqs)).
+            get_subgroup(key=str(np))
+        )
