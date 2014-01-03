@@ -1,4 +1,5 @@
 {
-    "title": "$\\Upsilon({ns}S)$ transverse momentum range, \\gevc",
-    "range": "{0} --- {1}"
+    "title": "$\\Upsilon({ns}S)$ transverse momentum intervals, \\gevc",
+    "titlemumu": "$\\mumu$ transverse momentum intervals, \\gevc",
+    "range": "{0} -- {1}"
 }

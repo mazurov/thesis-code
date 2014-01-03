@@ -303,16 +303,16 @@ class PtTable(Table):
         self.binning = binning
         self.maxbins = maxbins
 
-        self.ups = self.add_subgroup(
-            key="ups", title=cfg["title"].format(ns=ns))
+        title = cfg["title"].format(ns=ns) if ns else cfg["titlemumu"]
+        self.ups = self.add_subgroup(key="ups", title=title)
 
         for bin in binning:
-            self.ups.add_subgroup(key=bin,
+            self.ups.add_subgroup(key=tuple(bin),
                                   title=cfg['range'].format(bin[0], bin[1]),
                                   is_cmidrule=True)
 
     def get_bin(self, bin):
-        return self.ups.get_subgroup(key=bin)
+        return self.ups.get_subgroup(key=tuple(bin))
 
     def texify(self):
         if self.maxbins > len(self.binning):
@@ -353,7 +353,7 @@ class SystTable(PtTable):
         for group in self.ups.subgroups:
             for sqs in ["7", "8"]:
                 sqsgroup = group.add_subgroup(
-                    key="%s" % sqs, title=r"\sqs=%s\tev" % sqs,
+                    key="%s" % sqs, title=r"\sqs = %s\tev" % sqs,
                     is_cmidrule=True)
                 for np in self.nchib:
                     sqsgroup.add_subgroup(
@@ -364,4 +364,29 @@ class SystTable(PtTable):
         return (
             self.get_bin(bin).get_subgroup(key=str(sqs)).
             get_subgroup(key=str(np))
+        )
+
+
+class FitsTable(PtTable):
+
+    def __init__(self, title, label, ns, binning, scale=1, maxbins=None):
+        super(FitsTable, self).__init__(
+            title=title, label=label, ns=ns, binning=binning, scale=scale,
+            maxbins=maxbins
+        )
+
+        # cycle throw bins
+        for group in self.ups.subgroups:
+            for sqs in ["7", "8"]:
+                group.add_subgroup(key="%s" % sqs,
+                                   title=r"\sqs = %s\tev" % sqs)
+
+    def get_group(self, bin, sqs):
+        if str(sqs) == "2011":
+            sqs = "7"
+        if str(sqs) == "2012":
+            sqs = "8"
+
+        return (
+            self.get_bin(bin).get_subgroup(key=str(sqs))
         )

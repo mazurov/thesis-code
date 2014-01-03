@@ -1,0 +1,80 @@
+{
+    "keys": {
+        "N1P": "$N_{\\chibOneP}$",
+        "N2P": "$N_{\\chibTwoP}$",
+        "N3P": "$N_{\\chibThreeP}$",
+        "B": "Background",
+        "mean_b1_1p": {
+            "title": "$\\mu_{\\chiboneOneP}, \\mevcc$",
+            "scale": 1000
+        },
+        "sigma_b1_1p": {
+                "title": "$\\sigma_{\\chiboneOneP}, \\mevcc$",
+                "scale": 1000
+        },
+        "exp_tau": "$\\tau$",
+        "poly_phi1": "$c_1$",
+        "poly_phi2": "$c_2$",
+        "poly_phi3": "$c_3$",
+        "poly_phi4": "$c_4$",
+        "poly_phi5": "$c_5$",
+        "chi2ndf": {"title": "$\\chi^2 / n.d.f$", "round": 2},
+        "prob": {"title": "Fit probability, \\%$", "scale": 100},
+
+        "N1S": "$N_{\\Y1S}$",
+        "N2S": "$N_{\\Y2S}$",
+        "N3S": "$N_{\\Y3S}$",
+        "m1s": {"title": "$\\mu_{\\Y1S}, \\mevcc$", "scale": 1000},
+        "sigma": {"title": "$\\sigma_{\\Y1S}, \\mevcc$", "scale": 1000},
+        "tau_bg": "$\\tau$"
+    },
+
+    "ups_nominal": {
+        "db": "data/ups/freem1s.db",
+        "ns": 0,
+        "rows": ["N1S", "N2S", "N3S", "", "B", "", "m1s", "sigma", "", "tau_bg"],
+        "binning": [[6, 40]],
+        "label": "upsilon:result:nominal",
+        "title": "\\mumu invariant mass data fit parameters",
+        "scale": 1,
+        "maxbins": 4
+    },    
+
+    "ups": {
+        "db": "data/ups/nominal.db",
+        "ns": 0,
+        "rows": ["N1S", "N2S", "N3S", "", "B", "", "sigma", "", "tau_bg","", "chi2ndf"],
+        "binning": [[6, 8], [8, 10], [10, 12], [10, 14], [12, 14], [14, 18], [18,22], [22,40]],
+        "label": "upsilon:result:fits",
+        "title": "\\mumu invariant mass data fit parameters",
+        "scale": 0.5,
+        "maxbins": 4
+    },    
+
+    "ups1s_freem": {
+        "db": "data/ups1s/freem.db",
+        "ns": 1,
+        "rows": ["N1P", "N2P", "N3P", "", "B", "", "mean_b1_1p", 
+                 "sigma_b1_1p", "", "exp_tau", "poly_phi1", "poly_phi2", "",
+                 "chi2ndf"],
+        "binning": [[14, 40]],
+        "label": "chib:ups1s:nominal",
+        "title": "Data fit parameters for for $\\chi_{b1,2}(1,2,3P) \\to \\Y1S \\gamma$ decays",
+        "scale": 1,
+        "maxbins": 4
+    },
+
+    "ups1s": {
+        "db": "data/ups1s/nominal.db",
+        "ns": 1,
+        "rows": ["N1P", "N2P", "N3P", "", "B", "", "mean_b1_1p", 
+                 "sigma_b1_1p", "", "exp_tau", "poly_phi1", "poly_phi2",
+                 "poly_phi3", "poly_phi4", "poly_phi5", "", "chi2ndf"],
+        
+        "binning": [[6, 8], [8, 10], [10, 12], [10, 14], [12, 14], [14, 18], [18,22], [22,40]],
+        "label": "chib:ups1s:fits",
+        "title": "Data fit parameters for $\\chi_{b1,2}(1,2,3P) \\to \\Y1S \\gamma$ decays",
+        "scale": 0.5,
+        "maxbins": 4
+    }
+}
