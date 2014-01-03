@@ -1,12 +1,12 @@
 {
     "tree": "UpsilonAlg/Upsilon",
-    "unbinned?": false,
+    "unbinned?": true,
     "splot?": false,
     "field": "m_dtf",
     "nbins": 250,
-    "name": "ups/freem1s",
-    "save?": false,
-
+    "name": "ups/nominal",
+    "save?": true,
+    "fixed_m1s": 9.456,
     "cut": {
         "m_dtf": [8.5, 11.5],
         "dll_min":[0.0, null],
@@ -19,7 +19,15 @@
     },
 
     "profiles": {
-        "fits": {}
+        "default": {},
+        "freem1s": {
+            "name": "ups/freem1s",
+            "fixed_m1s": false
+        },
+        "freem1s_nopull": {
+            "name": "ups/freem1s_nopull",
+            "unbinned?": false,
+            "fixed_m1s": false
+        }        
     }
-
 }

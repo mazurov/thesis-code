@@ -38,6 +38,14 @@
     },
     "profiles": {
         "default": {},
+        "freem": {
+            "name": "ups1s/freem",
+            "fixed_mean": false
+        },
+        "sigma_min": {
+            "name": "ups1s/syst/sigma_min",
+            "mc_sigma_scale": 1.13
+        },
         "sigma_min": {
             "name": "ups1s/syst/sigma_min",
             "mc_sigma_scale": 1.13

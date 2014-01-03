@@ -194,9 +194,9 @@ class Chib3P(object):
             if sfrac:
                 self.sfrac.fix(sfrac)
             alist = ROOT.RooArgList(self.sfrac, sigma1)
-            self.sigma = ROOT.RooFormulaVar("sigma3", "sigma3",
-                                            "%s*%s" % (self.sfrac.GetName(),
-                                                       sigma1.GetName()), alist)
+            self.sigma = ROOT.RooFormulaVar(
+                "sigma3", "sigma3", "%s*%s" % (self.sfrac.GetName(),
+                                               sigma1.GetName()), alist)
         else:
             self.sigma = ROOT.RooRealVar("sigma_b1_3p", "sigma_b1_3p",
                                          0.04,

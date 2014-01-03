@@ -1,5 +1,20 @@
 {
     "profiles": {
+        "ups": {
+            "db": "data/ups/freem1s.db",
+            "output_dir": "ups/freem1s",
+            "axis": [6, 8, 10, 12, 14, 18, 22, 40],
+            "plots": [
+                {
+                    "key": "m1s",
+                    "space": 2
+                },
+                {
+                    "key": "sigma",
+                    "space": 2
+                }                
+            ]
+        },                
         "ups1s": {
             "db": "data/ups1s/freem.db",
             "output_dir": "ups1s/freem",
@@ -11,6 +26,7 @@
                 }
             ]
         },
+
         "ups1s_sigma": {
             "db": "data/ups1s/frees.db",
             "output_dir": "ups1s/frees",

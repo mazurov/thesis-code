@@ -153,6 +153,7 @@ def main():
     ]
     tuples_cfg = tools.load_config("tuples")
     mc_cfg = tools.load_config("mc")
+    # mcfits_cfg = tools.load_config("mc")  # binning
 
     tree = ROOT.TChain("ChibAlg/Chib")
     utree = ROOT.TChain("UpsilonAlg/Upsilon")

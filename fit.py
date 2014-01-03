@@ -114,7 +114,7 @@ def main():
     else:  # all
         tuples = [tuples_cfg[year] for year in ['2011', '2012']]
     log.info("Tuples: " + str(tuples))
-    
+
     cfg = tools.load_config(cli_args["--decay"])
     cfg.update(cfg['profiles'].get(cli_args["--profile"], {}))
     del cfg["profiles"]
