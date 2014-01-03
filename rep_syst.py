@@ -53,7 +53,7 @@ def main():
                         group.add_value(key=cfg_row["key"], value=value_change, round=1)
 
         # Fill Table
-        print tab.texify()
+        print tab.texify( )
 
 if __name__ == '__main__':
     main()
