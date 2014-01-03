@@ -2,6 +2,7 @@ import ROOT
 import AnalysisPython.PyRoUts as pyroot
 from AnalysisPython import LHCbStyle  # noqa
 
+
 class Graph(object):
     colors = {
         "blue": (4, 25),
@@ -18,11 +19,15 @@ class Graph(object):
         self.space = space
         self.max = -1e+8
         self.min = 1e+8
+        self.h = self._get_hist()
+
+    def get_hist(self):
+        return self.h
 
     def _get_axis(self):
         return [v[0][0] for v in self.values] + [self.values[-1][0][-1]]
 
-    def get_hist(self):
+    def _get_hist(self):
         h = pyroot.h1_axis(
             self._get_axis(), self.title
         )
@@ -90,11 +95,11 @@ class MultiGraph(object):
             self.legenda.draw()
 
     def draw(self, to_file=None):
-        self.canvas = ROOT.TCanvas(pyroot.rootID("c_"), self.title, 800, 600)
+        canvas = ROOT.gPad
         for i, h in enumerate(self.hists):
             same = "E1 same" if i > 0 else "E1"
             h.Draw(same)
 
         self.legend()
         if to_file:
-            self.canvas.SaveAs(to_file)
+            canvas.SaveAs(to_file)
