@@ -3,3 +3,4 @@ data
 *.root
 figs
 .settings
+*.sublime-*
