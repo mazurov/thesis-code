@@ -1,16 +1,30 @@
 #!/usr/bin/env python
 
+""" Systematic report.
+
+Usage:
+  ./rep_syst.py --profile=<profile>
+
+Options:
+  --profile=<profile> Report profile
+"""
+
+
 import tools
 import table
 
 import AnalysisPython.PyRoUts as pyroot
 VE = pyroot.VE
 
+from docopt import docopt
+
 
 def main():
+    cli_args = docopt(__doc__, version="1.0")
     cfg = tools.load_config("rep_syst")
+    profile_name = cli_args["--profile"]
 
-    cfg_decay = cfg['ups1s']
+    cfg_decay = cfg[profile_name]
     db_ref = tools.get_db(cfg_decay["db"])
     binning = [tuple(x) for x in cfg_decay["binning"]]
     nchib = cfg_decay["nchib"]
@@ -50,10 +64,11 @@ def main():
                             value_change = value_change.value()
 
                         group = tab.get_group(bin=bin, sqs=sqs, np=np)
-                        group.add_value(key=cfg_row["key"], value=value_change, round=1)
+                        group.add_value(
+                            key=cfg_row["key"], value=value_change, round=1)
 
         # Fill Table
-        print tab.texify( )
+        print tab.texify()
 
 if __name__ == '__main__':
     main()

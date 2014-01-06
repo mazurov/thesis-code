@@ -8,10 +8,19 @@
             "title": "$\\mu_{\\chiboneOneP}, \\mevcc$",
             "scale": 1000
         },
+        "mean_b1_2p": {
+            "title": "$\\mu_{\\chiboneTwoP}, \\mevcc$",
+            "scale": 1000
+        },
+
         "sigma_b1_1p": {
                 "title": "$\\sigma_{\\chiboneOneP}, \\mevcc$",
                 "scale": 1000
         },
+        "sigma_b1_2p": {
+                "title": "$\\sigma_{\\chiboneTwoP}, \\mevcc$",
+                "scale": 1000
+        },        
         "exp_tau": "$\\tau$",
         "poly_phi1": "$c_1$",
         "poly_phi2": "$c_2$",
@@ -76,5 +85,19 @@
         "title": "Data fit parameters for $\\chi_{b1,2}(1,2,3P) \\to \\Y1S \\gamma$ decays",
         "scale": 0.5,
         "maxbins": 4
-    }
+    },
+
+    "ups2s": {
+        "db": "data/ups2s/freem.db",
+        "ns": 1,
+        "rows": ["N2P", "N3P", "", "B", "", "mean_b1_2p", 
+                 "sigma_b1_2p", "", "exp_tau", "poly_phi1", "poly_phi2",
+                 "poly_phi3", "", "chi2ndf"],
+        
+        "binning": [[18, 24], [24,40]],
+        "label": "chib:ups2s:fits",
+        "title": "Data fit parameters for $\\chi_{b1,2}(2,3P) \\to \\Y2S \\gamma$ decays",
+        "scale": 1,
+        "maxbins": 4
+    }    
 }

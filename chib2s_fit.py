@@ -1,6 +1,7 @@
 from chib2s_model import ChibModel
 from mctools import MC
 import tools
+import pdg
 
 
 def get_lambda_b1b2(pt_ups):
@@ -30,11 +31,8 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
 
     pt_ups1, pt_ups2 = pt_ups
 
-    bgorder = profile["bgorder"]
+    lambda_b1b2 = [profile["lambda_b1b2"]] * 2
 
-    lambda_b1b2 = (get_lambda_b1b2(pt_ups1)
-                   if "lambda_b1b2" not in profile
-                   else profile["lambda_b1b2"])
     mct_arr = [MC(db=mc, ns=2, np=np) for np in range(2, 4)]
 
     sigma, sfrac3 = None, None
@@ -45,12 +43,22 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
         else:
             print "No sigma  information in MC"
 
+    # has_3p = [pt_ups1, pt_ups2] in profile["3p_bins"]
+    has_3p = True
+    bgorder = profile["bgorder"]
+    mean_3p = profile.get("fixed_mean_3p", pdg.CHIB13P)
+
     model = ChibModel(canvas=canvas,
                       data=data,
                       sigma=sigma,
                       sfrac3=sfrac3,
                       binning=(nbins, interval[0], interval[1]),
                       bgorder=bgorder,
-                      frac=lambda_b1b2
+                      frac=lambda_b1b2,
+                      mean_3p=mean_3p,
+                      has_3p=has_3p
                       )
+    if profile.get("fixed_mean", False):
+        model.chib2p.mean1.fix(profile["fixed_mean"])
+
     return model

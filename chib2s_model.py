@@ -168,6 +168,7 @@ class ChibModel(BaseModel):
                  bgorder=3,
                  sigma=None,
                  sfrac3=None,
+                 has_3p=True,
                  mean_3p=pdg.CHIB13P):
         super(ChibModel, self).__init__(canvas=canvas,
                                         data=data,
@@ -187,20 +188,22 @@ class ChibModel(BaseModel):
                              order=bgorder)
 
         self.b = ROOT.RooRealVar("B", "Background", 1e+6, 0, 1.e+8)
-        self.n2p = ROOT.RooRealVar("N2P", "N2P", 1e+2, 0, 1.e+7)
-        self.n3p = ROOT.RooRealVar("N3P", "N3P", 1e+1, 0, 1.e+7)
+        self.n2p = ROOT.RooRealVar("N2P", "N2P", 1e+2, 0, 1.e+4)
+        self.n3p = ROOT.RooRealVar("N3P", "N3P", 1e+1, 0, 1.e+3)
 
         self.alist1 = ROOT.RooArgList(
             self.bg.pdf,
-            self.chib2p.pdf,
-            self.chib3p.pdf
+            self.chib2p.pdf
         )
 
         self.alist2 = ROOT.RooArgList(
             self.b,
-            self.n2p,
-            self.n3p
+            self.n2p
         )
+
+        if has_3p:
+            self.alist1.add(self.chib3p.pdf)
+            self.alist2.add(self.n3p)
 
         self.pdf = ROOT.RooAddPdf("model", "model",
                                   self.alist1,

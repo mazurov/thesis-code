@@ -1,22 +1,20 @@
 {
     "tree": "ChibAlg/Chib",
     "mc": "mc",
-    "unbinned?": false,
+    "unbinned?": true,
     "splot?": false,
     "field": "dmplusm2s",
-    "name": "ups2s/test",
-    "nbins": 56,
-    "save?": false,
+    "name": "ups2s/nominal",
+    "nbins": 44,
+    "save?": true,
     "bgorder": 3,
-    "_lambda": 1,
+    "lambda_b1b2": 0.5,
 
     
     "fixed_mean": 10.250,
     "fixed_mean_3p": 10.507,
     "fixed_sigma": true,
-    "mc_sigma_3p_2p": 1.7,
     
-
     "cut": {
         "dmplusm2s": [10.16, 11.04],
         "mups_dtf": [9.870, 10.090]
@@ -34,6 +32,55 @@
     },
 
     "profiles": {
+        "default": {},
+        "freem" : {
+            "name": "ups2s/freem",
+            "fixed_mean": false
+        },
+        "lambda0": {
+            "name": "ups2s/syst/lambda0",
+            "lambda_b1b2": 0.0
+        },
+        "lambda1": {
+            "name": "ups2s/syst/lambda1",
+            "lambda_b1b2": 0.1
+        },
+        "lambda2": {
+            "name": "ups2s/syst/lambda2",
+            "lambda_b1b2": 0.2
+        },
+        "lambda3": {
+            "name": "ups2s/syst/lambda3",
+            "lambda_b1b2": 0.3
+        },
+        "lambda4": {
+            "name": "ups2s/syst/lambda4",
+            "lambda_b1b2": 0.4
+        },
+        "lambda5": {
+            "name": "ups2s/syst/lambda5",
+            "lambda_b1b2": 0.5
+        },
+        "lambda6": {
+            "name": "ups2s/syst/lambda6",
+            "lambda_b1b2": 0.6
+        },
+        "lambda7": {
+            "name": "ups2s/syst/lambda7",
+            "lambda_b1b2": 0.7
+        },
+        "lambda8": {
+            "name": "ups2s/syst/lambda8",
+            "lambda_b1b2": 0.8
+        },
+        "lambda9": {
+            "name": "ups2s/syst/lambda9",
+            "lambda_b1b2": 0.9
+        },
+        "lambda10": {
+            "name": "ups2s/syst/lambda10",
+            "lambda_b1b2": 1.0
+        }
 
     }
 }

@@ -37,6 +37,18 @@
                     "space": 2
                 }
             ]
-        }        
+        },
+
+        "ups2s": {
+            "db": "data/ups2s/freem.db",
+            "output_dir": "ups2s/freem",
+            "axis": [18, 22, 24, 40],
+            "plots": [
+                {
+                    "key": "mean_b1_2p",
+                    "space": 2
+                }
+            ]
+        }
     }
 }

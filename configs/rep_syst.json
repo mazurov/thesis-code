@@ -88,5 +88,154 @@
                 ]
             }            
         ]
-    }
+    },
+
+    "ups2s": {
+        "db": "data/ups2s/nominal.db",
+        "ns": 1,
+        "scale": 0.45,
+        "binning": [[18, 22], [22, 24],  [24, 40]],
+        "maxbins": 3,
+        "nchib": [2, 3],
+        "tables": [
+            {
+                "title": "Systematic uncertainties (\\%) related to $\\lambda$ values in $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
+                "label": "syst:lambda_ups2s",
+                "rows": [
+                    {
+                        "title": "$\\lambda=0.0$",
+                        "key": "l0",
+                        "db": "data/ups2s/syst/lambda0.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.1$",
+                        "key": "l1",
+                        "db": "data/ups2s/syst/lambda1.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.2$",
+                        "key": "l2",
+                        "db": "data/ups2s/syst/lambda2.db",
+                        "space": true
+                    },
+                    {
+                        "title": "$\\lambda=0.3$",
+                        "key": "l3",
+                        "db": "data/ups2s/syst/lambda3.db"
+                    },                    
+                    {
+                        "title": "$\\lambda=0.4$",
+                        "key": "l4",
+                        "db": "data/ups2s/syst/lambda4.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.5$",
+                        "key": "l5",
+                        "db": "data/ups2s/syst/lambda5.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.6$",
+                        "key": "l6",
+                        "db": "data/ups2s/syst/lambda6.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.7$",
+                        "key": "l7",
+                        "db": "data/ups2s/syst/lambda7.db",
+                        "space": true
+                    },
+                    {
+                        "title": "$\\lambda=0.8$",
+                        "key": "l8",
+                        "db": "data/ups2s/syst/lambda8.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.9$",
+                        "key": "l9",
+                        "db": "data/ups2s/syst/lambda9.db"
+                    },                    
+                    {
+                        "title": "$\\lambda=1.0$",
+                        "key": "l10",
+                        "db": "data/ups2s/syst/lambda10.db"
+                    }
+                ]
+            }            
+        ]
+    },
+
+    "ups3s": {
+        "db": "data/ups3s/nominal.db",
+        "ns": 1,
+        "scale": 1,
+        "binning": [[27, 40]],
+        "maxbins": 3,
+        "nchib": [3],
+        "tables": [
+            {
+                "title": "Systematic uncertainties (\\%) related to $\\lambda$ values in $\\chi_b(3P) \\to \\ThreeS \\gamma$ decays",
+                "label": "syst:lambda_ups3s",
+                "rows": [
+                    {
+                        "title": "$\\lambda=0.0$",
+                        "key": "l0",
+                        "db": "data/ups3s/syst/lambda0.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.1$",
+                        "key": "l1",
+                        "db": "data/ups3s/syst/lambda1.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.2$",
+                        "key": "l2",
+                        "db": "data/ups3s/syst/lambda2.db",
+                        "space": true
+                    },
+                    {
+                        "title": "$\\lambda=0.3$",
+                        "key": "l3",
+                        "db": "data/ups3s/syst/lambda3.db"
+                    },                    
+                    {
+                        "title": "$\\lambda=0.4$",
+                        "key": "l4",
+                        "db": "data/ups3s/syst/lambda4.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.5$",
+                        "key": "l5",
+                        "db": "data/ups3s/syst/lambda5.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.6$",
+                        "key": "l6",
+                        "db": "data/ups3s/syst/lambda6.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.7$",
+                        "key": "l7",
+                        "db": "data/ups3s/syst/lambda7.db",
+                        "space": true
+                    },
+                    {
+                        "title": "$\\lambda=0.8$",
+                        "key": "l8",
+                        "db": "data/ups3s/syst/lambda8.db"
+                    },
+                    {
+                        "title": "$\\lambda=0.9$",
+                        "key": "l9",
+                        "db": "data/ups3s/syst/lambda9.db"
+                    },                    
+                    {
+                        "title": "$\\lambda=1.0$",
+                        "key": "l10",
+                        "db": "data/ups3s/syst/lambda10.db"
+                    }
+                ]
+            }            
+        ]
+    }    
+
 }

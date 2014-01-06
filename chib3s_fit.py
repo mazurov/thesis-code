@@ -3,10 +3,6 @@ from mctools import MC
 import tools
 
 
-def get_lambda_b1b2(pt_ups):
-    return 0.5
-
-
 def get_sigma(mct, pt_bin, scale=1):
     return (round(mct.sigma(pt_bin).value(), 3) * scale
             if mct.sigma(pt_bin) else None)
@@ -23,9 +19,7 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
 
     bgorder = profile["bgorder"]
 
-    lambda_b1b2 = (get_lambda_b1b2(pt_ups1)
-                   if "lambda_b1b2" not in profile
-                   else profile["lambda_b1b2"])
+    lambda_b1b2 = profile["lambda_b1b2"]
     mct = MC(db=mc, ns=3, np=3)
 
     sigma = None

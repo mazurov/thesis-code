@@ -1,0 +1,65 @@
+{
+    "ups1s": {
+        "ns": 1,
+        "db": "data/ups1s/nominal.db",
+        "db_y": "data/ups/nominal.db",
+        "mc": "data/mc.db",
+        "nps": [1, 2, 3],
+        "axises": {
+            "1": [6, 8, 10, 14, 18, 22, 40],
+            "2": [6, 8, 10, 14, 18, 22, 40],
+            "3": [12, 14, 18, 22, 40]
+        },
+        "graphs": {
+            "1": {"ymax": 50},
+            "2": {"ymax": 15},
+            "3": {"ymax": 15}
+        },
+        "title": "Summary of \\Y1S fraction determination originating from \\chib decay",
+        "label": "frac:ups1s_1",
+        "scale": 0.5,
+        "maxbins": 4,
+        "2010": [
+            [[6, 7], [23, 22]],
+            [[7, 8], [20, 12]],
+            [[8, 10], [32, 10]],
+            [[10, 15], [25, 9]]
+        ]
+    },
+    "ups2s": {
+        "ns": 2,
+        "db": "data/ups2s/nominal.db",
+        "db_y": "data/ups/nominal.db",
+        "mc": "data/mc.db",
+        "nps": [2, 3],
+        "axises": {
+            "2": [18, 22, 24, 40],
+            "3": [18, 24, 40]
+        },
+        "graphs": {
+            "2": {"ymax": 50},
+            "3": {"ymax": 15}
+        },
+        "title": "Summary of \\Y2S fraction determination originating from \\chib decay",
+        "label": "frac:ups2s_1",
+        "scale": 0.5,
+        "maxbins": 4
+    },
+    "ups3s": {
+        "ns": 3,
+        "db": "data/ups3s/nominal.db",
+        "db_y": "data/ups/nominal.db",
+        "mc": "data/mc.db",
+        "nps": [3],
+        "axises": {
+            "3": [27, 40]
+        },
+        "graphs": {
+            "3": {"ymax": 100}
+        },
+        "title": "Summary of \\Y3S fraction determination originating from \\chib decay",
+        "label": "frac:ups3s_1",
+        "scale": 1,
+        "maxbins": 4
+    }    
+}

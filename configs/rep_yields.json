@@ -25,20 +25,24 @@
                 "ymax": [1000000, 1000000, 1000000]
             }
         ]
-    },    
-    "ups1s": {
-        "db": "data/ups1s/nominal.db",
-        "output_dir": "ups1s/nominal",
-        "plots": {
-            "N1P": {
-                "axis": [6,8,10,12,14,18,22,40]
+    }, 
+
+    "ups2s": {
+        "db": "data/ups2s/nominal.db",
+        "output_dir": "ups2s/nominal",
+        "plots": [
+            {
+                "key": "N2P",
+                "axis": [0, 18, 22, 24, 40],
+                "ymin": [0, 0, 0],
+                "ymax": [500, 100, 100]
             },
-            "N2P": {
-                "axis": [6,8,10,14,18,22,40]
-            },
-            "N3P": {
-                "axis": [12,14,18,22,40]
+            {
+                "key": "N3P",
+                "axis": [0, 18, 24, 40],
+                "ymin": [0, 0, 0],
+                "ymax": [100, 10, 10]
             }
-        }
-    }    
+        ]
+    }
 }

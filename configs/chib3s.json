@@ -2,15 +2,14 @@
     "tree": "ChibAlg/Chib",
     "mc": "mc",
 
-    "unbinned?": false,
+    "unbinned?": true,
     "splot?": false,
     "field": "dmplusm3s",
-    "name": "ups3s/test",
+    "name": "ups3s/nominal",
     "nbins": 32,
-    "save?": false,
+    "save?": true,
     "bgorder": 3,
-    "_lambda": 1,
-
+    "lambda_b1b2": 0.5,
 
     "fixed_sigma": true,
     
@@ -31,6 +30,50 @@
     },
 
     "profiles": {
-        
+        "default": {},
+        "lambda0": {
+            "name": "ups3s/syst/lambda0",
+            "lambda_b1b2": 0.0
+        },
+        "lambda1": {
+            "name": "ups3s/syst/lambda1",
+            "lambda_b1b2": 0.1
+        },
+        "lambda2": {
+            "name": "ups3s/syst/lambda2",
+            "lambda_b1b2": 0.2
+        },
+        "lambda3": {
+            "name": "ups3s/syst/lambda3",
+            "lambda_b1b2": 0.3
+        },
+        "lambda4": {
+            "name": "ups3s/syst/lambda4",
+            "lambda_b1b2": 0.4
+        },
+        "lambda5": {
+            "name": "ups3s/syst/lambda5",
+            "lambda_b1b2": 0.5
+        },
+        "lambda6": {
+            "name": "ups3s/syst/lambda6",
+            "lambda_b1b2": 0.6
+        },
+        "lambda7": {
+            "name": "ups3s/syst/lambda7",
+            "lambda_b1b2": 0.7
+        },
+        "lambda8": {
+            "name": "ups3s/syst/lambda8",
+            "lambda_b1b2": 0.8
+        },
+        "lambda9": {
+            "name": "ups3s/syst/lambda9",
+            "lambda_b1b2": 0.9
+        },
+        "lambda10": {
+            "name": "ups3s/syst/lambda10",
+            "lambda_b1b2": 1.0
+        }                                
     }
 }

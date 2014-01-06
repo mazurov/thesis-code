@@ -7,6 +7,7 @@ class Graph(object):
     colors = {
         "blue": (4, 25),
         "red": (2, 20),
+        "2010": (7, 22),
         "2011": (4, 25),
         "2012": (2, 20)
     }
@@ -14,7 +15,13 @@ class Graph(object):
     def __init__(self, color, values, space=1, title=""):
         self.color = color
         self.title = title
-        self.values = values
+        if (values and
+            (isinstance(values[0][1], tuple) or
+             isinstance(values[0][1], list))):
+            self.values = [(bin, pyroot.VE(str(tuple(ve))))
+                           for bin, ve in values]
+        else:
+            self.values = values
 
         self.space = space
         self.max = -1e+8

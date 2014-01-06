@@ -44,7 +44,7 @@ def main():
 
     cfg_tab = cfg[fit_key]
     db = tools.get_db(cfg_tab["db"])
-    tab = table.FitsTable(
+    tab = table.SqsTable(
         title=cfg_tab["title"],
         label=cfg_tab["label"],
         ns=cfg_tab["ns"],

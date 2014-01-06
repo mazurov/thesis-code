@@ -205,7 +205,7 @@ def main():
                     count_upsilons(
                         name=mc_cfg["name"], data_key=args["--data"],
                         tree=utree, ns=ns, nb=nb, np=np,
-                        pt_axis=decay_cfg["axis"],
+                        pt_axis=axis,
                         cut=decay_cfg["ucut"], is_save=args["-s"])
 
     if args['-i']:

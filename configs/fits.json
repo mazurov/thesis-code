@@ -5,9 +5,32 @@
 		"binning": [[6, 8], [8, 10], [10, 12], [10, 14], [14, 18], [18, 22],
 					[22,40], [18, 24], [24, 40], [6, 40]]
 	},
+    "ups_new": {
+        "decay": "ups",
+        "profiles": ["default"],
+        "binning": [[27, 40]]
+    },    
+
     "chib1s": {
         "decay": "chib1s",
         "binning": [[6, 8], [8, 10], [10, 12], [10, 14], [12, 14], [14, 18], [18, 22], [22,40]],
         "profiles": ["mass3p_max"]
+    },
+    "chib2s": {
+        "decay": "chib2s",
+        "binning": [[18, 22], [18, 24], [22,24], [24, 40]],
+        "profiles": ["default"]
+    },
+    
+    "chib2s_freem": {
+        "decay": "chib2s",
+        "binning": [[18, 22], [18, 24], [22,24], [24, 40], [18,40]],
+        "profiles": ["freem"]
+    },
+
+    "chib3s": {
+        "decay": "chib3s",
+        "binning": [[27, 40]],
+        "profiles": ["lambda"]
     }
 }

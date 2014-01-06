@@ -17,7 +17,8 @@ class Format(object):
             "span": None,
             "round": None
         }
-        self.value = value
+        self.value = (pyroot.VE(str(value))
+                      if isinstance(value, tuple) else value)
         self.options.update(options)
 
     def __getattr__(self, name):
@@ -367,10 +368,10 @@ class SystTable(PtTable):
         )
 
 
-class FitsTable(PtTable):
+class SqsTable(PtTable):
 
     def __init__(self, title, label, ns, binning, scale=1, maxbins=None):
-        super(FitsTable, self).__init__(
+        super(SqsTable, self).__init__(
             title=title, label=label, ns=ns, binning=binning, scale=scale,
             maxbins=maxbins
         )
