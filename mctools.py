@@ -28,8 +28,15 @@ class MC(object):
         return self.value(bin, "ups_chib%d%dp" % (nb, self.np))
 
     def eff(self, bin, nb=None):
-        res = [self.nchib(bin, 1) / self.nups(bin, 1),
-               self.nchib(bin, 2) / self.nups(bin, 2)]
+        nchib_1 = self.nchib(bin, 1)
+        nups_1 = self.nups(bin, 1)
+        nchib_2 = self.nchib(bin, 2)
+        nups_2 = self.nups(bin, 2)
+
+        if not (nchib_1 and nups_1 and nchib_2 and nups_2):
+            return None
+
+        res = [nchib_1 / nups_1, nchib_2 / nups_2]
         if nb:
             return res[nb - 1]
         else:

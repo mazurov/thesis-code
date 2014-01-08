@@ -47,8 +47,8 @@ class Chib2P(object):
 
     def __init__(self, dm, frac, sigma=None):
         m_pdg = pdg.CHIB12P.value()
-        self.mean1 = ROOT.RooRealVar("mean_b1_2p", "mean_b1_2p", m_pdg,
-                                     m_pdg - 0.1, m_pdg + 0.1)
+        self.mean1 = ROOT.RooRealVar("mean_b1_2p", "mean_b1_2p", m_pdg-0.05,
+                                     m_pdg - 0.1, m_pdg + 0.05)
 
         diff = pdg.CHIB22P.value() - pdg.CHIB12P.value()
         self.dmb2b1 = ROOT.RooRealVar("dmb2b1_2p", "dmb2b1_2p", diff)
@@ -96,8 +96,8 @@ class Chib2P(object):
 
 class Chib3P(object):
 
-    def __init__(self, dm, mean_2p, sigma2, sfrac, frac):
-        diff = pdg.CHIB13P - pdg.CHIB12P
+    def __init__(self, dm, mean_2p, sigma2,  mean_3p, sfrac, frac):
+        diff = mean_3p - pdg.CHIB12P
         self.dm2p = ROOT.RooRealVar("dm_b13p_b12p", "dm_b13p_b12p",
                                     diff, diff - 0.1, diff + 0.1)
         self.dm2p.setConstant(True)
@@ -181,6 +181,7 @@ class ChibModel(BaseModel):
         self.chib2p = Chib2P(dm=self.x, sigma=sigma, frac=frac[0])
         self.chib3p = Chib3P(dm=self.x, mean_2p=self.chib2p.mean1,
                              sigma2=self.chib2p.sigma,
+                             mean_3p=mean_3p,
                              sfrac=sfrac3,
                              frac=frac[1])
 

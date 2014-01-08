@@ -1,6 +1,5 @@
 {
     "db": "mc",
-    "data_keys": ["mc2011", "mc2012"],
     "label": "mc:eff:chib{np}_y{ns}",
     "title": "Photon reconstruction efficiency in $\\chi_{{b}}({np}P) \\to \\Upsilon({ns}S) \\gamma$ decay",
     "data_titles": {
@@ -19,5 +18,10 @@
         {"key": "nups{nb}", "title": "$N_{{\\Upsilon({ns}S)}}^{{MC}}$ from $\\chi_{{b{nb}}}({np}P)$"},
         {"key": "eff{nb}", "title": "$\\varepsilon_{{\\chi_{{b{nb}}}({np}P)}}^{{\\gamma}}$, \\%"},
         {"key": "eff", "title": "$\\varepsilon_{{\\chi_{{b1,2}}({np}P)}}^{{\\gamma}}$, \\% "}
-    ]
+    ],
+    "axis": {
+        "ups1s": [6,8,10,12,14,16,18,20,22,28,40],
+        "ups2s": [14,16,18,20,22,24,28,40],
+        "ups3s": [18,20,22,24,28,40]
+    }    
 }

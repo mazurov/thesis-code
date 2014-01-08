@@ -1,0 +1,65 @@
+{
+    "db_ups": "data/ups/nominal.db",
+    "db_mc": "data/mc.db",
+
+    "title_model": "$\\chi_b$ yields systematic uncertanties related to the fit model in $\\chi_b \\to \\Y{ns}S \\gamma$ decays",
+    "label_model": "syst:ups{ns}s_fitmodel",        
+    "title_final": "\\Y{ns}S fraction originating from \\chib decay",
+    "label_final": "frac:ups{ns}s_final",
+    "row_final_title": "$\\chi_b({np}P) \\to \\Y{ns}S \\gamma$",
+
+    "ups1s": {
+        "bins": {
+            "1": [6,8,10,14,18,22,40],
+            "2": [6,8,10,14,18,22,40],
+            "3": [10,14,18,22,40]
+        },
+        "db_ref": "data/ups1s/nominal.db",
+        "nchib": [
+            "data/ups1s/syst/lambda3.db",
+            "data/ups1s/syst/lambda4.db",
+            "data/ups1s/syst/lambda6.db",
+            "data/ups1s/syst/lambda7.db",
+            "data/ups1s/syst/sigma_max.db",
+            "data/ups1s/syst/sigma_min.db",
+            "data/ups1s/syst/mass3p_10502.db",
+            "data/ups1s/syst/mass3p_10518.db"
+        ],
+        "scale": 0.6,
+        "maxbins": 2
+    },
+    "ups2s": {
+        "bins": {
+            "2": [18,22,24,40],
+            "3": [18,24,40]
+        },
+        "db_ref": "data/ups2s/nominal.db",
+        "nchib": [
+            "data/ups2s/syst/lambda3.db",
+            "data/ups2s/syst/lambda4.db",
+            "data/ups2s/syst/lambda6.db",
+            "data/ups2s/syst/lambda7.db",
+            "data/ups2s/syst/mass3p_10502.db",
+            "data/ups2s/syst/mass3p_10518.db"
+        ],
+        "scale": 0.6,
+        "maxbins": 2
+    },
+    "ups3s": {
+        "bins": {
+            "3": [27,40]
+        },
+        "db_ref": "data/ups3s/nominal.db",
+        "nchib": [
+            "data/ups3s/syst/lambda3.db",
+            "data/ups3s/syst/lambda4.db",
+            "data/ups3s/syst/lambda6.db",
+            "data/ups3s/syst/lambda7.db",
+            "data/ups3s/syst/mass3p_10502.db",
+            "data/ups3s/syst/mass3p_10518.db"
+        ],
+        "scale": 0.6,
+        "maxbins": 2
+    }    
+}
+    

@@ -38,8 +38,8 @@ def get_model(klass, np, binning):
     return klass(canvas=canvas, p=np, binning=binning)
 
 
-def save(name, data_key, params, ns, nb, np, pt_bin):
-    db = tools.get_db(name)
+def save(output_db, output_figs, data_key, params, ns, nb, np, pt_bin):
+    db = tools.get_db(output_db)
     data = db.get(data_key, {})
     ups_key = "ups%ds" % ns
     ups = data.get(ups_key, {})
@@ -52,15 +52,17 @@ def save(name, data_key, params, ns, nb, np, pt_bin):
     db[data_key] = data
     db.close()
 
-    figure = "{name}/{data_key}/{ups_key}/{chib_key}/f_{pt1}_{pt2}".format(
-        name=name, data_key=data_key, ups_key=ups_key, chib_key=chib_key,
-        pt1=pt_bin[0], pt2=pt_bin[1]
-    )
+    figure = (
+        "{output_figs}/{data_key}/{ups_key}/{chib_key}/f_{pt1}_{pt2}".format(
+            output_figs=output_figs, data_key=data_key, ups_key=ups_key,
+            chib_key=chib_key,
+            pt1=pt_bin[0], pt2=pt_bin[1]
+        ))
     tools.save_figure(figure, canvas=canvas)
 
 
-def usave(name, data_key, ns, nb, np, h):
-    db = tools.get_db(name)
+def usave(output_db, data_key, ns, nb, np, h):
+    db = tools.get_db(output_db)
     data = db.get(data_key, {})
     ups_key = "ups%ds" % ns
     ups = data.get(ups_key, {})
@@ -89,20 +91,21 @@ def count_upsilons(name, data_key, tree, ns, nb, np, pt_axis, cut, is_save):
         usave(name, data_key, ns, nb, np, h)
 
 
-def process(name, data_key, tree, models, ns, nb, np, cut, pt_axis,
-            is_unbinned, binning, is_save):
+def process(data_key, tree, models, ns, nb, np, cut, pt_axis,
+            is_unbinned, binning, is_save, output_db, output_figs):
     def fit():
         model.fitData()
         print model
         if is_save:
             save(
-                name=name, data_key=data_key, params=model.params(), ns=ns,
+                output_db=output_db, output_figs=output_figs,
+                data_key=data_key, params=model.params(), ns=ns,
                 nb=nb, np=np, pt_bin=pt_bin
             )
         if model.status:
             log.info("OK")
         else:
-            log.err("BAD")
+            log.err("BAD: type 'fit()'")
 
     new_cut = dict(cut)
     field = "dmplusm%ds" % ns
@@ -153,7 +156,7 @@ def main():
     ]
     tuples_cfg = tools.load_config("tuples")
     mc_cfg = tools.load_config("mc")
-    # mcfits_cfg = tools.load_config("mc")  # binning
+    mcfits_cfg = tools.load_config("mcfits")  # binning
 
     tree = ROOT.TChain("ChibAlg/Chib")
     utree = ROOT.TChain("UpsilonAlg/Upsilon")
@@ -183,11 +186,10 @@ def main():
             for nb in nb_arr:
                 if (ns == 2 and np == 1) or (ns == 3 and np < 3):
                     continue
-                axis = decay_cfg["axis"]
-                if isinstance(axis, dict):
-                    axis = axis[str(np)]
+                axis = mcfits_cfg["axis"]["ups%ds" % ns]
                 process(
-                    name=mc_cfg["name"],
+                    output_db=mcfits_cfg["output_db"],
+                    output_figs=mcfits_cfg["output_figs"],
                     data_key=args["--data"],
                     tree=tree,
                     models=models,
@@ -209,8 +211,8 @@ def main():
                         cut=decay_cfg["ucut"], is_save=args["-s"])
 
     if args['-i']:
-        db = tools.get_db(mc_cfg["name"])
-        print db.keys
+        db = tools.get_db(mcfits_cfg["output_db"])
+        print db.keys()
         shell()
 
 

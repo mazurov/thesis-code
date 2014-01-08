@@ -51,6 +51,15 @@ class Value(Format):
 
     def __init__(self, value, **args):
         super(Value, self).__init__(value=value, options=args)
+        if isinstance(self.value, pyroot.VE) and ("syst" in args):
+            syst = args["syst"]
+            fmt = ("%%.%df" % self.round if self.round
+                   else "%f")
+
+            self.value = (
+                tools.latex_ve(value) +
+                "$\\stat^{+" + fmt % syst[0] + "}_{-" +
+                fmt % syst[1] + "}\\syst$")
 
 
 class HeaderIterator(object):
@@ -330,9 +339,10 @@ class PtTable(Table):
             table.ups.subgroups = (
                 table.ups.subgroups[start_bin:end_bin + 1]
             )
-            title = "$%d < p_T^{\\Y%dS} < %d \\gevc$" % (
+            pt_title = "\\Y%dS" % self.ns if self.ns else "\\mumu"
+            title = "$%d < p_T^{%s} < %d \\gevc$" % (
                     self.binning[start_bin][0],
-                self.ns,
+                pt_title,
                 self.binning[:end_bin + 1][-1][1]
             )
             tables.add_table(table, title=title)

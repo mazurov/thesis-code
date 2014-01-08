@@ -52,7 +52,7 @@ def publish(ret, cfg_pol):
             label = "syst:pol:{chip_key}_{ups_key}".format(chip_key=chip_key,
                                                            ups_key=ups_key)
             tab = table.PtTable(title=title, label=label, ns=ns,
-                                binning=binning, maxbins=4)
+                                binning=binning, maxbins=4, scale=0.6)
             tab.add_row("max", cfg_pol['row_title'])
             for bin in binning:
                 cell = tab.get_bin(bin)

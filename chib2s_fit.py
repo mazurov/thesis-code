@@ -38,10 +38,11 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
     sigma, sfrac3 = None, None
     if profile["fixed_sigma"]:
         sigma = get_sigma(mct_arr[0], pt_bin=pt_ups, scale=1)
-        if sigma:
-            sfrac3 = get_sfrac(mct_arr=mct_arr, pt_bin=pt_ups)
-        else:
+        if not sigma:
             print "No sigma  information in MC"
+
+    if profile["fixed_sigma_ratio"]:
+        sfrac3 = get_sfrac(mct_arr=mct_arr, pt_bin=pt_ups)
 
     # has_3p = [pt_ups1, pt_ups2] in profile["3p_bins"]
     has_3p = True

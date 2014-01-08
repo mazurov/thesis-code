@@ -112,10 +112,20 @@ def pdg_round(ve):  # noqa
 
 
 def axis2bins(axis):
-    ret = []
-    for i in range(len(axis) - 1):
-        ret.append(tuple([axis[i], axis[i + 1]]))
-    return ret
+    if not axis:
+        return []
+
+    lst = []
+    if not isinstance(axis[0], list):
+        lst.append(axis)
+    else:
+        lst = axis
+
+    ret = set()
+    for a in lst:
+        for i in range(len(a) - 1):
+            ret.add((a[i], a[i + 1]))
+    return sorted(ret)
 
 
 def get_axis(np, lst_or_dict):

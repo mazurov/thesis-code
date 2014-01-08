@@ -8,13 +8,13 @@
     "ups_new": {
         "decay": "ups",
         "profiles": ["default"],
-        "binning": [[27, 40]]
+        "binning": [[12, 18]]
     },    
 
     "chib1s": {
         "decay": "chib1s",
-        "binning": [[6, 8], [8, 10], [10, 12], [10, 14], [12, 14], [14, 18], [18, 22], [22,40]],
-        "profiles": ["mass3p_max"]
+        "binning": [[12, 18]],
+        "profiles": ["default"]
     },
     "chib2s": {
         "decay": "chib2s",

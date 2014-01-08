@@ -1,0 +1,39 @@
+{
+    "title": "Photon  reconstruction efficiency in $\\chi_b$ decays as function of $p_T^{\\Upsilon}$",
+    "label": "mc:eff",
+    "size": [150, 180],
+    "ncols": 2,
+    "scale": 0.7,
+    "data": [
+        {
+            "img": "ups1_1",
+            "np": 1,
+            "ns": 1
+        },
+        {
+            "img": "ups1_2",
+            "np": 2,
+            "ns": 1
+        },
+        {
+            "img": "ups1_3",
+            "np": 3,
+            "ns": 1
+        },
+        {
+            "img": "ups2_2",
+            "np": 2,
+            "ns": 2
+        },
+        {
+            "img": "ups2_3",
+            "np": 3,
+            "ns": 2
+        },
+        {
+            "img": "ups3_3",
+            "np": 3,
+            "ns": 3
+        }
+    ]
+}

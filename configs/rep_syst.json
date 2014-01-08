@@ -86,7 +86,23 @@
                         "db": "data/ups1s/syst/lambda10.db"
                     }
                 ]
-            }            
+            },
+            {
+                "title": "Systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertanty in $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
+                "label": "syst:m3p_ups1s",
+                "rows": [
+                    {
+                        "title": "$m_{\\chiboneThreeP} = 10,502 \\mevcc$",
+                        "key": "min",
+                        "db": "data/ups1s/syst/mass3p_10502.db"
+                    },
+                    {
+                        "title": "$m_{\\chiboneThreeP} = 10,518 \\mevcc$",
+                        "key": "max",
+                        "db": "data/ups1s/syst/mass3p_10518.db"
+                    }
+                ]
+            }
         ]
     },
 
@@ -160,7 +176,23 @@
                         "db": "data/ups2s/syst/lambda10.db"
                     }
                 ]
-            }            
+            },
+            {
+                "title": "Systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertanty in $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
+                "label": "syst:m3p_ups2s",
+                "rows": [
+                    {
+                        "title": "$m_{\\chiboneThreeP} = 10,502 \\mevcc$",
+                        "key": "min",
+                        "db": "data/ups2s/syst/mass3p_10502.db"
+                    },
+                    {
+                        "title": "$m_{\\chiboneThreeP} = 10,518 \\mevcc$",
+                        "key": "max",
+                        "db": "data/ups2s/syst/mass3p_10518.db"
+                    }
+                ]
+            }
         ]
     },
 
@@ -232,6 +264,22 @@
                         "title": "$\\lambda=1.0$",
                         "key": "l10",
                         "db": "data/ups3s/syst/lambda10.db"
+                    }
+                ]
+            },
+            {
+                "title": "Systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertanty in $\\chi_b(3P) \\to \\ThreeS \\gamma$ decays",
+                "label": "syst:m3p_ups3s",
+                "rows": [
+                    {
+                        "title": "$m_{\\chiboneThreeP} = 10,502 \\mevcc$",
+                        "key": "min",
+                        "db": "data/ups3s/syst/mass3p_10502.db"
+                    },
+                    {
+                        "title": "$m_{\\chiboneThreeP} = 10,518 \\mevcc$",
+                        "key": "max",
+                        "db": "data/ups3s/syst/mass3p_10518.db"
                     }
                 ]
             }            

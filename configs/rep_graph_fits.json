@@ -18,7 +18,7 @@
         "ups1s": {
             "db": "data/ups1s/freem.db",
             "output_dir": "ups1s/freem",
-            "axis": [6, 8, 10, 12, 14, 18, 22, 40],
+            "axis": [6, 8, 10, 14, 18, 22, 40],
             "plots": [
                 {
                     "key": "mean_b1_1p",
@@ -30,7 +30,7 @@
         "ups1s_sigma": {
             "db": "data/ups1s/frees.db",
             "output_dir": "ups1s/frees",
-            "axis": [6, 8, 10, 12, 14, 18, 22, 40],
+            "axis": [6, 8, 10, 14, 18, 22, 40],
             "plots": [
                 {
                     "key": "sigma_b1_1p",

@@ -89,18 +89,20 @@ def save(name, model, year, interval):
 def main():
     cli_args = docopt(__doc__, version='v1.0')
 
-    def fit():
-        model.fitData()
-        print(model)
+    def fit(niters=1):
+        for iter in range(niters):
+            model.fitData()
+            print(model)
 
-        if cfg['save?']:
-            save(cfg['name'], model, cli_args["--year"],
-                 (int(cli_args["--ptbegin"]), int(cli_args["--ptend"])))
+            if cfg['save?']:
+                save(cfg['name'], model, cli_args["--year"],
+                     (int(cli_args["--ptbegin"]), int(cli_args["--ptend"])))
 
-        if model.status:
-            log.info("OK")
-        else:
-            log.err("BAD")
+            if model.status:
+                log.info("OK")
+                break
+            else:
+                log.err("BAD")
 
     log = Logger()
     # cli_args = get_cli_args()

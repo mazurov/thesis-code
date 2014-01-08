@@ -5,8 +5,10 @@ from IPython import embed as shell  # noqa
 import tools
 import mctools
 import pdg
-
+import graph
 import table
+
+from collections import defaultdict
 
 
 def process(db_name, data_key, ns, np):
@@ -39,11 +41,14 @@ def create_table(label, title, scale, cfg_rows, ns, np, binning, maxbins):
 
 def main():
     cfg_rep = tools.load_config("rep_mceff")
-    cfg_mc = tools.load_config("mc")
 
     db = tools.get_db(cfg_rep["db"], "r")
 
     for ns in range(1, 4):
+        graph_values = {
+            "mc2011": defaultdict(list),
+            "mc2012": defaultdict(list),
+        }
         for np in pdg.VALID_UPS_DECAYS[ns]:
             title = cfg_rep["title"].format(
                 ns=ns,
@@ -54,7 +59,7 @@ def main():
                 np=np
             )
             ups_key = "ups%ds" % ns
-            axis = tools.get_axis(np, cfg_mc["decays"][ups_key]["axis"])
+            axis = cfg_rep["axis"]["ups%ds" % ns]
 
             bins = tools.axis2bins(axis)
             maxbins = cfg_rep["maxbins"]
@@ -65,12 +70,12 @@ def main():
                                ns=ns, np=np, binning=bins, maxbins=maxbins)
 
             for bin in bins:
-                for data_key in cfg_rep["data_keys"]:
+                for data_key in ["mc2011", "mc2012"]:
                     mc = mctools.MC(db=db[data_key][ups_key], ns=ns, np=np)
                     bin_group = tab.get_bin(bin)
                     data_group = bin_group.add_subgroup(
-                        data_key,
-                        data_key
+                        key=data_key,
+                        title=cfg_rep["data_titles"][data_key]
                     )
                     for nb in range(1, 3):
                         data_group.add_value("n%d" % nb,
@@ -80,10 +85,29 @@ def main():
                         data_group.add_value("eff%d" % nb,
                                              mc.eff(bin, nb) * 100,
                                              is_bold=True)
-                    data_group.add_value("eff", mc.eff(bin) * 100,
-                                         is_bold=True)
+                    eff = mc.eff(bin) * 100
+                    data_group.add_value("eff", eff, is_bold=True)
+                    graph_values[data_key][np].append((bin, eff))
 
             print tab.texify()
+
+        for np in pdg.VALID_UPS_DECAYS[ns]:
+            graphs = []
+            for data_key in ["mc2011", "mc2012"]:
+                g = graph.Graph(color=data_key,
+                                values=graph_values[data_key][np], space=3)
+                graphs.append(g)
+            mg = graph.MultiGraph(graphs=graphs, ymin=0)
+            mg.draw()
+
+            output = "mc/eff/ups%d_%d" % (ns, np)
+            tools.save_figure(output)
+
+            h = (graphs[0].h + graphs[1].h) / 2
+            h.Fit("pol0")
+            h.Draw()
+            output = "mc/eff/ups%d_%d_fit" % (ns, np)
+            tools.save_figure(output)
 
 
 if __name__ == '__main__':

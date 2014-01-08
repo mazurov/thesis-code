@@ -11,6 +11,7 @@
     "bgorder": 3,
     "lambda_b1b2": 0.5,
 
+    "fixed_mean": 10.507,
     "fixed_sigma": true,
     
     "cut": {
@@ -31,6 +32,18 @@
 
     "profiles": {
         "default": {},
+        "frees": {
+            "name": "ups3s/frees",
+            "fixed_sigma": false
+        },
+        "mass3p_min": {
+            "name": "ups3s/syst/mass3p_10502",
+            "fixed_mean": 10.502
+        },
+        "mass3p_max": {
+            "name": "ups3s/syst/mass3p_10518",
+            "fixed_mean": 10.518
+        },
         "lambda0": {
             "name": "ups3s/syst/lambda0",
             "lambda_b1b2": 0.0

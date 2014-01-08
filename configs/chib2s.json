@@ -14,6 +14,7 @@
     "fixed_mean": 10.250,
     "fixed_mean_3p": 10.507,
     "fixed_sigma": true,
+    "fixed_sigma_ratio": true,
     
     "cut": {
         "dmplusm2s": [10.16, 11.04],
@@ -37,6 +38,19 @@
             "name": "ups2s/freem",
             "fixed_mean": false
         },
+        "freems" : {
+            "name": "ups2s/freems",
+            "fixed_mean": false,
+            "fixed_sigma": false
+        },
+        "mass3p_min": {
+            "name": "ups2s/syst/mass3p_10502",
+            "fixed_mean_3p": 10.502
+        },
+        "mass3p_max": {
+            "name": "ups2s/syst/mass3p_10518",
+            "fixed_mean_3p": 10.518
+        },        
         "lambda0": {
             "name": "ups2s/syst/lambda0",
             "lambda_b1b2": 0.0
