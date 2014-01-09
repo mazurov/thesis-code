@@ -1,31 +1,6 @@
 {
-    "db_ups": "data/ups/nominal.db",
-    "db_mc": "data/mc.db",
-
-    "title_final": "\\Y{ns}S fraction originating from \\chib decay",
-    "label_final": "frac:ups{ns}s_final",
-
-    "title_model": "\\Y{ns}S fraction systematic uncertainties  related to $\\chi_b$ fit model.",
-    "label_model": "frac:ups{ns}s_chib_model",
-
-    "title_ups": "\\Y{ns}S fraction systematic uncertainties related to $\\Upsilon$ fit model.",
-    "label_ups": "frac:ups{ns}s_ups_model",
-
-    "title_eff": "\\Y{ns}S fraction systematic uncertainties related to photon reconstruction efficiency.",
-    "label_eff": "frac:ups{ns}s_eff",
-
-    "title_pol": "\\Y{ns}S fraction systematic uncertainties related to $\\chi_b$ polarization.",
-    "label_pol": "frac:ups{ns}s_eff",
-
-   
-    "row_title": "$\\chi_b({np}P) \\to \\Y{ns}S \\gamma$",
-
-    "ups_syst": 0.007,
-    "eff_syst": 0.03,
-
-    "maxbins": 2,
-    "scale": 0.7,
-    "scale_final": 0.6,
+    "title": "$\\chi_b$ yields systematic uncertainties related to the fit model in $\\chi_b \\to \\Y{ns}S \\gamma$ decays",
+    "label": "syst:ups{ns}s_fitmodel",        
 
     "ups1s": {
         "bins": {
@@ -43,7 +18,9 @@
             "data/ups1s/syst/sigma_min.db",
             "data/ups1s/syst/mass3p_10502.db",
             "data/ups1s/syst/mass3p_10518.db"
-        ]
+        ],
+        "scale": 0.7,
+        "maxbins": 2
     },
     "ups2s": {
         "bins": {
@@ -58,7 +35,9 @@
             "data/ups2s/syst/lambda7.db",
             "data/ups2s/syst/mass3p_10502.db",
             "data/ups2s/syst/mass3p_10518.db"
-        ]
+        ],
+        "scale": 0.7,
+        "maxbins": 2
     },
     "ups3s": {
         "bins": {
@@ -72,7 +51,9 @@
             "data/ups3s/syst/lambda7.db",
             "data/ups3s/syst/mass3p_10502.db",
             "data/ups3s/syst/mass3p_10518.db"
-        ]
+        ],
+        "scale": 0.7,
+        "maxbins": 2
     }    
 }
     

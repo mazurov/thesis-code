@@ -7,7 +7,7 @@ import table
 
 
 def main():
-    cfg = tools.load_config("rep_final")
+    cfg = tools.load_config("rep_syst_model")
 
     for ns in range(1, 4):
         cfg_decay = cfg.get("ups%ds" % ns, None)
@@ -19,8 +19,8 @@ def main():
             valid_bins[int(np)] = tools.axis2bins(cfg_decay["bins"][np])
 
         tab = table.SqsTable(
-            title=cfg["title_model"].format(ns=ns),
-            label=cfg["label_model"].format(ns=ns),
+            title=cfg["title"].format(ns=ns),
+            label=cfg["label"].format(ns=ns),
             ns=ns,
             binning=bins,
             scale=cfg_decay["scale"],

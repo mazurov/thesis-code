@@ -31,6 +31,6 @@
     "chib3s": {
         "decay": "chib3s",
         "binning": [[27, 40]],
-        "profiles": ["lambda"]
+        "profiles": ["mass3p_min", "mass3p_max"]
     }
 }

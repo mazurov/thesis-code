@@ -32,8 +32,9 @@
 
     "profiles": {
         "default": {},
-        "frees": {
-            "name": "ups3s/frees",
+        "freems": {
+            "name": "ups3s/freems",
+            "fixed_mean": false,
             "fixed_sigma": false
         },
         "mass3p_min": {

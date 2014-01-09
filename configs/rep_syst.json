@@ -2,14 +2,16 @@
     "ups1s": {
         "db": "data/ups1s/nominal.db",
         "ns": 1,
-        "scale": 0.45,
-        "binning": [[6, 8], [8, 10], [10, 12], [12, 14], [10, 14],
-                            [14, 18], [18, 22], [22, 40]],
-        "maxbins": 3,
-        "nchib": [1, 2, 3],
+        "scale": 0.65,
+        "maxbins": 2,
+        "axis": {
+            "1": [6, 8, 10, 14, 18, 22, 40],
+            "2": [6, 8, 10, 14, 18, 22, 40],
+            "3": [10, 14, 18, 22, 40]
+        },
         "tables": [
             {
-                "title": "Systematic uncertainties (\\%) related to the Data-MonteCarlo resolution difference in $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to the Data-MonteCarlo resolution difference in the fit model for $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
                 "label": "syst:sigma_ups1s",
                 "rows": [
                     {
@@ -25,7 +27,7 @@
                 ]
             },
             {
-                "title": "Systematic uncertainties (\\%) related to $\\lambda$ values in $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%)  related to $\\lambda$ values in the fit model for  $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
                 "label": "syst:lambda_ups1s",
                 "rows": [
                     {
@@ -88,8 +90,9 @@
                 ]
             },
             {
-                "title": "Systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertanty in $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertainty in the fit model for $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
                 "label": "syst:m3p_ups1s",
+                "scale": 0.6,
                 "rows": [
                     {
                         "title": "$m_{\\chiboneThreeP} = 10,502 \\mevcc$",
@@ -108,14 +111,17 @@
 
     "ups2s": {
         "db": "data/ups2s/nominal.db",
-        "ns": 1,
-        "scale": 0.45,
-        "binning": [[18, 22], [22, 24],  [24, 40]],
+        "ns": 2,
+        "scale": 0.65,
+        "axis": {
+            "2": [18,22,24,40],
+            "3": [18, 24, 40]
+        },
         "maxbins": 3,
-        "nchib": [2, 3],
+
         "tables": [
             {
-                "title": "Systematic uncertainties (\\%) related to $\\lambda$ values in $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to $\\lambda$ values in the fit model for  $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
                 "label": "syst:lambda_ups2s",
                 "rows": [
                     {
@@ -178,8 +184,9 @@
                 ]
             },
             {
-                "title": "Systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertanty in $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertainty in the fit model for  $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
                 "label": "syst:m3p_ups2s",
+                "scale": 0.6,
                 "rows": [
                     {
                         "title": "$m_{\\chiboneThreeP} = 10,502 \\mevcc$",
@@ -198,14 +205,15 @@
 
     "ups3s": {
         "db": "data/ups3s/nominal.db",
-        "ns": 1,
-        "scale": 1,
-        "binning": [[27, 40]],
-        "maxbins": 3,
-        "nchib": [3],
+        "ns": 3,
+        "scale": 0.65,
+        "axis": {
+            "3": [27, 40]
+        },
+        "maxbins": 4,
         "tables": [
             {
-                "title": "Systematic uncertainties (\\%) related to $\\lambda$ values in $\\chi_b(3P) \\to \\ThreeS \\gamma$ decays",
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to $\\lambda$ values in the fit model for  $\\chi_b(3P) \\to \\ThreeS \\gamma$ decays",
                 "label": "syst:lambda_ups3s",
                 "rows": [
                     {
@@ -268,7 +276,7 @@
                 ]
             },
             {
-                "title": "Systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertanty in $\\chi_b(3P) \\to \\ThreeS \\gamma$ decays",
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertainty in the fit model for  $\\chi_b(3P) \\to \\ThreeS \\gamma$ decays",
                 "label": "syst:m3p_ups3s",
                 "rows": [
                     {

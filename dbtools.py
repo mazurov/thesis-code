@@ -65,7 +65,7 @@ def get_chib_squared_error(db_ref, dbs_syst, np, year, bin):
 
 
 def get_fraction(db_chib, db_ups, db_mc, year, bin, ns, np,
-                 scalecb=1, scaleups=1):
+                 scalecb=1, scaleups=1, scaleeff=1):
     nchib = get_chib_yield(db_chib, np, year, bin)
     nups = get_ups_yield(db_ups, ns, year, bin)
 
@@ -77,5 +77,7 @@ def get_fraction(db_chib, db_ups, db_mc, year, bin, ns, np,
         return None
     nchib_scaled = VE(nchib.value() * scalecb, nchib.error()**2)
     nups_scaled = VE(nups.value() * scaleups, nups.error()**2)
-    res = (nchib_scaled)/eff/(nups_scaled)
+    eff_scaled = VE(eff.value() * scaleeff, eff.error()**2)
+    
+    res = (nchib_scaled)/eff_scaled/(nups_scaled)
     return res
