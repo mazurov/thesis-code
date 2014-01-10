@@ -82,6 +82,7 @@ import sys
 from AnalysisPython.Logger import getLogger
 logger = getLogger(__name__)
 # =============================================================================
+logger.info("Mazurov's modified version for float bineff")
 logger.info('Zillions of decorations for ROOT   objects')
 # ============================================================================
 # global identifier for ROOT objects

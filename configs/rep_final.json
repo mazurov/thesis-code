@@ -1,9 +1,13 @@
 {
     "db_ups": "data/ups/nominal.db",
     "db_mc": "data/mc.db",
+    "db_pol": "data/polarization.db",
 
     "title_final": "\\Y{ns}S fraction originating from \\chib decay",
     "label_final": "frac:ups{ns}s_final",
+
+    "title_final_pol": "\\Y{ns}S fraction originating from \\chib decay with polarization systematic uncertainties",
+    "label_final_pol": "frac:ups{ns}s_final_pol",
 
     "title_model": "\\Y{ns}S fraction systematic uncertainties  related to $\\chi_b$ fit model.",
     "label_model": "frac:ups{ns}s_chib_model",
@@ -14,8 +18,8 @@
     "title_eff": "\\Y{ns}S fraction systematic uncertainties related to photon reconstruction efficiency.",
     "label_eff": "frac:ups{ns}s_eff",
 
-    "title_pol": "\\Y{ns}S fraction systematic uncertainties related to $\\chi_b$ polarization.",
-    "label_pol": "frac:ups{ns}s_eff",
+    "title_pol": "\\Y{ns}S fraction systematic uncertainties related to unknown $\\chi_b$ polarization.",
+    "label_pol": "frac:ups{ns}s_pol",
 
    
     "row_title": "$\\chi_b({np}P) \\to \\Y{ns}S \\gamma$",

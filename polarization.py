@@ -6,13 +6,13 @@ Usage:
 
 Options:
   -s --save  Save results
-  --name=<name>     Name of output database [default: "polarization"]
+  --name=<name>     Name of output database [default: polarization]
 """
 import env  # noqa
 from docopt import docopt
 
-import PyRoUts as pyroot
 import tools
+import pdg
 # from th.model.selector import Selector
 import ROOT
 from ROOT import TVector3
@@ -30,6 +30,7 @@ from AnalysisPython import LHCbStyle  # noqa
 # LHCbStyle.lhcbStyle.SetTitleBorderSize(0)
 # LHCbStyle.lhcbStyle.SetTitleFillColor(0)
 
+import PyRoUts as pyroot
 
 class Columns(object):
 
@@ -286,14 +287,10 @@ def main():
             # tools.tree_preselect(chib_chain, chib_cut)
             # tools.tree_preselect(ups_chain, ups_cut)
             for np in cfg_pol["np"]:
-                if ns == 2 and np == 1:
-                    continue
-                if ns == 3 and (np == 1 or np == 2):
+                if np not in pdg.VALID_UPS_DECAYS[ns]:
                     continue
 
-                axis = cfg_cuts["axis"]
-                if isinstance(axis, dict):
-                    axis = cfg_cuts["axis"][str(np)]
+                axis = cfg_pol["axis"]["ups%ds" % ns][str(np)]
 
                 for nb in cfg_pol["nb"]:
 
@@ -310,14 +307,6 @@ def main():
                         h = ref / (d[i] // n[i])
                         h.red()
 
-                        # h.GetYaxis().SetTitle(
-                        # "#varepsilon_{#gamma}^{unpol} / "
-                        # "#varepsilon_{#gamma}^{w%d}" % i
-                        # )
-                        # h.SetTitle("w{w}, #chi_{{b{nb}}}({np}P)"
-                        # " #rightarrow #Upsilon({ns}S) #gamma"
-                        #            .format(nb=nb, np=np, w=i, ns=ns)
-                        #            )
                         res.append(h)
 
                         h.Draw()

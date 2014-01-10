@@ -1,11 +1,24 @@
 {
     "data_key": "mcall",
     "db": "data/polarization.db",
-    "label": "mc:syst:pol_y{ns}",
-    "title": "Maximum deviation of ratio between efficiency measured for unpolarized particles and all possible polarization scenarios in $\\boldsymbol{{\\chi_{{b}}({np}P)\\to \\Upsilon({ns}S) \\gamma}}$ decays",
-    "row_title": "Maximum deviation, \\%",
-    "subtable_title": "${pt0} < p_{{T}}^{{\\Upsilon({ns}S}} < {pt1}$",
+    "label": "syst:pol:ups{ns}s",
+    "title": "Maximum deviation (\\%) of ratio between efficiency measured for unpolarized particles and all possible polarization scenarios in $\\boldsymbol{{\\chi_{{b}} \\to \\Upsilon({ns}S) \\gamma}}$ decays",
+    "row_title": "$\\chi_b({np}P) \\to \\Y{ns}S \\gamma$",
 
-    "scale": 0.55,
-    "maxbins": 4
+    "axis": {
+        "ups1s": {
+            "1": [6,8,10,14,18,22,40],
+            "2": [6,8,10,14,18,22,40],
+            "3": [10,14,18,22,40]
+        },
+        "ups2s": {
+            "2": [18,22,24,40],
+            "3": [18,24,40]
+        },
+        "ups3s": {
+            "3": [27,40]
+        }
+    },
+    "scale": 1,
+    "maxbins": 6
 }

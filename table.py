@@ -266,6 +266,8 @@ def table2tex(table, has_caption=True):
             rows += "\\midrule\n"
 
     context = {
+        "env": "tabular",
+        "witdh": "",
         "align": "r" * table.cols(),
         "scale": table.scale,
         "title": table.title,
@@ -306,7 +308,8 @@ def subtables2tex(subtable):
 
 class PtTable(Table):
 
-    def __init__(self, title, label, ns, binning, scale=1, maxbins=None):
+    def __init__(self, title, label, ns, binning, scale=1, maxbins=None,
+                 is_cmidrule=True):
         super(PtTable, self).__init__(title=title, label=label, scale=scale)
         cfg = tools.load_config("pttable")
         self.ns = ns
@@ -319,7 +322,7 @@ class PtTable(Table):
         for bin in binning:
             self.ups.add_subgroup(key=tuple(bin),
                                   title=cfg['range'].format(bin[0], bin[1]),
-                                  is_cmidrule=True)
+                                  is_cmidrule=is_cmidrule)
 
     def get_bin(self, bin):
         return self.ups.get_subgroup(key=tuple(bin))

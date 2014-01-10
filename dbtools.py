@@ -53,7 +53,7 @@ def get_squared_error(db_ref, dbs_syst, param, year, bin):
         scale = get_param_scale(db_ref, db_syst, param, year, bin)
         if scale is None:
             continue
-        index = 1 if scale > 1 else 0
+        index = 0 if scale > 1 else 1
 
         sqret[index] += (1 - scale) ** 2
 
@@ -75,9 +75,34 @@ def get_fraction(db_chib, db_ups, db_mc, year, bin, ns, np,
 
     if not (nchib and nups and eff):
         return None
-    nchib_scaled = VE(nchib.value() * scalecb, nchib.error()**2)
-    nups_scaled = VE(nups.value() * scaleups, nups.error()**2)
-    eff_scaled = VE(eff.value() * scaleeff, eff.error()**2)
-    
-    res = (nchib_scaled)/eff_scaled/(nups_scaled)
+    nchib_scaled = VE(nchib.value() * scalecb, nchib.error() ** 2)
+    nups_scaled = VE(nups.value() * scaleups, nups.error() ** 2)
+    eff_scaled = VE(eff.value() * scaleeff, eff.error() ** 2)
+
+    res = (nchib_scaled) / eff_scaled / (nups_scaled)
     return res
+
+
+def get_polarization_change(db_pol, ns, np, bin):
+    ups_key = "ups%ds" % ns
+
+    amin, amax = float('inf'), float('-inf')
+    for nb in range(1, 3):
+        chib_key = "chib%d%dp" % (nb, np)
+
+        db_chib = db_pol[ups_key][tuple(bin)][chib_key]
+        for w in range(3):
+            wkey = "w%d" % w
+            if wkey in db_chib:
+                val, err = db_chib[wkey]
+                amin = min(amin, val - err)
+                amax = max(amax, val + err)
+    p = amax - 1
+    m = 1 - amin
+    
+    if amin > 1:
+        m = 0
+    if amax < 1:
+        p = 0
+
+    return (p, m)
