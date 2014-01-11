@@ -239,11 +239,11 @@ def table2tex(table, has_caption=True):
         icol = 1
         for head in headers:
             header += " & "
-            if head.cols() > 1:
-                header += "\\multicolumn{%d}{c}{" % head.cols()
+            # if head.cols() > 1:
+            header += "\\multicolumn{%d}{c}{" % head.cols()
             header += head.title
-            if head.cols() > 1:
-                header += "}"
+            # if head.cols() > 1:
+            header += "}"
             if head.is_cmidrule:
                 cmidrules += "\\cmidrule(r){%d-%d}" % (icol + 1,
                                                        icol + head.cols()

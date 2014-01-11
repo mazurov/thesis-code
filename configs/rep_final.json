@@ -29,7 +29,7 @@
 
     "maxbins": 2,
     "scale": 0.7,
-    "scale_final": 0.6,
+    "scale_final": 0.45,
 
     "ups1s": {
         "bins": {
@@ -47,7 +47,12 @@
             "data/ups1s/syst/sigma_min.db",
             "data/ups1s/syst/mass3p_10502.db",
             "data/ups1s/syst/mass3p_10518.db"
-        ]
+        ],
+        "graphs": {
+            "1": {"ymin": 15, "ymax": 45},
+            "2": {"ymax": 15},
+            "3": {"ymax": 15}
+        }
     },
     "ups2s": {
         "bins": {
@@ -62,7 +67,11 @@
             "data/ups2s/syst/lambda7.db",
             "data/ups2s/syst/mass3p_10502.db",
             "data/ups2s/syst/mass3p_10518.db"
-        ]
+        ],
+        "graphs": {
+            "2": {"ymax": 50},
+            "3": {"ymax": 15}
+        }
     },
     "ups3s": {
         "bins": {
@@ -76,7 +85,10 @@
             "data/ups3s/syst/lambda7.db",
             "data/ups3s/syst/mass3p_10502.db",
             "data/ups3s/syst/mass3p_10518.db"
-        ]
+        ],
+        "graphs": {
+            "3": {"ymax": 100}
+        }        
     }    
 }
     

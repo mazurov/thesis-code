@@ -3543,6 +3543,63 @@ def makeGraph(x, y=[], ex=[], ey=[]):
 
     return gr
 
+
+def makeGraphAsym(x, y=[], ex=[], eylow=[], eyhigh=[]):
+    """
+    Make graph using the primitive data
+    """
+    if isinstance(x, dict) and not y and not ex and not ey:
+        _x = []
+        _y = []
+        keys = x.keys()
+        keys.sort()
+        for k in keys:
+            _x += [k]
+            _y += [x[k]]
+        return makeGraph(_x, _y)
+
+    if not x:
+        raise TypeError, "X is not a proper vector!"
+    if not y:
+        raise TypeError, "Y is not a proper vector!"
+    if len(x) != len(y):
+        raise TypeError, "Mismatch X/Y-lengths"
+
+    if ex and len(ex) != len(x):
+        raise TypeError, "Mismatch X/eX-lengths"
+    if ey and len(ey) != len(y):
+        raise TypeError, "Mismatch Y/eY-lengths"
+
+    gr = ROOT.TGraphAsymmErrors(len(x))
+
+    for i in range(0, len(x)):
+
+        if ex:
+            _ex = ex[i]
+        else:
+            _ex = 0.0
+        if ey:
+            _ey = ey[i]
+        else:
+            _ey = 0.0
+
+        _x = x[i]
+        if hasattr(x[i], 'value'):
+            _x = x[i].value()
+        if hasattr(x[i], 'error'):
+            _ex = x[i].error()
+
+        _y = y[i]
+        if hasattr(y[i], 'value'):
+            _y = y[i].value()
+        if hasattr(y[i], 'error'):
+            _ey = y[i].error()
+
+        gr .SetPoint(i,  _x,  _y)
+        gr .SetPointError(i, _ex, _ey)
+
+    return gr
+
 # =============================================================================
 # rebin the histograms
 # =============================================================================
