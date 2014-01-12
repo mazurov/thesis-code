@@ -4,7 +4,7 @@ import json
 year = "2012"
 
 my_area = "/afs/cern.ch/work/a/amazurov/cmtuser"
-my_opts = "/../final/tuples.py"
+my_opts = "/afs/cern.ch/user/a/amazurov/thesis-flat/tuples.py"
 my_name = "Chib%s" % year
 
 
@@ -15,7 +15,7 @@ j = Job(
     application=Bender(
         events=-1,
         version='v22r8',
-        module=my_area+my_opts,
+        module=my_opts,
         user_release_area=my_area,
         params={"year": year}
     ),
@@ -28,7 +28,7 @@ j = Job(
 
 
 if year == "2012":
-    path = "/LHCb/Collision12/Beam4000GeV-VeloClosed-MagDown/Real Data/Reco14/Stripping20/WGBandQSelection4-1/90000000 ( Full stream )/BOTTOM.MDST"
+    path = "/LHCb/Collision12/Beam4000GeV-VeloClosed-MagDown/Real Data/Reco14/Stripping20/WGBandQSelection4-1/90000000/BOTTOM.MDST"
 else:
     path = "/LHCb/Collision11/Beam3500GeV-VeloClosed-MagDown/Real Data/Reco14/Stripping20r1/WGBandQSelection4-1//90000000/BOTTOM.MDST"
 
