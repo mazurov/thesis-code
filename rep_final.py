@@ -56,10 +56,25 @@ def draw_graphs(cfg, values):
                 if year == "2012":
                     opts = "P"
                 gr_stat.Draw(opts)
-                gr_stat.GetXaxis().SetLimits(0, 50)
-                gr_syst.Draw("Z")
+                gr_stat.GetXaxis().SetLimits(6, 40)
+                gr_syst.Draw("P")
+
                 graphs += [gr_stat, gr_syst]
+            if ns == 1:
+                old_values = cfg[ups_key]["2010"]
+                gr_old = ROOT.TGraphErrors(len(old_values))
+                for i, bin_value in enumerate(old_values):
+                    bin, value = bin_value
+                    xc = bin[0] + (bin[1] - bin[0]) / 2
+                    xe = bin[1] - xc
+                    gr_old.SetPoint(i, xc, value[0])
+                    gr_old.SetPointError(i, xe, value[1])
+                graphs.append(gr_old)
+                # gr_old.Draw("P")
+
             tools.save_figure(output)
+            # shell()
+            # exit(1)
 
 
 def main():
