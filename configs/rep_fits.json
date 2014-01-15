@@ -46,30 +46,24 @@
         "N2S": "$N_{\\Y2S}$",
         "N3S": "$N_{\\Y3S}$",
         "m1s": {"title": "$\\mu_{\\Y1S}, \\mevcc$", "scale": 1000},
-        "sigma": {"title": "$\\sigma_{\\Y1S}, \\mevcc$", "scale": 1000},
+        "m2s": {"title": "$\\mu_{\\Y2S}, \\mevcc$", "scale": 1000},
+        "m3s": {"title": "$\\mu_{\\Y3S}, \\mevcc$", "scale": 1000},
+        "s1s": {"title": "$\\sigma_{\\Y1S}, \\mevcc$", "scale": 1000},
+        "s2s": {"title": "$\\sigma_{\\Y2S}, \\mevcc$", "scale": 1000},
+        "s3s": {"title": "$\\sigma_{\\Y3S}, \\mevcc$", "scale": 1000},
+
         "tau_bg": "$\\tau$"
     },
-
-    "ups_nominal": {
-        "db": "data/ups/freem1s.db",
-        "ns": 0,
-        "rows": ["N1S", "N2S", "N3S", "", "B", "", "m1s", "sigma", "", "tau_bg"],
-        "binning": [[6, 40]],
-        "label": "upsilon:result:nominal",
-        "title": "\\mumu invariant mass data fit parameters",
-        "scale": 1,
-        "maxbins": 4
-    },    
 
     "ups": {
         "db": "data/ups/nominal.db",
         "ns": 0,
-        "rows": ["N1S", "N2S", "N3S", "", "B", "", "sigma", "", "tau_bg","", "chi2ndf"],
-        "binning": [[6, 8], [8, 10], [10, 12], [10, 14], [12, 14], [14, 18], [18,22], [22,40]],
+        "rows": ["N1S", "N2S", "N3S", "", "B", "", "m1s", "s1s", "", "m2s", "s2s", "", "m3s", "s3s", "tau_bg","", "chi2ndf"],
+        "binning": [[6, 8], [8, 10], [10, 14], [14, 18], [18,22], [22,40]],
         "label": "upsilon:result:fits",
         "title": "\\mumu invariant mass data fit parameters",
-        "scale": 0.5,
-        "maxbins": 4
+        "scale": 0.6,
+        "maxbins": 3
     },    
 
     "ups1s_freem": {

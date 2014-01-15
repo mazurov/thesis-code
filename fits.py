@@ -20,7 +20,7 @@ def get_cli_args():
         '--complete', help='Show completion list', action='store_true')
     parser.add_argument(
         '--year', help='Show completion list',
-        choices=['all', '2011', '2012'])
+        choices=['all', 'full', '2011', '2012'])
     parser.add_argument(
         '--profile', help='Binning information')
     return parser.parse_args()
@@ -42,20 +42,25 @@ def main():
 
     if cli_args.year == 'all':
         years = ['2011', '2012']
+    elif cli_args.year == "full":
+        years = ['all']
     else:
         years = [cli_args.year]
 
+    print "Years: "+str(years)
     args = []
     sleep = 0
 
     if "lambda" in cfg["profiles"]:
         cfg["profiles"].remove("lambda")
         cfg["profiles"] += ["lambda%d" % i for i in range(0, 11)]
-
+    print "Profiles: "+str(cfg["profiles"] )
+    
     for profile in cfg["profiles"]:
         for year in years:
+            print "Bins: ",
             for bin in cfg["binning"]:
-
+                print str(bin), ", ", 
                 args += ["--tab-with-profile", "Tomorrow"]
                 args += ["--title",
                          "{0}-{1} {2} {3}".format(
@@ -69,7 +74,7 @@ def main():
                                                            )
                          ]
                 sleep += 2
-
+            print "---"
     gnome_terminal(args)
     # print(gnome_terminal.bake(args))
 

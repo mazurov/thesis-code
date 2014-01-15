@@ -31,17 +31,23 @@ def main():
 
     for plot in cfg_profile['plots']:
         key = plot['key']
-        space = plot.get('space', 1)
         graphs = []
         for data_key in ['2011', '2012']:
             values = []
             for bin in binning:
                 ve = pyroot.VE(str(db[data_key][bin][key]))
                 values.append((bin, ve))
-            graphs.append(graph.Graph(color=data_key, values=values,
-                                      space=space))
-        mg = graph.MultiGraph(graphs=graphs)
+            graphs.append(graph.Graph(color=data_key, values=values))
+
+        ymin = plot.get("ymin", None)
+        ymax = plot.get("ymax", None)
+        mg = graph.MultiGraph(graphs=graphs, ymin=ymin, ymax=ymax)
+
         mg.draw()
+
+        level = plot.get("level", None)
+        if level:
+            graphs[0].h.level(level)
 
         filename = "%s/%s" % (cfg_profile["output_dir"], key)
         tools.save_figure(filename)

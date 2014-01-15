@@ -2,8 +2,7 @@
 	"ups": {
 		"decay": "ups",
 		"profiles": ["default"],
-		"binning": [[6, 8], [8, 10], [10, 12], [10, 14], [14, 18], [18, 22],
-					[22,40], [18, 24], [24, 40], [6, 40]]
+		"binning": [[6, 40]]
 	},
     "ups_new": {
         "decay": "ups",
@@ -13,8 +12,8 @@
 
     "chib1s": {
         "decay": "chib1s",
-        "binning": [[12, 18]],
-        "profiles": ["default"]
+        "binning": [[18,22]],
+        "profiles": ["lambda"]
     },
     "chib2s": {
         "decay": "chib2s",
@@ -31,6 +30,6 @@
     "chib3s": {
         "decay": "chib3s",
         "binning": [[27, 40]],
-        "profiles": ["mass3p_min", "mass3p_max"]
+        "profiles": ["lambda"]
     }
 }

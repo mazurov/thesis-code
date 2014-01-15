@@ -170,3 +170,9 @@ def draw_hists(hists, minimum=None):
         h.SetMinimum(y_minimum)
         h.Draw(opts)
         opts = "E1 same"
+
+
+def drange(x, y, jump):
+    while x < y:
+        yield x
+        x += jump

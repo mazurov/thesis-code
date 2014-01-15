@@ -28,8 +28,10 @@
     "eff_syst": 0.03,
 
     "maxbins": 2,
-    "scale": 0.7,
-    "scale_final": 0.45,
+    "scale": 0.9,
+
+    "maxbins_final": 1,
+    "scale_final": 0.55,
 
     "ups1s": {
         "bins": {

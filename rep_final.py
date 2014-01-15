@@ -39,7 +39,7 @@ def draw_graphs(cfg, values):
                 gr_stat.SetMaximum(cfg_graph.get("ymax", 100))
 
                 for i, bin in enumerate(bins):
-                    xc = (bin[0] + (bin[1] - bin[0]) / 2 +
+                    xc = (bin[0] + float(bin[1] - bin[0]) / 2.0 +
                           (-0.3 if year == "2011" else + 0.3))
                     xe_low = xc - bin[0]
                     xe_high = bin[1] - xc
@@ -56,25 +56,31 @@ def draw_graphs(cfg, values):
                 if year == "2012":
                     opts = "P"
                 gr_stat.Draw(opts)
-                gr_stat.GetXaxis().SetLimits(6, 40)
+                gr_stat.GetXaxis().SetLimits(5, 40)
                 gr_syst.Draw("P")
 
                 graphs += [gr_stat, gr_syst]
-            if ns == 1:
+
+            tools.save_figure(output)
+
+            # Separately save plot with old result
+            if ns == 1 and np == 1:
+                year = "2010"
                 old_values = cfg[ups_key]["2010"]
                 gr_old = ROOT.TGraphErrors(len(old_values))
                 for i, bin_value in enumerate(old_values):
                     bin, value = bin_value
-                    xc = bin[0] + (bin[1] - bin[0]) / 2
+                    xc = bin[0] + float(bin[1] - bin[0]) / 2.0
                     xe = bin[1] - xc
                     gr_old.SetPoint(i, xc, value[0])
                     gr_old.SetPointError(i, xe, value[1])
-                graphs.append(gr_old)
-                # gr_old.Draw("P")
+                    gr_old.SetMarkerColor(Graph.colors[year][0])
+                    gr_old.SetLineColor(Graph.colors[year][0])
+                    gr_old.SetMarkerStyle(Graph.colors[year][1])
 
-            tools.save_figure(output)
-            # shell()
-            # exit(1)
+                gr_old.Draw("P")
+                tools.save_figure(output + "_old")
+
 
 
 def main():
@@ -136,6 +142,7 @@ def main():
             label=cfg["label_final"].format(ns=ns),
         )
 
+        tab_final.maxbins = cfg["maxbins_final"]
         tab_final.scale = cfg["scale_final"]
 
         tabs.append(tab_model)

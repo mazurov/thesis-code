@@ -34,8 +34,7 @@
         "default": {},
         "freems": {
             "name": "ups3s/freems",
-            "fixed_mean": false,
-            "fixed_sigma": false
+            "fixed_mean": false
         },
         "mass3p_min": {
             "name": "ups3s/syst/mass3p_10502",
@@ -88,6 +87,6 @@
         "lambda10": {
             "name": "ups3s/syst/lambda10",
             "lambda_b1b2": 1.0
-        }                                
+        }
     }
 }

@@ -130,8 +130,8 @@ def main():
             graphs = []
             for data_key in ["2011", "2012"]:
                 graph_values = values[data_key][np]
-                if graph_values[0][0] != 0:
-                    graph_values.insert(0, ((0, graph_values[0][0]), None))
+                if graph_values[0][0] != 5:
+                    graph_values.insert(0, ((5, graph_values[0][0]), None))
                 g = graph.Graph(color=data_key, values=values[data_key][np])
                 graphs.append(g)
 

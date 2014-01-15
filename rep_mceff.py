@@ -35,7 +35,8 @@ def create_table(label, title, scale, cfg_rows, ns, np, binning, maxbins):
             tab.add_row(key=key, title=title)
         tab.space()
     tab.line()
-    tab.add_row(key=cfg_rows[3]["key"], title=cfg_rows[3]["title"])
+    title = cfg_rows[3]["title"].format(nb=nb, np=np, ns=ns)
+    tab.add_row(key=cfg_rows[3]["key"], title=title)
     return tab
 
 
@@ -103,11 +104,11 @@ def main():
             output = "mc/eff/ups%d_%d" % (ns, np)
             tools.save_figure(output)
 
-            h = (graphs[0].h + graphs[1].h) / 2
-            h.Fit("pol0")
-            h.Draw()
-            output = "mc/eff/ups%d_%d_fit" % (ns, np)
-            tools.save_figure(output)
+            # h = (graphs[0].h + graphs[1].h) / 2
+            # h.Fit("pol0")
+            # h.Draw()
+            # output = "mc/eff/ups%d_%d_fit" % (ns, np)
+            # tools.save_figure(output)
 
 
 if __name__ == '__main__':

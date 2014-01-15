@@ -1,9 +1,48 @@
 import ROOT
 # from AnalysisPython.PyRoUts import hID, cpp, VE
 
+from AnalysisPython.PyRoUts import cpp
+CrystalBallDS = cpp.Analysis.Models.CrystalBallDS
+
 from model import BaseModel
 import pdg
 from IPython import embed as shell  # noqa
+
+
+class Ups(object):
+
+    def __init__(self, mass, ns):
+        mean = pdg.__dict__["UPS%dS" % ns].value()
+        sigma = 0.043
+        self.mean = ROOT.RooRealVar("m%ds" % ns,
+                                    "mean(%d)" % ns, mean, mean - 0.02,
+                                    mean + 0.02)
+        self.sigma = ROOT.RooRealVar("s%ds" % ns,
+                                     "sigma(%d)" % ns,
+                                     sigma, sigma - 0.03, sigma + 0.03)
+
+        self.nL = ROOT.RooRealVar("nL%d" % ns, "nL", 1, 1, 5)  # 4
+        self.nR = ROOT.RooRealVar("nR%d" % ns, "nR", 10, 1, 10)  # 4
+
+        self.alpha = ROOT.RooRealVar("alpha%d" % ns, "alphaL", 1.6,  # 1.28,
+                                     0, 3.5)
+        # self.alphaR = ROOT.RooRealVar("alphaR", "alphaR", 1.6,
+        #                               0, 3.5)
+
+        self.nL.setConstant(True)
+        self.nR.setConstant(True)
+        self.alpha.setConstant(True)
+
+        self.pdf = CrystalBallDS("y%ds" % ns,
+                                 "CrystalBall(%d)" % ns,
+                                 mass,
+                                 self.mean,
+                                 self.sigma,
+                                 self.alpha,
+                                 self.nL,
+                                 self.alpha,
+                                 self.nR
+                                 )
 
 
 class UpsBackground(object):
@@ -48,121 +87,26 @@ class UpsModel (BaseModel):
                                        xfield="m_dtf", nbins=nbins,
                                        user_labels=user_labels,
                                        is_pull=is_pull)
-        name = "Y"
-        m_y1s = pdg.UPS1S.value()
-        s_y1s = 4.3679e-02
-        dm_y2s = pdg.UPS2S.value() - m_y1s
-        dm_y3s = pdg.UPS3S.value() - m_y1s
 
-        self.m1s = ROOT.RooRealVar("m1s", "mean(%s)" % name, m_y1s,
-                                   m_y1s - 0.3 * s_y1s, m_y1s + 0.3 * s_y1s)
-
-        self.sigma = ROOT.RooRealVar("sigma", "sigma(%s)" % name, s_y1s,
-                                     0.5 * s_y1s, 2.0 * s_y1s)
-
-        self.n = ROOT.RooRealVar("n", "n", 1, 1, 5)  # 4
-
-        self.alphaL = ROOT.RooRealVar("alphaL", "alphaL", 2,  # 1.28,
-                                      1.0, 3.5)
-
-        self.alphaR = ROOT.RooRealVar("alphaR", "alphaR", -2,
-                                      -3.5, -1)
-
-        self.n.setConstant(True)
-        self.alphaL.setConstant(True)
-        self.alphaR.setConstant(True)
-
-        self.y1s_1 = ROOT.RooCBShape("y1s_1_%s" % name,
-                                     "CrystalBall(%s)(1)" % name,
-                                     self.x,
-                                     self.m1s,
-                                     self.sigma,
-                                     self.alphaL,
-                                     self.n)
-
-        self.y1s_2 = ROOT.RooCBShape("y1s_2_%s" % name,
-                                     "CrystalBall(%s)(2)" % name,
-                                     self.x,
-                                     self.m1s,
-                                     self.sigma,
-                                     self.alphaR,
-                                     self.n)
-
-        self.dm2s = ROOT.RooRealVar("dm2s",
-                                    "dm2s(%s)" % name,
-                                    dm_y2s,
-                                    dm_y2s - 0.008,
-                                    dm_y2s + 0.008)
-        self.dm2s.setConstant(True)
-        self.aset11 = ROOT.RooArgList(self.m1s, self.dm2s)
-        self.m2s = ROOT.RooFormulaVar("m2s",
-                                      "m2s(%s)" % name,
-                                      "m1s+dm2s",
-                                      self.aset11)
-
-        self.aset12 = ROOT.RooArgList(self.sigma, self.m1s, self.m2s)
-        self.s2s = ROOT.RooFormulaVar("s2s(%s)" % name,
-                                      "s2s(%s)" % name,
-                                      "sigma*m2s/m1s",
-                                      self.aset12)
-        self.y2s = ROOT.RooCBShape("y2s_%s" % name,
-                                   "CristalBall(%s)" % name,
-                                   self.x,
-                                   self.m2s,
-                                   self.s2s,
-                                   self.alphaL,
-                                   self.n)
-
-        self.dm3s = ROOT.RooRealVar("dm3s",
-                                    "dm3s(%s)" % name,
-                                    dm_y3s,
-                                    dm_y3s - 0.009,
-                                    dm_y3s + 0.009)
-        self.dm3s.setConstant(True)
-        self.aset21 = ROOT.RooArgList(self.m1s, self.dm3s)
-        self.m3s = ROOT.RooFormulaVar("m3s",
-                                      "m3s(%s)" % name,
-                                      "m1s+dm3s",
-                                      self.aset21)
-
-        self.aset22 = ROOT.RooArgList(self.sigma, self.m1s, self.m3s)
-        self.s3s = ROOT.RooFormulaVar("s3s(%s)" % name,
-                                      "s3s(%s)" % name,
-                                      "sigma*m3s/m1s",
-                                      self.aset22)
-
-        self.y3s = ROOT.RooCBShape("y3s_%s" % name,
-                                   "CristalBall(%s)" % name,
-                                   self.x,
-                                   self.m3s,
-                                   self.s3s,
-                                   self.alphaL,
-                                   self.n)
+        self.ups1s = Ups(mass=self.x, ns=1)
+        self.ups2s = Ups(mass=self.x, ns=2)
+        self.ups3s = Ups(mass=self.x, ns=3)
 
         self.bg = UpsBackground('Background', self.x)
 
         self.n1s = ROOT.RooRealVar("N1S", "Signal(Y1S)", 100, 0, 1.e+8)
-        self.n1s_1 = ROOT.RooRealVar(
-            "N1S_1", "Signal(Y1S)(1)", 100, 0, 1.e+10)
-
-        self.asetn1s = ROOT.RooArgList(self.n1s, self.n1s_1)
-        self.n1s_2 = ROOT.RooFormulaVar(
-            "N1S_2", "N1S_2", "N1S-N1S_1", self.asetn1s)
-
         self.n2s = ROOT.RooRealVar("N2S", "Signal(Y2S)", 100, 0, 1.e+8)
         self.n3s = ROOT.RooRealVar("N3S", "Signal(Y3S)", 100, 0, 1.e+8)
-        self.b = ROOT.RooRealVar("B", "Background", 10, 0, 1.e+8)
+        self.b = ROOT.RooRealVar("B", "Background", 1e+3, 0, 1.e+8)
 
         self.alist1 = ROOT.RooArgList(
-            self.y1s_1,
-            self.y2s,
-            self.y3s,
+            self.ups1s.pdf,
+            self.ups2s.pdf,
+            self.ups3s.pdf,
             self.bg.pdf
         )
         self.alist2 = ROOT.RooArgList(
             self.n1s,
-            # self.n1s_1,
-            # self.n1s_2,
             self.n2s,
             self.n3s,
             self.b

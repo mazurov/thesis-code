@@ -38,7 +38,7 @@
         },
         "graphs": {
             "2": {"ymax": 50},
-            "3": {"ymax": 15}
+            "3": {"ymax": 50}
         },
         "title": "Summary of \\Y2S fraction determination originating from \\chib decay",
         "label": "frac:ups1s",

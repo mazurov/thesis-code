@@ -1,17 +1,42 @@
 {
     "profiles": {
         "ups": {
-            "db": "data/ups/freem1s.db",
-            "output_dir": "ups/freem1s",
-            "axis": [6, 8, 10, 12, 14, 18, 22, 40],
+            "db": "data/ups/nominal.db",
+            "output_dir": "ups/nominal",
+            "axis": [6, 8, 10, 14, 18, 24, 40],
             "plots": [
                 {
                     "key": "m1s",
-                    "space": 2
+                    "ymin": 9.454,
+                    "ymax": 9.464,
+                    "level": 9.460
                 },
                 {
-                    "key": "sigma",
-                    "space": 2
+                    "key": "m2s",
+                    "ymin": 10.015,
+                    "ymax": 10.025,
+                    "level": 10.02326
+                },
+                {
+                    "key": "m3s",
+                    "ymin": 10.348,
+                    "ymax": 10.358,
+                    "level": 10.3552
+                },                
+                {
+                    "key": "s1s",
+                    "ymin": 0.04,
+                    "ymax": 0.065
+                },
+                {
+                    "key": "s2s",
+                    "ymin": 0.04,
+                    "ymax": 0.065
+                },
+                {
+                    "key": "s3s",
+                    "ymin": 0.04,
+                    "ymax": 0.065
                 }                
             ]
         },                

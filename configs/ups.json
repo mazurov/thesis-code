@@ -6,7 +6,7 @@
     "nbins": 250,
     "name": "ups/nominal",
     "save?": true,
-    "fixed_m1s": 9.456,
+    "fixed_m1s_": 9.456,
     "cut": {
         "m_dtf": [8.5, 11.5],
         "dll_min":[0.0, null],
