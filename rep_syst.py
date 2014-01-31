@@ -16,7 +16,6 @@ VE = pyroot.VE
 
 from docopt import docopt
 
-
 def main():
     cli_args = docopt(__doc__, version="1.0")
     cfg = tools.load_config("rep_syst")

@@ -58,26 +58,15 @@
     "ups": {
         "db": "data/ups/nominal.db",
         "ns": 0,
-        "rows": ["N1S", "N2S", "N3S", "", "B", "", "m1s", "s1s", "", "m2s", "s2s", "", "m3s", "s3s", "tau_bg","", "chi2ndf"],
+        "rows": ["N1S", "N2S", "N3S", "", "B", "", "m1s", "s1s", "", "m2s", "s2s", "", "m3s", "s3s", "", "tau_bg","", "chi2ndf"],
         "binning": [[6, 8], [8, 10], [10, 14], [14, 18], [18,22], [22,40]],
+        "binning_": [[6,40]],
         "label": "upsilon:result:fits",
         "title": "\\mumu invariant mass data fit parameters",
         "scale": 0.6,
         "maxbins": 3
     },    
 
-    "ups1s_freem": {
-        "db": "data/ups1s/freem.db",
-        "ns": 1,
-        "rows": ["N1P", "N2P", "N3P", "", "B", "", "mean_b1_1p", 
-                 "sigma_b1_1p", "", "exp_tau", "poly_phi1", "poly_phi2", "",
-                 "chi2ndf"],
-        "binning": [[14, 40]],
-        "label": "chib:ups1s:nominal",
-        "title": "Data fit parameters for for $\\chi_{b1,2}(1,2,3P) \\to \\Y1S \\gamma$ decays",
-        "scale": 1,
-        "maxbins": 4
-    },
 
     "ups1s": {
         "db": "data/ups1s/nominal.db",
@@ -93,19 +82,6 @@
         "maxbins": 3
     },
 
-    "ups2s_nominal": {
-        "db": "data/ups2s/freem.db",
-        "ns": 2,
-        "rows": ["N2P", "N3P", "", "B", "", "mean_b1_2p", 
-                 "sigma_b1_2p", "sfrac3p2p", "", "exp_tau", "poly_phi1", "poly_phi2",
-                 "poly_phi3", "", "chi2ndf"],
-        
-        "binning": [[18, 40]],
-        "label": "chib:ups2s:nominal",
-        "title": "Data fit parameters for $\\chi_{b1,2}(2,3P) \\to \\Y2S \\gamma$ decays",
-        "scale": 1,
-        "maxbins": 4
-    },    
 
     "ups2s": {
         "db": "data/ups2s/nominal.db",

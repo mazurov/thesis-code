@@ -3,12 +3,12 @@
         "ups": {
             "db": "data/ups/nominal.db",
             "output_dir": "ups/nominal",
-            "axis": [6, 8, 10, 14, 18, 24, 40],
+            "axis": [6, 8, 10, 14, 18, 22,  40],
             "plots": [
                 {
                     "key": "m1s",
                     "ymin": 9.454,
-                    "ymax": 9.464,
+                    "ymax": 9.462,
                     "level": 9.460
                 },
                 {

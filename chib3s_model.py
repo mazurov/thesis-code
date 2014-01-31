@@ -159,7 +159,7 @@ class ChibModel(BaseModel):
     def sPlot(self):
         splot = ROOT.RooStats.SPlot("sPlot_h_fit",
                                     "sPlot",
-                                    self.dataset,
+                                    self.data,
                                     self.pdf, self.alist2)
         self.splots += [splot]
         return splot

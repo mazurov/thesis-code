@@ -3,6 +3,8 @@ from mctools import MC
 import tools
 import pdg
 
+import AnalysisPython.PyRoUts as pyroot
+
 
 def get_lambda_b1b2(pt_ups):
     return 0.5, 0.5
@@ -36,12 +38,12 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
     mct_arr = [MC(db=mc, ns=2, np=np) for np in range(2, 4)]
 
     sigma, sfrac3 = None, None
-    if profile["fixed_sigma"]:
+    if profile.get("fixed_sigma", False):
         sigma = get_sigma(mct_arr[0], pt_bin=pt_ups, scale=1)
         if not sigma:
             print "No sigma  information in MC"
 
-    if profile["fixed_sigma_ratio"]:
+    if profile.get("fixed_sigma_ratio", False):
         sfrac3 = get_sfrac(mct_arr=mct_arr, pt_bin=pt_ups)
 
     # has_3p = [pt_ups1, pt_ups2] in profile["3p_bins"]
@@ -61,5 +63,17 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
                       )
     if profile.get("fixed_mean", False):
         model.chib2p.mean1.fix(profile["fixed_mean"])
+    
+    fixed_db_name = profile.get("fixed_mean_db", False)
+    if fixed_db_name:
+        fixed_mean = profile.get("fixed_mean")
+        fixed_db = tools.get_db(fixed_db_name)
+        mean = pyroot.VE(str(fixed_db[year][tuple(pt_ups)]["mean_b1_2p"]))
+        up, down = mean.value() + mean.error(), mean.value() - mean.error()
+        if abs(fixed_mean - up) > abs(fixed_mean - down):
+            new_fixed_mean = up
+        else:
+            new_fixed_mean = down
+        model.chib2p.mean1.fix(new_fixed_mean)
 
     return model

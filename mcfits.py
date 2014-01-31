@@ -127,7 +127,7 @@ def process(data_key, tree, models, ns, nb, np, cut, pt_axis,
         bin_cut = {"pt_ups": pt_bin}
         if is_unbinned:
             data = source.dataset(tree=tree, cut=bin_cut, field=field,
-                                  has_splot=False)
+                                  has_splot=True)
         else:
             data = source.histogram(tree=tree,
                                     cut=bin_cut,
@@ -139,6 +139,8 @@ def process(data_key, tree, models, ns, nb, np, cut, pt_axis,
                                                    pt_bin[0], pt_bin[1]))
 
         fit()
+        shell()
+        exit(1)
         if not model.status:
             shell()
     tree.SetEntryList(0)
@@ -202,7 +204,6 @@ def main():
                     binning=decay_cfg["binning"]["%d" % np],
                     is_save=args["-s"]
                 )
-
                 if args["-u"]:
                     count_upsilons(
                         name=mc_cfg["name"], data_key=args["--data"],

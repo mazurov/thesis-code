@@ -1,5 +1,7 @@
 import AnalysisPython.PyRoUts as pyroot
+import math
 
+binomEff = pyroot.binomEff
 
 class MC(object):
 
@@ -29,9 +31,9 @@ class MC(object):
 
     def eff(self, bin, nb=None):
         nchib_1 = self.nchib(bin, 1)
-        nups_1 = self.nups(bin, 1)
+        nups_1 = pyroot.VE(self.nups(bin, 1), self.nups(bin, 1))
         nchib_2 = self.nchib(bin, 2)
-        nups_2 = self.nups(bin, 2)
+        nups_2 = pyroot.VE(self.nups(bin, 2), self.nups(bin, 2))
 
         if not (nchib_1 and nups_1 and nchib_2 and nups_2):
             return None

@@ -43,6 +43,11 @@
             "fixed_mean": false,
             "fixed_sigma": false
         },
+        
+        "mass_var": {
+            "name": "ups2s/syst/mass_var",
+            "fixed_mean_db": "data/ups2s/freem.db"
+        },
         "mass3p_min": {
             "name": "ups2s/syst/mass3p_10502",
             "fixed_mean_3p": 10.502

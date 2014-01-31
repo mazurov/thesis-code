@@ -47,6 +47,8 @@
             "data/ups1s/syst/lambda7.db",
             "data/ups1s/syst/sigma_max.db",
             "data/ups1s/syst/sigma_min.db",
+            "data/ups1s/syst/mass_9884.db",
+            "data/ups1s/syst/mass_9896.db",
             "data/ups1s/syst/mass3p_10502.db",
             "data/ups1s/syst/mass3p_10518.db"
         ],
@@ -73,6 +75,8 @@
             "data/ups2s/syst/lambda4.db",
             "data/ups2s/syst/lambda6.db",
             "data/ups2s/syst/lambda7.db",
+            "data/ups2s/syst/mass_10244.db",
+            "data/ups2s/syst/mass_10260.db",
             "data/ups2s/syst/mass3p_10502.db",
             "data/ups2s/syst/mass3p_10518.db"
         ],

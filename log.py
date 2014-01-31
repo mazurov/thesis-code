@@ -17,3 +17,5 @@ class Logger(object):
 
     def fmt(self, msg):
         print(str(msg).format(t=self.t))
+
+

@@ -1,17 +1,16 @@
 {
     "tree": "ChibAlg/Chib",
     "mc": "mc",
-
     "unbinned?": true,
-    "splot?": false,
+    "splot?": true,
     "field": "dmplusm3s",
     "name": "ups3s/nominal",
     "nbins": 32,
-    "save?": true,
+    "save?": false,
     "bgorder": 3,
     "lambda_b1b2": 0.5,
 
-    "fixed_mean": 10.507,
+    "fixed_mean_": 10.507,
     "fixed_sigma": true,
     
     "cut": {

@@ -90,6 +90,18 @@
                 ]
             },
             {
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneOneP mass uncertainty in the fit model for $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
+                "label": "syst:m_ups1s",
+                "scale": 0.6,
+                "rows": [
+                    {
+                        "title": "Maximum uncertainty",
+                        "key": "max",
+                        "db": "data/ups1s/syst/mass_var.db"
+                    }
+                ]
+            },
+            {
                 "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertainty in the fit model for $\\chi_b(1,2,3P) \\to \\OneS \\gamma$ decays",
                 "label": "syst:m3p_ups1s",
                 "scale": 0.6,
@@ -180,6 +192,18 @@
                         "title": "$\\lambda=1.0$",
                         "key": "l10",
                         "db": "data/ups2s/syst/lambda10.db"
+                    }
+                ]
+            },
+            {
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneTwoP mass uncertainty in the fit model for $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
+                "label": "syst:m_ups2s",
+                "scale": 0.6,
+                "rows": [
+                    {
+                        "title": "Maximum uncertainty",
+                        "key": "max",
+                        "db": "data/ups2s/syst/mass_var.db"
                     }
                 ]
             },

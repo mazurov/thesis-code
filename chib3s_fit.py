@@ -37,5 +37,5 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
                       )
     fixed_mean = profile.get("fixed_mean", False)
     if fixed_mean:
-        model.chib3p.mean1.fix(fixed_mean)
+        model.chib3p.mean1.fix(fixed_mean) 
     return model

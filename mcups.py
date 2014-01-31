@@ -8,6 +8,7 @@ import tools
 
 from IPython import embed as shell  # noqa
 
+from AnalysisPython import LHCbStyle  # noqa
 
 def main():
     canvas = ROOT.TCanvas("c_ups", "c_ups", 800, 600)
@@ -17,7 +18,7 @@ def main():
     utree = ROOT.TChain("UpsilonAlg/Upsilon")
     utree.Add(cfg_tuples["mc2011"][0])
     cut = cfg["decays"]["ups1s"]["ucut"]
-    cut["pt_ups"] = [14, 18]
+    cut["pt_ups"] = [18, 22]
     cut_str = tools.cut_dict2str(cut)
 
     h = ROOT.TH1D("h_ups", "h_ups", 100, 9.2, 9.7)
@@ -31,7 +32,7 @@ def main():
     )
     model.fitData()
     print(model)
-    shell()
+    tools.save_figure("mc/ups1s/ups2011_dcb")
 
 if __name__ == '__main__':
     main()

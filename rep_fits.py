@@ -3,7 +3,7 @@
 """Fit report.
 
 Usage:
-  ./rep_fit.py --profile=<profile>
+  ./rep_fits.py --profile=<profile>
 
 Options:
   --profile=<profile> Report profile

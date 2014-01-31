@@ -1,7 +1,7 @@
 import ROOT
 from IPython import embed as shell  # noqa
 import re
-NUMCPU = 2
+NUMCPU = 7
 
 
 class BaseModel(object):

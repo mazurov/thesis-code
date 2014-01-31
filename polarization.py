@@ -32,6 +32,7 @@ from AnalysisPython import LHCbStyle  # noqa
 
 import PyRoUts as pyroot
 
+
 class Columns(object):
 
     def __init__(self, chain):
@@ -298,25 +299,39 @@ def main():
                                          cut=chib_cut, axis=axis)
                     n, nangles = process(ns=ns, nb=nb, np=np, chain=ups_chain,
                                          cut=ups_cut, axis=axis)
-                    ref = d[3] // n[3]
+                    # ref = d[3] // n[3]
                     res = []
 
                     for i in range(3):
                         if nb == 1 and i > 1:
                             continue
-                        h = ref / (d[i] // n[i])
+                        # h_old = (d[i] // n[i]) / ref
+                        h = d[3].Clone(pyroot.hID())
+                        for j in h:
+                            r1 = (d[i][j] / d[3][j]).value()
+                            r2 = (n[i][j] / n[3][j]).value()
+                            s2d = ((d[i][j].error() ** 2 -
+                                    d[i][j].value() ** 2 / d[3][j].value()) /
+                                   (d[3][j] - 1) ** 2)
+                            s2n = ((n[i][j].error() ** 2 -
+                                    n[i][j].value() ** 2 / n[3][j].value()) /
+                                   (n[3][j] - 1) ** 2)
+                            h[j] = (
+                                pyroot.VE(r1, s2d) /
+                                pyroot.VE(r2, s2n)
+                            )
                         h.red()
-
+                        # h_old.blue()
                         res.append(h)
 
                         h.Draw()
                         h.level(1)
-
-                        tools.save_figure(
-                            name=(save_to +
-                                  "chib{nb}{np}p_ups{ns}s_w{w}_ratio"
-                                  .format(nb=nb, np=np, ns=ns, w=i))
-                        )
+                        if cli_args['--save']:
+                            tools.save_figure(
+                                name=(save_to +
+                                      "chib{nb}{np}p_ups{ns}s_w{w}_ratio"
+                                      .format(nb=nb, np=np, ns=ns, w=i))
+                            )
                     for angle in dangles:
                         hunpol = dangles[angle][3]
                         hunpol.scale()

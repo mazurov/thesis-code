@@ -12,13 +12,13 @@
 
     "chib1s": {
         "decay": "chib1s",
-        "binning": [[18,22]],
-        "profiles": ["lambda"]
+        "binning": [[6, 8],[8, 10], [10, 14], [14, 18], [18, 22], [22, 40]],
+        "profiles": ["mass_var"]
     },
     "chib2s": {
         "decay": "chib2s",
         "binning": [[18, 22], [18, 24], [22,24], [24, 40]],
-        "profiles": ["default"]
+        "profiles": ["mass_var"]
     },
     
     "chib2s_freem": {

@@ -27,7 +27,7 @@
         ]
     },
     "ups2s": {
-        "ns": 2,
+        "ns": 2,    
         "db": "data/ups2s/nominal.db",
         "db_y": "data/ups/nominal.db",
         "mc": "data/mc.db",
@@ -41,7 +41,7 @@
             "3": {"ymax": 50}
         },
         "title": "Summary of \\Y2S fraction determination originating from \\chib decay",
-        "label": "frac:ups1s",
+        "label": "frac:ups2s",
         "scale": 0.5,
         "maxbins": 4
     },

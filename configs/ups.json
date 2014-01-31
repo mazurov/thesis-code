@@ -1,6 +1,6 @@
 {
     "tree": "UpsilonAlg/Upsilon",
-    "unbinned?": true,
+    "unbinned?": false,
     "splot?": false,
     "field": "m_dtf",
     "nbins": 250,

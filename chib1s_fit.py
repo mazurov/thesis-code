@@ -3,6 +3,8 @@ from mctools import MC
 import tools
 import pdg
 
+import AnalysisPython.PyRoUts as pyroot
+
 
 def get_lambda_b1b2(pt_ups1):
     return (0.5, 0.5, 0.5)
@@ -52,7 +54,6 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
         if pt_ups1 < min_pt:
             order = order_
             break
-
     lambda_b1b2 = [profile["lambda_b1b2"]] * 3
     mct_arr = [MC(db=mc, ns=1, np=np) for np in range(1, 4)]
 
@@ -82,5 +83,17 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
 
     if profile.get("fixed_mean", False):
         model.chib1p.mean1.fix(profile["fixed_mean"])
+
+    fixed_db_name = profile.get("fixed_mean_db", False)
+    if fixed_db_name:
+        fixed_mean = profile.get("fixed_mean")
+        fixed_db = tools.get_db(fixed_db_name)
+        mean = pyroot.VE(str(fixed_db[year][tuple(pt_ups)]["mean_b1_1p"]))
+        up, down = mean.value() + mean.error(), mean.value() - mean.error()
+        if abs(fixed_mean - up) > abs(fixed_mean - down):
+            new_fixed_mean = up
+        else:
+            new_fixed_mean = down
+        model.chib1p.mean1.fix(new_fixed_mean)
 
     return model

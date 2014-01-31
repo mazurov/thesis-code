@@ -138,7 +138,13 @@ def main():
 
     log.info("Cut: %s" % tools.cut_dict2str(cfg['cut']))
 
-    if cfg["unbinned?"]:
+    # is_unbinned = (
+    #     True if cfg["unbinned?"] and int(
+    #         cli_args["--ptbegin"]) >= 10 else False
+    # )
+    
+    is_unbinned = cfg["unbinned?"]
+    if is_unbinned:
         data = source.dataset(tree=tree,
                               cut=cut,
                               field=cfg['field'],

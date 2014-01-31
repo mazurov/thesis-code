@@ -170,3 +170,11 @@ class ChibMCModel(BaseModel):
         #                 ROOT.RooFit.Components(self.chib.pdf.GetName()),
         #                 ROOT.RooFit.LineStyle(ROOT.kSolid),
         #                 ROOT.RooFit.LineColor(ROOT.kBlue))
+
+    def sPlot(self):
+        splot = ROOT.RooStats.SPlot("sPlot_h_fit",
+                                    "sPlot",
+                                    self.data,
+                                    self.pdf, self.alist_yields)
+        self.splots += [splot]
+        return splot
