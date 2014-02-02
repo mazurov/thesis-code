@@ -45,7 +45,8 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
                   has_splot, profile):
 
     # Use 2012 MC if we fit joined datasset
-    mc_year = year if year != "all" else "2012"
+    # mc_year = year if year != "all" else "2012"
+    mc_year = "2011" # scale to this value
     mc = tools.get_db(profile["mc"], "r")["mc%s" % mc_year]['ups1s']
 
     order = 2
@@ -58,13 +59,13 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
     mct_arr = [MC(db=mc, ns=1, np=np) for np in range(1, 4)]
 
     sigma = None
+    sfracs = (profile["mc_sigma_2p_1p"], profile["mc_sigma_3p_1p"])    
     if profile["fixed_sigma"]:
         sigma_scale = profile.get("mc_sigma_scale", 1)
         sigma = get_sigma(mct_arr[0], pt_bin=pt_ups, scale=sigma_scale)
-        sfracs = get_sfracs(mct_arr=mct_arr, pt_bin=pt_ups)
-    elif profile["fixed_sigma_ratio"]:
-        sfracs = get_sfracs(mct_arr=mct_arr, pt_bin=pt_ups)
-    else:
+        if year == "2012":
+            sigma += profile["mc_sigma_2012_2011"]
+    elif not profile["fixed_sigma_ratio"]:
         sfracs = (None, None)
 
     has_3p = pt_ups1 >= profile["chib3p_min_pt_ups"]

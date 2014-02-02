@@ -82,7 +82,6 @@ def draw_graphs(cfg, values):
                 tools.save_figure(output + "_old")
 
 
-
 def main():
     cfg = tools.load_config("rep_final")
     db_ups = tools.get_db(cfg["db_ups"], "r")
@@ -162,8 +161,13 @@ def main():
 
         db_ref = tools.get_db(cfg_decay["db_ref"])
         dbs = []
-        for db_name in cfg_decay["nchib"]:
-            dbs.append(tools.get_db(db_name, "r"))
+
+        # for db_name in cfg_decay["nchib"]:
+        #     db = tools.get_db(db_name, "r")
+        #     print db_name
+        #     print sorted(db['2011'].keys())
+        #     print sorted(db['2012'].keys())
+        #     dbs.append(db)
 
         for bin in bins:
             graph_values[ns][bin] = {}

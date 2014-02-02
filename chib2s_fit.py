@@ -42,9 +42,12 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
         sigma = get_sigma(mct_arr[0], pt_bin=pt_ups, scale=1)
         if not sigma:
             print "No sigma  information in MC"
+        elif year == "2012":
+            sigma += profile["mc_sigma_2012_2011"]
 
     if profile.get("fixed_sigma_ratio", False):
-        sfrac3 = get_sfrac(mct_arr=mct_arr, pt_bin=pt_ups)
+        # sfrac3 = get_sfrac(mct_arr=mct_arr, pt_bin=pt_ups)
+        sfrac3 = profile["mc_sigma_3p_2p"]
 
     # has_3p = [pt_ups1, pt_ups2] in profile["3p_bins"]
     has_3p = True
@@ -63,7 +66,7 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
                       )
     if profile.get("fixed_mean", False):
         model.chib2p.mean1.fix(profile["fixed_mean"])
-    
+
     fixed_db_name = profile.get("fixed_mean_db", False)
     if fixed_db_name:
         fixed_mean = profile.get("fixed_mean")

@@ -19,6 +19,7 @@
 
     "mc_sigma_scale": 1.16,
 
+    "mc_sigma_2012_2011": 0.0005,
     "mc_sigma_2p_1p": 1.5,
     "mc_sigma_3p_1p": 1.86,
 

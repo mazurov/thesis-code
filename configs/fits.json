@@ -13,12 +13,16 @@
     "chib1s": {
         "decay": "chib1s",
         "binning": [[6, 8],[8, 10], [10, 14], [14, 18], [18, 22], [22, 40]],
-        "profiles": ["mass_var"]
+        "profiles_": ["mass_var"],
+        "profiles_": ["mass3p_min", "mass3p_max", "sigma_min", "sigma_max"],
+        "profiles": ["lambda10"]
     },
     "chib2s": {
         "decay": "chib2s",
         "binning": [[18, 22], [18, 24], [22,24], [24, 40]],
-        "profiles": ["mass_var"]
+        "profiles_": ["sigma_min", "sigma_max"],
+        "profiles_": ["mass_var", "mass3p_min", "mass3p_max"],
+        "profiles": ["mass3p_max"]
     },
     
     "chib2s_freem": {

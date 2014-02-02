@@ -1,0 +1,24 @@
+{
+    "keys": {
+        "N": "$N_{\\chi_{b%d}(%dP)}$",
+        "B": "Background",
+        "mean": {
+            "title": "$\\mu, \\mevcc$",
+            "scale": 1000
+        },
+        "sigma": {
+                "title": "$\\sigma, \\mevcc$",
+                "scale": 1000
+        },
+        "phi1": "$c_0$",
+        "tau": "$\\tau$"
+    },
+    "title": "Simulation fit parameters for $\\chi_{b%d}(%dP) \\to \\Y%dS \\gamma$ decays",
+    "label": "mc:chi%db%dp_ups%ds:fits",
+
+    "binning": {
+        "ups1s": [[6, 8], [8, 10], [10, 14], [14, 18], [18,22], [22,40]],
+        "ups2s": [[18, 22], [18, 24], [22,24], [24,40]]
+    }
+
+}

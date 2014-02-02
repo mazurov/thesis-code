@@ -77,7 +77,8 @@ def save(name, model, year, interval):
     db_year[interval] = model.params()
     db[year] = db_year
 
-    print db
+    print sorted(db[year].keys())
+    db.sync()
     db.close()
 
     figure = "{name}/f{year}_{pt1}_{pt2}".format(
