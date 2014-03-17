@@ -2,6 +2,7 @@
     "db_ups": "data/ups/nominal.db",
     "db_mc": "data/mc.db",
     "db_pol": "data/polarization.db",
+    "db_out": "data/final.db",
 
     "title_final": "\\Y{ns}S fraction originating from \\chib decay",
     "label_final": "frac:ups{ns}s_final",
@@ -32,6 +33,8 @@
 
     "maxbins_final": 1,
     "scale_final": 0.55,
+
+    "decay_tmpl": "$\\chib({np}P) \\to \\Y{ns}S \\gamma$",
 
     "ups1s": {
         "bins": {

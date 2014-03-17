@@ -92,6 +92,7 @@ class Chib1P(object):
 
         self.frac = ROOT.RooRealVar("frac1", "frac1", frac, 0, 1)
         self.frac.setConstant(True)
+        
         self.pdf = ROOT.RooAddPdf("cb1", "cb1", self.pdf1, self.pdf2,
                                   self.frac)
 

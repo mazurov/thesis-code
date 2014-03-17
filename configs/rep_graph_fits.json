@@ -47,7 +47,9 @@
             "plots": [
                 {
                     "key": "mean_b1_1p",
-                    "space": 2
+                    "ymin": 9.881,
+                    "ymax": 9.897,
+                    "level": 9.887
                 }
             ]
         },
@@ -71,7 +73,9 @@
             "plots": [
                 {
                     "key": "mean_b1_2p",
-                    "space": 2
+                    "ymin": 10.235,
+                    "ymax": 10.265,
+                    "level": 10.249
                 }
             ]
         }

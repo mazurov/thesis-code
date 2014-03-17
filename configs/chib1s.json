@@ -11,7 +11,7 @@
     "chib3p_min_pt_ups": 10,
     "lambda_b1b2": 0.5,
 
-    "fixed_mean": 9.887,
+    "fixed_mean_": 9.887,
     "fixed_mean_3p": 10.508,
     
     "fixed_sigma": true,

@@ -4,7 +4,9 @@ import dbtools
 import tools
 import pdg
 import table
+import tmpl
 import math
+
 
 from functools import partial
 
@@ -13,6 +15,48 @@ import ROOT
 
 from graph import Graph
 from IPython import embed as shell  # noqa
+
+
+def print_summary(max_syst_ns, decay_tmpl):
+    result = ""
+    fmt = "${}^{+%.1f}_{-%.1f}$"
+    for ns in range(1, 4):
+        for np in pdg.VALID_UPS_DECAYS[ns]:
+            max_model, min_model, max_pol, min_pol = [
+                x * 100 for x in max_syst_ns[ns][np]
+            ]
+            result += "\\rule{0pt}{4ex}"
+            result += decay_tmpl.format(ns=ns, np=np) + " & "
+            result += fmt % (max_model, min_model) + " & "
+            result += fmt % (max_pol, min_pol)
+            result += "\\\\\n"
+    context = {"summary": result}
+    tex = tmpl.tex_renderer()
+    print tex.render_name("syst_summary", context)
+
+
+def save_values(cfg, db, values):
+    for year in ["2011", "2012"]:
+        result = {}
+        for ns in range(1, 4):
+            ups_key = "ups%ds" % ns
+            result[ups_key] = {}
+            for np in pdg.VALID_UPS_DECAYS[ns]:
+                chib_key = "chib%dp" % np
+                result[ups_key][chib_key] = {}
+                bins = tools.axis2bins(cfg[ups_key]["bins"][str(np)])
+                for bin in bins:
+                    ve, plus, neg = values[ns][bin][year][np]
+                    plus_sq = math.sqrt(ve.error() ** 2 + plus ** 2)
+                    neg_sq = math.sqrt(ve.error() ** 2 + neg ** 2)
+
+                    result[ups_key][chib_key][bin] = (
+                        ve.value(), plus_sq, neg_sq,
+                        ve.error(), plus, neg)
+        db[year] = result
+
+    print db
+    db.sync()
 
 
 def draw_graphs(cfg, values):
@@ -88,7 +132,9 @@ def main():
     db_mc = tools.get_db(cfg["db_mc"], "r")
     db_pol = tools.get_db(cfg["db_pol"], "r")["mcall"]
 
-    fmt_syst = r"${}^{+%.1f \%%}_{-%.1f \%%}$"
+    db_out = tools.get_db(cfg["db_out"])
+
+    fmt_syst = r"${}^{+%.2f \%%}_{-%.2f \%%}$"
     fmt_syst_final = (r"%s\stat${}^{+%.1f}_{-%.1f}\syst"
                       "^{+%.1f}_{-%.1f}\systpol \%%$")
     fmt_pm_ups = r"$\pm %.3f \%%$"
@@ -97,6 +143,7 @@ def main():
     tabs_final = []
 
     graph_values = {}
+    max_syst_ns = {}
     for ns in range(1, 4):
         cfg_decay = cfg.get("ups%ds" % ns, None)
         if not cfg_decay:
@@ -162,12 +209,14 @@ def main():
         db_ref = tools.get_db(cfg_decay["db_ref"])
         dbs = []
 
-        # for db_name in cfg_decay["nchib"]:
-        #     db = tools.get_db(db_name, "r")
-        #     print db_name
-        #     print sorted(db['2011'].keys())
-        #     print sorted(db['2012'].keys())
-        #     dbs.append(db)
+        for db_name in cfg_decay["nchib"]:
+            db = tools.get_db(db_name, "r")
+            # print db_name
+            # print sorted(db['2011'].keys())
+            # print sorted(db['2012'].keys())
+            dbs.append(db)
+
+        max_syst_np = {}
 
         for bin in bins:
             graph_values[ns][bin] = {}
@@ -184,7 +233,9 @@ def main():
                     graph_values[ns][bin][year][np] = {}
 
                     if bin in valid_bins[np]:
-                        # chib model
+                        max_model, min_model, max_pol, min_pol = (
+                            max_syst_np.get(np, (0, 0, 0, 0))
+                        )
                         change = dbtools.get_chib_squared_error(
                             db_ref, dbs, np, year, bin
                         )
@@ -200,45 +251,83 @@ def main():
                         frac = frac_func()
                         value = frac * 100
 
-                        frac_plus = frac_func(scalecb=(1 + change[0]))
-                        frac_minus = frac_func(scalecb=(1 - change[1]))
+                        # frac_plus = frac_func(scalecb=(1 + change[0]))
+                        # frac_minus = frac_func(scalecb=(1 - change[1]))
 
-                        assert frac and frac_plus and frac_minus, "!!!"
+                        # assert frac and frac_plus and frac_minus, "!!!"
+
+                        # syst_model = (
+                        #     100 * (frac_plus.value() - frac.value()),
+                        #     100 * (frac.value() - frac_minus.value())
+                        # )
 
                         syst_model = (
-                            100 * (frac_plus.value() - frac.value()),
-                            100 * (frac.value() - frac_minus.value())
+                            change[0],
+                            change[1]
+                        )
+
+                        # change_model = (
+                        #     100 * (frac_plus / frac - 1).value(),
+                        #     100 * (1 - frac_minus / frac).value(),
+                        # )
+
+                        max_model, min_model = (
+                            max(max_model, change[0]),
+                            max(min_model, change[1])
                         )
 
                         ups_syst = cfg["ups_syst"]
-                        frac_plus = frac_func(scaleups=(1 - ups_syst))
-                        frac_minus = frac_func(scaleups=(1 + ups_syst))
+                        # frac_plus = frac_func(scaleups=(1 - ups_syst))
+                        # frac_minus = frac_func(scaleups=(1 + ups_syst))
 
                         syst_ups = (
-                            100 * (frac_plus.value() - frac.value()),
-                            100 * (frac.value() - frac_minus.value())
+                            ups_syst,
+                            ups_syst
                         )
+
+                        # change_ups = (
+                        #     100 * (frac_plus / frac - 1).value(),
+                        #     100 * (1 - frac_minus / frac).value(),
+                        # )
 
                         eff_syst = cfg["eff_syst"]
-                        frac_plus = frac_func(scaleeff=(1 - eff_syst))
-                        frac_minus = frac_func(scaleeff=(1 + eff_syst))
+                        # frac_plus = frac_func(scaleeff=(1 - eff_syst))
+                        # frac_minus = frac_func(scaleeff=(1 + eff_syst))
 
                         syst_eff = (
-                            100 * (frac_plus.value() - frac.value()),
-                            100 * (frac.value() - frac_minus.value())
+                            eff_syst,
+                            eff_syst
                         )
+
+                        # change_eff = (
+                        #     100 * (frac_plus / frac - 1).value(),
+                        #     100 * (1 - frac_minus / frac).value(),
+                        # )
 
                         change = dbtools.get_polarization_change(
                             db_pol, ns, np, bin
                         )
 
-                        frac_plus = frac_func(scaleeff=(1 - change[1]))
-                        frac_minus = frac_func(scaleeff=(1 + change[0]))
+                        # frac_plus = frac_func(scaleeff=(1 - change[1]))
+                        # frac_minus = frac_func(scaleeff=(1 + change[0]))
 
                         syst_pol = (
-                            100 * (frac_plus.value() - frac.value()),
-                            100 * (frac.value() - frac_minus.value())
+                            change[1],
+                            change[0]
                         )
+
+                        # change_pol = (
+                        #     100 * (frac_plus / frac - 1).value(),
+                        #     100 * (1 - frac_minus / frac).value(),
+                        # )
+
+                        max_pol, min_pol = (
+                            max(max_pol, change[1]),
+                            max(min_pol, change[0])
+                        )
+
+                        max_syst_np[np] = (
+                            max_model, min_model, max_pol, min_pol)
 
                         final_syst = []
                         for i in range(2):
@@ -249,12 +338,13 @@ def main():
                                     syst_eff[i] ** 2
                                 )
                             )
+
                         final_graph = []
                         for i in range(2):
                             final_graph.append(
                                 math.sqrt(
-                                    final_syst[i] ** 2 +
-                                    syst_pol[i] ** 2 +
+                                    (value.value() * final_syst[i]) ** 2 +
+                                    (value.value() * syst_pol[i]) ** 2 +
                                     value.error() ** 2
                                 )
                             )
@@ -262,33 +352,34 @@ def main():
                         graph_values[ns][bin][year][np] = (
                             value, final_graph[0], final_graph[1]
                         )
+                        # if ns == 3:
+                        #     shell()
+                        #     exit(1)
+
                     else:
                         value = None
 
                     if value:
                         # TODO: collect square roots
-                        bin_group_model.add_value(
-                            key=str(np),
-                            value=fmt_syst % syst_model)
-                        bin_group_ups.add_value(
-                            key=str(np),
-                            value=fmt_pm_ups % syst_ups[0])
-                        bin_group_eff.add_value(
-                            key=str(np),
-                            value=fmt_pm_eff % syst_eff[0])
-                        bin_group_eff.add_value(
-                            key=str(np),
-                            value=fmt_pm_eff % syst_eff[0])
-                        bin_group_pol.add_value(
-                            key=str(np),
-                            value=fmt_syst % syst_pol)
+                        # bin_group_model.add_value(
+                        #     key=str(np),
+                        #     value=fmt_syst % change_model)
+                        # bin_group_ups.add_value(
+                        #     key=str(np),
+                        #     value=fmt_pm_ups % change_ups[0])
+                        # bin_group_eff.add_value(
+                        #     key=str(np),
+                        #     value=fmt_pm_eff % change_eff[0])
+                        # bin_group_pol.add_value(
+                        #     key=str(np),
+                        #     value=fmt_syst % syst_pol)
 
                         final_value = (fmt_syst_final %
                                        (tools.latex_ve(value),
-                                        final_syst[0],
-                                        final_syst[1],
-                                        syst_pol[0],
-                                        syst_pol[1]
+                                        value * final_syst[0],
+                                        value * final_syst[1],
+                                        value * syst_pol[0],
+                                        value * syst_pol[1]
                                         ))
 
                         bin_group_final.add_value(
@@ -302,14 +393,18 @@ def main():
                         bin_group_pol.add_value(key=str(np), value=None)
                         bin_group_final.add_value(key=str(np), value=None)
 
-        for tab in tabs:
-            print tab.texify()
-
+        max_syst_ns[ns] = max_syst_np
+        # for tab in tabs:
+        #     if tab not in [tab_ups, tab_eff, tab_]
+        #     print tab.texify()
     print "%% Final tables ============ "
     for tab in tabs_final:
         print tab.texify()
 
+    print_summary(max_syst_ns, cfg["decay_tmpl"])
+
     draw_graphs(cfg, graph_values)
+    save_values(cfg, db_out, graph_values)
 
 if __name__ == '__main__':
     main()

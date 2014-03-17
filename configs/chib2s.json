@@ -11,7 +11,7 @@
     "lambda_b1b2": 0.5,
 
     
-    "fixed_mean": 10.250,
+    "fixed_mean_": 10.250,
     "fixed_mean_3p": 10.507,
     "fixed_sigma": true,
     "fixed_sigma_ratio": true,

@@ -71,7 +71,7 @@
     "ups1s": {
         "db": "data/ups1s/nominal.db",
         "ns": 1,
-        "rows": ["N1P", "N2P", "N3P", "", "B", "", 
+        "rows": ["N1P", "N2P", "N3P", "", "B", "", "mean_b1_1p", 
                  "sigma_b1_1p", "sfrac2p1p", "sfrac3p1p", "", "exp_tau", "poly_phi1", "poly_phi2",
                  "poly_phi3", "poly_phi4", "poly_phi5", "", "chi2ndf"],
         
@@ -87,12 +87,12 @@
     "ups2s": {
         "db": "data/ups2s/nominal.db",
         "ns": 2,
-        "rows": ["N2P", "N3P", "", "B", "", "mean_b1_2p", 
+        "rows": ["N2P", "N3P", "", "B", "", 
                  "sigma_b1_2p", "sfrac3p2p", "", "exp_tau", "poly_phi1", "poly_phi2",
                  "poly_phi3", "", "chi2ndf"],
         
-        "binning_": [[18, 22], [18, 24], [22,24], [24,40]],
-        "binning": [[18, 40]],
+        "binning": [[18, 22], [18, 24], [22,24], [24,40]],
+        "binning_": [[18, 40]],
         "label": "chib:ups2s:fits",
         "title": "Data fit parameters for $\\chi_{b1,2}(2,3P) \\to \\Y2S \\gamma$ decays",
         "scale": 0.5,
@@ -101,13 +101,15 @@
 
     "ups3s": {
         "db": "data/ups3s/nominal.db",
+        "db_": "data/ups3s/freem.db",
         "ns": 3,
         "rows": ["N3P", "", "B", "", "mean_b1_3p", 
-                 "sigma_b1_3p", "", "poly_phi1", "poly_phi2",
-                 "poly_phi3", "", "chi2ndf"],
+                 "sigma_b1_3p", "", "exp_tau", "poly_phi1",
+                 "poly_phi2", "", "chi2ndf"],
         
         "binning": [[27, 40]],
-        "label": "chib:ups3s:nominal",
+        "label_": "chib:ups3s:nominal",
+        "label": "chib:ups3s:fits",
         "title": "Data fit parameters for $\\chi_{b1,2}(3P) \\to \\Y3S \\gamma$ decays",
         "scale": 1,
         "maxbins": 4

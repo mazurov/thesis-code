@@ -39,12 +39,23 @@ for p in range(3):
 
 #             dms.append(diff)
 
-BR11_Y1S = VE(35, 8 ** 2)
-BR21_Y1S = VE(22, 4 ** 2)
-BR12_Y1S = VE(8.5, 1.3 ** 2)
-BR22_Y1S = VE(7.1, 1 ** 2)
-BR12_Y2S = VE(21, 4 ** 2)
-BR22_Y2S = VE(16, 2.4 ** 2)
+
+BR11_Y1S = VE(0.339, 0.022 ** 2)
+BR21_Y1S = VE(0.191, 0.012 ** 2)
+BR12_Y1S = VE(0.092, 0.008 ** 2)
+BR22_Y1S = VE(0.07, 0.007 ** 2)
+BR12_Y2S = VE(0.199, 0.019 ** 2)
+BR22_Y2S = VE(0.106, 0.026 ** 2)
+
+BR_CB_UPS = {
+    "b11P1S": BR11_Y1S,
+    "b21P1S": BR21_Y1S,
+    "b12P1S": BR12_Y1S,
+    "b22P1S": BR22_Y1S,
+    "b12P2S": BR12_Y2S,
+    "b22P2S": BR22_Y2S
+}
+
 
 VALID_UPS_DECAYS = {
     1: [1, 2, 3],

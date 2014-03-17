@@ -6,11 +6,11 @@
     "field": "dmplusm3s",
     "name": "ups3s/nominal",
     "nbins": 32,
-    "save?": false,
-    "bgorder": 3,
+    "save?": true,
+    "bgorder": 2,
     "lambda_b1b2": 0.5,
 
-    "fixed_mean_": 10.507,
+    "fixed_mean_": 10.508,
     "fixed_sigma": true,
     
     "cut": {
@@ -19,7 +19,7 @@
         , "pt_ups": [25, null]
         , "pt_g": [0.6, null]
         , "lv01": [0, null]
-        , "cl_g": [0.01, null]
+        , "cl_g": [0.2, null]
         , "c2_dtf": [0, 4]
         , "dll_min": [0, null]
         , "minprob": [0.5, null]
@@ -31,8 +31,8 @@
 
     "profiles": {
         "default": {},
-        "freems": {
-            "name": "ups3s/freems",
+        "freem": {
+            "name": "ups3s/freem",
             "fixed_mean": false
         },
         "mass3p_min": {

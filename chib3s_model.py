@@ -40,12 +40,12 @@ class Background(object):
             dm_begin,
             dm_end)
 
-        self.exp_pdf = PolyPositive(
-            "poly_pdf", "poly_pdf",
-            dm,
-            self.alist,
-            dm_begin,
-            dm_end)
+        # self.exp_pdf = PolyPositive(
+        #     "poly_pdf", "poly_pdf",
+        #     dm,
+        #     self.alist,
+        #     dm_begin,
+        #     dm_end)
 
         self.pdf = self.exp_pdf
 

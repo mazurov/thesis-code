@@ -37,5 +37,10 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
                       )
     fixed_mean = profile.get("fixed_mean", False)
     if fixed_mean:
-        model.chib3p.mean1.fix(fixed_mean) 
+        model.chib3p.mean1.fix(fixed_mean)
+
+    model.bg.tau.fix(-14.39)
+    model.bg.phi1.fix(0.6155)
+    model.bg.phi2.fix(0.561)
+
     return model
