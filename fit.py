@@ -173,6 +173,9 @@ def main():
 
     fit()
 
+    if not model.status:
+        fit()
+
     if cli_args["--interactive"] or not model.status:
         shell()
 
