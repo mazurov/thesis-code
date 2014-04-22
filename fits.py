@@ -3,10 +3,9 @@
 # Summary: Fit models
 # Help: th fit -h
 
-# import sys
+import env
 import argparse
 from sh import gnome_terminal
-
 
 import tools
 # from th.log import Logger
@@ -58,8 +57,7 @@ def main():
     
     for profile in cfg["profiles"]:
         for year in years:
-            print "Bins: ",
-            for bin in cfg["binning"]:
+            for bin in tools.get_binning_per_year(cfg, year):
                 print str(bin), ", ", 
                 args += ["--tab-with-profile", "Tomorrow"]
                 args += ["--title",

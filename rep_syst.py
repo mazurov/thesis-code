@@ -16,11 +16,12 @@ VE = pyroot.VE
 
 from docopt import docopt
 
+
 def main():
     cli_args = docopt(__doc__, version="1.0")
     cfg = tools.load_config("rep_syst")
 
-    for ns in range(1, 4):
+    for ns in range(3, 4):
         cfg_decay = cfg["ups%ds" % ns]
         db_ref = tools.get_db(cfg_decay["db"])
 
@@ -28,6 +29,33 @@ def main():
         valid_bins = {}
         for np in cfg_decay["axis"]:
             valid_bins[int(np)] = tools.axis2bins(cfg_decay["axis"][np])
+
+        # Check presence
+        # ====================================================================
+        check_dbs = []
+        for cfg_row in cfg_decay["tables"]:
+            for row in cfg_row["rows"]:
+                check_dbs.append(row["db"])
+
+        check_bins = set()
+        for np in cfg_decay["axis"]:
+            check_bins.update(tools.axis2bins(cfg_decay["axis"][np]))
+
+        ok = True
+        for data_key in ["2011", "2012"]:
+            for dbpath in check_dbs:
+                db = tools.get_db(dbpath, "r")
+                for bin in sorted(check_bins):
+                    db_year = db[data_key]
+                    if bin not in db_year:
+                        ok = False
+                        print("DB %s: No bin %s for Y(%dS) decays in %s" % (
+                            dbpath, str(bin), ns, data_key)
+                        )
+                db.close()
+        if not ok:
+            continue
+        # ====================================================================
 
         for cfg_table in cfg_decay["tables"]:
             scale = (cfg_table['scale'] if "scale" in cfg_table
@@ -56,10 +84,10 @@ def main():
                         sqs = 7 if data_key == "2011" else 8
                         for np in pdg.VALID_UPS_DECAYS[ns]:
                             np_key = "N%dP" % np
-                            
+
                             value = db_bin.get(np_key, None)
                             value_ref = db_bin_ref.get(np_key, None)
-                            
+
                             if not (bin in valid_bins[np] and value and value_ref):
                                 value_change = None
                             else:
@@ -74,7 +102,7 @@ def main():
                                 key=cfg_row["key"], value=value_change, round=1)
 
             # Fill Table
-            print tab.texify()
+            print(tab.texify())
 
 if __name__ == '__main__':
     main()

@@ -23,7 +23,7 @@ def main():
                 db=db,
                 param="mean_b1_3p",
                 year="all",
-                bin=(27, 40))
+                bin=(24, 40))
             h[i] = mass
         
         if m == "mass10":

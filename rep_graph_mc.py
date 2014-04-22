@@ -37,6 +37,7 @@ def main():
                 for j, s in enumerate(sigmas[1:], start=1):
                     hists[j][i] = VE(str(s)) / sigma
             hists_years[data_key] = hists
+        print "%s - %s" % (data_key, ups_key)
         shell()
 
 

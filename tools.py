@@ -128,6 +128,12 @@ def axis2bins(axis):
     return sorted(ret)
 
 
+def get_binning_per_year(cfg, year):
+    if isinstance(cfg["binning"], dict):
+        return cfg["binning"][year]
+    return cfg["binning"]
+
+
 def get_axis(np, lst_or_dict):
     if isinstance(lst_or_dict, dict):
         return lst_or_dict[str(np)]

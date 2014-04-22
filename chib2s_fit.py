@@ -38,20 +38,27 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
     mct_arr = [MC(db=mc, ns=2, np=np) for np in range(2, 4)]
 
     sigma, sfrac3 = None, None
-    if profile.get("fixed_sigma", False):
+
+    sigma = profile.get("fixed_sigma", False)
+    if not sigma:
+        print("No sigma  information in MC")
+    elif isinstance(sigma, bool):
         sigma = get_sigma(mct_arr[0], pt_bin=pt_ups, scale=1)
-        if not sigma:
-            print "No sigma  information in MC"
-        elif year == "2012":
-            sigma += profile["mc_sigma_2012_2011"]
+
 
     if profile.get("fixed_sigma_ratio", False):
-        # sfrac3 = get_sfrac(mct_arr=mct_arr, pt_bin=pt_ups)
         sfrac3 = profile["mc_sigma_3p_2p"]
 
     # has_3p = [pt_ups1, pt_ups2] in profile["3p_bins"]
     has_3p = True
-    bgorder = profile["bgorder"]
+    
+    bgorder = 3
+    pt_ups1, pt_ups2 = pt_ups
+    for min_pt, order_ in profile["bgorder"]:
+        if pt_ups1 < min_pt:
+            bgorder = order_
+            break
+
     mean_3p = profile.get("fixed_mean_3p", pdg.CHIB13P)
 
     model = ChibModel(canvas=canvas,

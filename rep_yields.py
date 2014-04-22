@@ -8,7 +8,7 @@ Usage:
 Options:
   --profile=<profile> Report profile
 """
-
+import env
 import tools
 import graph
 from docopt import docopt
@@ -16,7 +16,7 @@ from docopt import docopt
 import ROOT
 from AnalysisPython.PyRoUts import VE
 
-from IPython import embed as shell
+from IPython import embed as shell  # noqa
 
 
 def main():

@@ -1,24 +1,102 @@
 {
+    "db": "data/mc.db",
     "keys": {
-        "N": "$N_{\\chi_{b%d}(%dP)}$",
-        "B": "Background",
+        "N": "$N_{{{chib}}}$",
+        "B": "$B_{{{chib}}}$",
         "mean": {
-            "title": "$\\mu, \\mevcc$",
+            "title": "$\\mu_{{{chib}}}, \\mevcc$",
             "scale": 1000
         },
         "sigma": {
-                "title": "$\\sigma, \\mevcc$",
+                "title": "$\\sigma_{{{chib}}}, \\mevcc$",
                 "scale": 1000
         },
-        "phi1": "$c_0$",
-        "tau": "$\\tau$"
+        "phi1": {
+                "title": "$c0_{{{chib}}}$",
+                "round": 2
+        },
+        "tau": {
+            "title": "$\\tau_{{{chib}}}$",
+            "round": 2
+        }
     },
-    "title": "Simulation fit parameters for $\\chi_{b%d}(%dP) \\to \\Y%dS \\gamma$ decays",
-    "label": "mc:chi%db%dp_ups%ds:fits",
-
+    "rows": [
+        {
+            "key":  "N1",
+            "map": "N",
+            "nb": 1
+        },
+        {
+            "key":  "N2",
+            "map": "N",
+            "nb": 2
+        },
+        null,
+        {
+            "key":  "B1",
+            "map": "B",
+            "nb": 1
+        },
+        {
+            "key":  "B2",
+            "map": "B",
+            "nb": 2
+        },
+        null,
+        {
+            "key":  "mean1",
+            "map": "mean",
+            "nb": 1
+        },
+        {
+            "key":  "mean2",
+            "map": "mean",
+            "nb": 2
+        },
+        null,
+        {
+            "key":  "sigma1",
+            "map": "sigma",
+            "nb": 1
+        },
+        {
+            "key":  "sigma2",
+            "map": "sigma",
+            "nb": 2
+        },
+        null,
+        {
+            "key":  "phi1",
+            "map": "phi1",
+            "nb": 1
+        },
+        {
+            "key":  "phi2",
+            "map": "phi1",
+            "nb": 2
+        },                
+        null,
+        {
+            "key":  "tau1",
+            "map": "tau",
+            "nb": 1
+        },
+        {
+            "key":  "tau2",
+            "map": "tau",
+            "nb": 2
+        }        
+    ],
+    "chib": "\\chi_{{b{nb}}}({np}P)",
+    "title": "Simulation fit parameters for $\\chi_{{b1,2}}({np}P) \\to \\Y{ns}S \\gamma$ decays. The $\\alpha$ and $n$ parameters of CrystalBall are fixed to the values that are shown in  in~\\Cref{{tab:chib:fit:tail}}.",
+    "label": "mc:chib{np}p_ups{ns}s:fits",
+    "scale": 0.5,
+    "maxbins": 4,
     "binning": {
-        "ups1s": [[6, 8], [8, 10], [10, 14], [14, 18], [18,22], [22,40]],
-        "ups2s": [[18, 22], [18, 24], [22,24], [24,40]]
-    }
+        "ups1s": [6,8,10,12,14,16,18,20,22,28,40],
+        "ups2s": [14,16,18,20,22,24,28,40],
+        "ups3s_": [20,22,24,28,40],
+        "ups3s": [24,40]
 
+    }
 }

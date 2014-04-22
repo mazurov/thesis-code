@@ -79,12 +79,19 @@ def main():
                         title=cfg_rep["data_titles"][data_key]
                     )
                     for nb in range(1, 3):
-                        data_group.add_value("n%d" % nb,
-                                             mc.nchib(bin, nb))
-                        data_group.add_value("nups%d" % nb,
-                                             mc.nups(bin, nb))
+                        nchib, nups, eff = (
+                            mc.nchib(bin, nb),
+                            mc.nups(bin, nb),
+                            mc.eff(bin, nb))
+
+                        assert(nchib.value() != 0)
+                        assert(nups.value() != 0)
+                        assert(eff.value() != 0)
+
+                        data_group.add_value("n%d" % nb, nchib)
+                        data_group.add_value("nups%d" % nb, nups)
                         data_group.add_value("eff%d" % nb,
-                                             mc.eff(bin, nb) * 100,
+                                             eff * 100,
                                              is_bold=True)
                     eff = mc.eff(bin) * 100
                     data_group.add_value("eff", eff, is_bold=True)

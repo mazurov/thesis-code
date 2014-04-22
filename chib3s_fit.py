@@ -22,11 +22,11 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
     lambda_b1b2 = profile["lambda_b1b2"]
     mct = MC(db=mc, ns=3, np=3)
 
-    sigma = None
-    if profile["fixed_sigma"]:
+    sigma = profile.get("fixed_sigma", False)
+    if not sigma:
+        print "No sigma  information in MC"
+    elif isinstance(sigma, bool):
         sigma = get_sigma(mct, pt_bin=pt_ups, scale=1)
-        if not sigma:
-            print "No sigma  information in MC"
 
     model = ChibModel(canvas=canvas,
                       data=data,
@@ -39,8 +39,11 @@ def prepare_model(canvas, name, year, data, interval, nbins, pt_ups,
     if fixed_mean:
         model.chib3p.mean1.fix(fixed_mean)
 
-    model.bg.tau.fix(-14.39)
-    model.bg.phi1.fix(0.6155)
-    model.bg.phi2.fix(0.561)
+    fixed_bg = profile.get("fixed_bg", False)
+    if fixed_bg:
+        tau, phi1, phi2 = fixed_bg
+        model.bg.tau.fix(fixed_bg["tau"])
+        model.bg.phi1.fix(fixed_bg["phi1"])
+        model.bg.phi2.fix(fixed_bg["phi2"])
 
     return model

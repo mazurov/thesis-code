@@ -232,7 +232,7 @@
         "ns": 3,
         "scale": 0.65,
         "axis": {
-            "3": [27, 40]
+            "3": [24, 29, 40]
         },
         "maxbins": 4,
         "tables": [
@@ -304,14 +304,41 @@
                 "label": "syst:m3p_ups3s",
                 "rows": [
                     {
-                        "title": "$m_{\\chiboneThreeP} = 10,502 \\mevcc$",
+                        "title": "$m_{\\chiboneThreeP} = 10,504 \\mevcc$",
                         "key": "min",
-                        "db": "data/ups3s/syst/mass3p_10502.db"
+                        "db": "data/ups3s/syst/mass3p_10504.db"
                     },
                     {
-                        "title": "$m_{\\chiboneThreeP} = 10,518 \\mevcc$",
+                        "title": "$m_{\\chiboneThreeP} = 10,516 \\mevcc$",
                         "key": "max",
-                        "db": "data/ups3s/syst/mass3p_10518.db"
+                        "db": "data/ups3s/syst/mass3p_10516.db"
+                    }
+                ]
+            },
+            {
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneThreeP signal width uncertainty in the fit model for  $\\chi_b(3P) \\to \\ThreeS \\gamma$ decays",
+                "label": "syst:sigma3p_ups3s",
+                "rows": [
+                    {
+                        "title": "$\\sigma_{\\chiboneThreeP} = 9 \\mevcc$",
+                        "key": "min",
+                        "db": "data/ups3s/syst/sigma_9.db"
+                    },
+                    {
+                        "title": "$m_{\\chiboneThreeP} = 12 \\mevcc$",
+                        "key": "max",
+                        "db": "data/ups3s/syst/sigma_12.db"
+                    }
+                ]
+            },
+            {
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to the fixed background parameters in the fit model for  $\\chi_b(3P) \\to \\ThreeS \\gamma$ decays",
+                "label": "syst:floatingbg_ups3s",
+                "rows": [
+                    {
+                        "title": "Floating background parameters",
+                        "key": "float",
+                        "db": "data/ups3s/syst/floating_bg.db"
                     }
                 ]
             }            

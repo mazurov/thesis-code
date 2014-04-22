@@ -49,8 +49,10 @@ def main():
         label=cfg_tab["label"],
         ns=cfg_tab["ns"],
         binning=cfg_tab["binning"],
-        scale=cfg_tab["scale"],
+        scale=cfg_tab.get("scale", None),
+        resizebox=cfg_tab.get("resizebox", None),
         maxbins=cfg_tab["maxbins"])
+
     scales = {}
     rounds = {}
     for row_key in cfg_tab['rows']:
@@ -63,19 +65,23 @@ def main():
 
     for data_key in ["2011", "2012"]:
         for bin in cfg_tab["binning"]:
-            db_bin = db[data_key][tuple(bin)]
+            bin_key = tuple(bin)
+            db_bin = db[data_key].get(tuple(bin), False)
+
             for row_key in cfg_tab['rows']:
                 if not row_key:
                     continue
 
-                value = db_bin.get(row_key, None)
+                value = db_bin.get(row_key, None) if db_bin else None
+
                 if value and scales[row_key]:
                     value = VE(str(value)) * scales[row_key]
+
                 group = tab.get_group(bin=bin, sqs=data_key)
                 group.add_value(key=row_key, value=value,
                                 round=rounds[row_key])
 
-    print tab.texify()
+    print(tab.texify())
 
 
 if __name__ == '__main__':

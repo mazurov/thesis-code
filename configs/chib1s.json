@@ -1,13 +1,13 @@
 {
     "tree": "ChibAlg/Chib",
     "mc": "mc",
-    "unbinned?": true,
+    "unbinned?": false,
     "splot?": false,
     "field": "dmplusm1s",
     "name": "ups1s/nominal",
     "nbins": 56,
-    "save?": true,
-    "bgorder": [[8, 5], [12, 4], [100, 2]],
+    "save?": false,
+    "bgorder": [[28, 3], [100, 2]],
     "chib3p_min_pt_ups": 10,
     "lambda_b1b2": 0.5,
 

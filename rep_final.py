@@ -20,7 +20,7 @@ from IPython import embed as shell  # noqa
 def print_summary(max_syst_ns, decay_tmpl):
     result = ""
     fmt = "${}^{+%.1f}_{-%.1f}$"
-    for ns in range(1, 4):
+    for ns in range(3, 4):
         for np in pdg.VALID_UPS_DECAYS[ns]:
             max_model, min_model, max_pol, min_pol = [
                 x * 100 for x in max_syst_ns[ns][np]
@@ -32,13 +32,13 @@ def print_summary(max_syst_ns, decay_tmpl):
             result += "\\\\\n"
     context = {"summary": result}
     tex = tmpl.tex_renderer()
-    print tex.render_name("syst_summary", context)
+    print(tex.render_name("syst_summary", context))
 
 
 def save_values(cfg, db, values):
     for year in ["2011", "2012"]:
         result = {}
-        for ns in range(1, 4):
+        for ns in range(3, 4):
             ups_key = "ups%ds" % ns
             result[ups_key] = {}
             for np in pdg.VALID_UPS_DECAYS[ns]:
@@ -55,12 +55,12 @@ def save_values(cfg, db, values):
                         ve.error(), plus, neg)
         db[year] = result
 
-    print db
+    print(db)
     db.sync()
 
 
 def draw_graphs(cfg, values):
-    for ns in range(1, 4):
+    for ns in range(3, 4):
         ups_key = "ups%ds" % ns
         for np in pdg.VALID_UPS_DECAYS[ns]:
             output = "results/%s_%d" % (ups_key, np)
@@ -144,7 +144,7 @@ def main():
 
     graph_values = {}
     max_syst_ns = {}
-    for ns in range(1, 4):
+    for ns in range(3, 4):
         cfg_decay = cfg.get("ups%ds" % ns, None)
         if not cfg_decay:
             continue

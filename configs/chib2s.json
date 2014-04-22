@@ -7,21 +7,21 @@
     "name": "ups2s/nominal",
     "nbins": 44,
     "save?": true,
-    "bgorder": 3,
+    "bgorder": [[28, 3], [100, 2]],
     "lambda_b1b2": 0.5,
 
     
-    "fixed_mean_": 10.250,
-    "fixed_mean_3p": 10.507,
-    "fixed_sigma": true,
+    "fixed_mean": 10.250,
+    "fixed_mean_3p": 10.510,
+    "fixed_sigma": 0.012,
     "fixed_sigma_ratio": true,
     "mc_sigma_2012_2011": 0.0003,
     "mc_sigma_3p_2p": 1.65,
     
     "cut": {
-        "dmplusm2s": [10.16, 11.04],
-        "mups_dtf": [9.870, 10.090]
-        , "pt_ups": [18, null]
+        "dmplusm2s": [10.155, 11.04],
+        "mups_dtf": [9.860, 10.155]
+        , "pt_ups": [14, null]
         , "pt_g": [0.6, null]
         , "lv01": [0, null]
         , "cl_g": [0.01, null]
@@ -57,7 +57,18 @@
         "mass3p_max": {
             "name": "ups2s/syst/mass3p_10518",
             "fixed_mean_3p": 10.518
-        },        
+        },
+
+        "sigma_min": {
+            "name": "ups2s/syst/sigma_10",
+            "fixed_sigma": 0.01
+        },
+        "sigma_max": {
+            "name": "ups2s/syst/sigma_14",
+            "fixed_sigma": 0.014
+        },
+
+
         "lambda0": {
             "name": "ups2s/syst/lambda0",
             "lambda_b1b2": 0.0

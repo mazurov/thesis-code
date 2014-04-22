@@ -75,6 +75,8 @@ def usave(output_db, data_key, ns, nb, np, h):
         ups[pt_bin] = bin
         data[ups_key] = ups
         db[data_key] = data
+    # if ns == 3:
+    #     shell()
 
     db.close()
 
@@ -95,7 +97,7 @@ def process(data_key, tree, models, ns, nb, np, cut, pt_axis,
             is_unbinned, binning, is_save, output_db, output_figs):
     def fit():
         model.fitData()
-        print model
+        print(model)
         if is_save:
             save(
                 output_db=output_db, output_figs=output_figs,
@@ -139,8 +141,6 @@ def process(data_key, tree, models, ns, nb, np, cut, pt_axis,
                                                    pt_bin[0], pt_bin[1]))
 
         fit()
-        shell()
-        exit(1)
         if not model.status:
             shell()
     tree.SetEntryList(0)
@@ -205,6 +205,7 @@ def main():
                     is_save=args["-s"]
                 )
                 if args["-u"]:
+                    print("Count upsilons")
                     count_upsilons(
                         name=mc_cfg["name"], data_key=args["--data"],
                         tree=utree, ns=ns, nb=nb, np=np,

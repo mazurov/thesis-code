@@ -3,6 +3,6 @@
     "2012": "data/chib2012_v4.root",
     "mc2011": ["data/mc2011_joined.root"],
     "mc2012": ["data/mc2012.root"],
-    "mcall": ["castor:///castor/cern.ch/user/a/amazurov/data/mc_all_joined.root"],
+    "mcall": ["root://castorlhcb.cern.ch//castor/cern.ch/user/a/amazurov/data/mc_all_joined.root"],
     "mc": "mc"
 }

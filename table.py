@@ -171,11 +171,12 @@ class Space:
 
 class Table(Group):
 
-    def __init__(self, title, label, scale=1):
+    def __init__(self, title, label, scale=1, resizebox=None):
         super(Table, self).__init__(key="table", title=title)
         self.label = label
         self.rows = []
         self.scale = scale
+        self.resizebox = resizebox
 
     def add_row(self, key, title, **kwargs):
         self.rows.append(Row(key, title, **kwargs))
@@ -270,6 +271,7 @@ def table2tex(table, has_caption=True):
         "witdh": "",
         "align": "r" * table.cols(),
         "scale": table.scale,
+        "resizebox": table.resizebox,
         "title": table.title,
         "label": table.label,
         "header": header,
@@ -308,9 +310,11 @@ def subtables2tex(subtable):
 
 class PtTable(Table):
 
-    def __init__(self, title, label, ns, binning, scale=1, maxbins=None,
+    def __init__(self, title, label, ns, binning, scale=1, resizebox=None,
+                 maxbins=None,
                  is_cmidrule=True):
-        super(PtTable, self).__init__(title=title, label=label, scale=scale)
+        super(PtTable, self).__init__(title=title, label=label, scale=scale,
+                                      resizebox=resizebox)
         cfg = tools.load_config("pttable")
         self.ns = ns
         self.binning = binning
@@ -355,11 +359,12 @@ class PtTable(Table):
 
 class SystTable(PtTable):
 
-    def __init__(self, title, label, ns, nchib, binning, scale=1,
-                 maxbins=None):
+    def __init__(
+        self, title, label, ns, nchib, binning, scale=1, resizebox=None,
+            maxbins=None):
         super(SystTable, self).__init__(
             title=title, label=label, ns=ns, binning=binning, scale=scale,
-            maxbins=maxbins
+            resizebox=resizebox, maxbins=maxbins
         )
         self.nchib = nchib
 
@@ -383,10 +388,11 @@ class SystTable(PtTable):
 
 class SqsTable(PtTable):
 
-    def __init__(self, title, label, ns, binning, scale=1, maxbins=None):
+    def __init__(self, title, label, ns, binning, scale=1,  resizebox=None,
+                 maxbins=None):
         super(SqsTable, self).__init__(
             title=title, label=label, ns=ns, binning=binning, scale=scale,
-            maxbins=maxbins
+            resizebox=resizebox, maxbins=maxbins
         )
 
         # cycle throw bins
@@ -396,9 +402,9 @@ class SqsTable(PtTable):
                                    title=r"\sqs = %s\tev" % sqs)
 
     def get_group(self, bin, sqs):
-        if str(sqs) == "2011":
+        if str(sqs) == "2011" or str(sqs) == "mc2011":
             sqs = "7"
-        if str(sqs) == "2012":
+        if str(sqs) == "2012" or str(sqs) == "mc2012":
             sqs = "8"
 
         return (

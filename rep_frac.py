@@ -23,9 +23,27 @@ from collections import defaultdict
 from IPython import embed as shell  # noqa
 
 
+def get_axises(cfg_axises):
+    bins = set()
+    year_bins = defaultdict(dict)
+    for np in cfg_axises:
+        if isinstance(cfg_axises[np], list):
+            bins_np = tools.axis2bins(cfg_axises[np])
+            year_bins[int(np)]["2011"] = year_bins[np]["2012"] = bins_np
+            bins.update(bins_np)
+        else:
+            bins_np_2011 = tools.axis2bins(cfg_axises[np]["2011"])
+            bins_np_2012 = tools.axis2bins(cfg_axises[np]["2012"])
+            year_bins[int(np)]["2011"] = bins_np_2011
+            year_bins[int(np)]["2012"] = bins_np_2012
+            bins.update(bins_np_2011)
+            bins.update(bins_np_2012)
+
+    return sorted(bins), year_bins
+
+
 def main():
     cli_args = docopt(__doc__, version='v1.0')
-    print cli_args
     cfg = tools.load_config("rep_frac")
 
     profiles = []
@@ -44,14 +62,7 @@ def main():
         db_y = tools.get_db(profile_cfg["db_y"], "r")
         db_mc = tools.get_db(profile_cfg["mc"], "r")
 
-        # table
-        bins = set()
-        axis_bins = {}
-        axises = profile_cfg["axises"]
-        for np in axises:
-            axis_bins[int(np)] = tools.axis2bins(axises[np])
-            bins.update(axis_bins[int(np)])
-        bins = sorted(bins)
+        bins, year_bins = get_axises(profile_cfg["axises"])
 
         tab = table.SqsTable(
             title=profile_cfg["title"],
@@ -88,10 +99,12 @@ def main():
             "2011": defaultdict(list),
             "2012": defaultdict(list),
         }
+        
         for bin in bins:
             for data_key in ["2011", "2012"]:
                 bin_group = tab.get_group(bin, data_key)
-                db_bin = db[data_key][bin]
+
+                db_bin = db[data_key].get(bin, False)
                 db_y_bin = db_y[data_key][bin]
 
                 ups_key = "N%dS" % ns
@@ -99,13 +112,14 @@ def main():
                 bin_group.add_value(key="y", value=nups)
 
                 for np in profile_cfg["nps"]:
+
                     mct = mctools.MC(
                         db=db_mc["mc%s" % data_key]["ups%ds" % ns],
                         ns=profile_cfg["ns"],
                         np=np
                     )
                     key = "N%sP" % np
-                    nchib = db_bin.get(key, None)
+                    nchib = db_bin.get(key, None) if db_bin else None
                     bin_group.add_value(key=str(np), value=nchib)
 
                     eff = mct.eff(bin)
@@ -115,7 +129,7 @@ def main():
                     if nups and nchib and eff:
                         frac = (VE(str(nchib)) / VE(str(eff))
                                 / VE(str(nups))) * 100
-                        if bin in axis_bins[np]:
+                        if bin in year_bins[np][data_key]:
                             values[data_key][np].append((bin, frac))
                     else:
                         frac = None
@@ -123,7 +137,7 @@ def main():
                     bin_group.add_value(key="f%d" %
                                         np, value=frac, is_bold=True)
 
-        print tab.texify()
+        print(tab.texify())
 
         graphs_cfg = profile_cfg["graphs"]
         for np in profile_cfg["nps"]:

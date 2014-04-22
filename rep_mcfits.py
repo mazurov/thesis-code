@@ -11,6 +11,8 @@ Options:
 
 import tools
 import table
+import pdg
+
 from docopt import docopt
 
 from AnalysisPython.PyRoUts import VE
@@ -35,48 +37,71 @@ def get_round(row_cfg):
 
 
 def main():
-    cli_args = docopt(__doc__, version='v1.0')
+    # cli_args = docopt(__doc__, version='v1.0')
 
     cfg = tools.load_config("rep_mcfits")
     keys_cfg = cfg["keys"]
 
-    fit_key = cli_args["--profile"]
+    db = tools.get_db(cfg["db"])
 
-    cfg_tab = cfg[fit_key]
-    db = tools.get_db(cfg_tab["db"])
-    tab = table.SqsTable(
-        title=cfg_tab["title"],
-        label=cfg_tab["label"],
-        ns=cfg_tab["ns"],
-        binning=cfg_tab["binning"],
-        scale=cfg_tab["scale"],
-        maxbins=cfg_tab["maxbins"])
-    scales = {}
-    rounds = {}
-    for row_key in cfg_tab['rows']:
-        if not row_key:
-            tab.space()
-            continue
-        scales[row_key] = get_scale(keys_cfg[row_key])
-        rounds[row_key] = get_round(keys_cfg[row_key])
-        tab.add_row(key=row_key, title=get_title(keys_cfg[row_key]))
+    fmt = {}
+    for ns in range(1, 4):
+        fmt["ns"] = ns
+        bins = tools.axis2bins(cfg["binning"]["ups%ds" % ns])
+        for np in pdg.VALID_UPS_DECAYS[ns]:
+            fmt["np"] = np
 
-    for data_key in ["2011", "2012"]:
-        for bin in cfg_tab["binning"]:
-            db_bin = db[data_key][tuple(bin)]
-            for row_key in cfg_tab['rows']:
-                if not row_key:
+            title = cfg["title"].format(**fmt)
+            label = cfg["label"].format(**fmt)
+
+            tab = table.SqsTable(
+                title=title,
+                label=label,
+                ns=ns,
+                binning=bins,
+                scale=cfg["scale"],
+                maxbins=cfg["maxbins"]
+            )
+
+            for row in cfg["rows"]:
+                if row is None:
+                    tab.space()
                     continue
+                fmt["nb"] = row["nb"]
+                chib = cfg["chib"].format(**fmt)
+                tab.add_row(
+                    key=row["key"],
+                    title=get_title(cfg["keys"][row["map"]]).format(chib=chib)
+                )
 
-                value = db_bin.get(row_key, None)
-                if value and scales[row_key]:
-                    value = VE(str(value)) * scales[row_key]
-                group = tab.get_group(bin=bin, sqs=data_key)
-                group.add_value(key=row_key, value=value,
-                                round=rounds[row_key])
+            for bin in bins:
+                for data_key in ["mc2011", "mc2012"]:
+                    # Add rows
+                    group = tab.get_group(bin=bin, sqs=data_key)
+                    for nb in range(1, 3):
+                        ups_key = "ups%ds" % ns
 
-    print tab.texify()
+                        for row in cfg["rows"]:
+                            if not row:
+                                continue
 
+                            chib_key = "chib%d%dp" % (row['nb'], np)
+                            db_fit = db[data_key][ups_key][
+                                tuple(bin)][chib_key]
+
+                            value = db_fit.get(row['map'], None)
+                            scale = get_scale(cfg["keys"][row['map']])
+                            rounds = get_round(cfg["keys"][row['map']])
+
+                            if value and scale:
+                                value = VE(str(value)) * scale
+
+                            group.add_value(
+                                key=row['key'],
+                                value=value,
+                                round=rounds
+                            )
+            print tab.texify()
 
 if __name__ == '__main__':
     main()

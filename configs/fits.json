@@ -2,7 +2,7 @@
 	"ups": {
 		"decay": "ups",
 		"profiles": ["default"],
-		"binning": [[6, 40]]
+		"binning": [[24, 29], [29, 40], [24, 40]]
 	},
     "ups_new": {
         "decay": "ups",
@@ -19,21 +19,22 @@
     },
     "chib2s": {
         "decay": "chib2s",
-        "binning": [[18, 22], [18, 24], [22,24], [24, 40]],
+        "binning": [[18, 20], [18, 24],  [20, 22], [22, 24], [24,28], [24, 40], [28,40]],
         "profiles_": ["sigma_min", "sigma_max"],
         "profiles_": ["mass_var", "mass3p_min", "mass3p_max"],
-        "profiles": ["mass3p_max"]
+        "profiles": ["sigma_min", "sigma_max"]
     },
     
     "chib2s_freem": {
         "decay": "chib2s",
-        "binning": [[18, 22], [18, 24], [22,24], [24, 40], [18,40]],
+        "binning": [[18, 20], [18, 24],  [20, 22], [22, 24], [24,28], [24, 40], [28,40]],
         "profiles": ["freem"]
     },
 
     "chib3s": {
         "decay": "chib3s",
-        "binning": [[27, 40]],
-        "profiles": ["lambda"]
+        "binning": [[24, 29], [29, 40]],
+        "profiles": "default",
+        "profiles": ["floating_bg"]
     }
 }

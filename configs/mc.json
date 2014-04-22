@@ -48,8 +48,9 @@
             "cut": {
                 "dm": [0, 2]
                 , "pt_ups": [18, 40]
-                , "mups_dtf": [9.870, 10.090]
+                , "mups_dtf": [9.860, 10.155]
                 , "pt_g": [0.6, null]
+                , "cl_g": [0.01, null]
                 , "lv01": [0, null]
                 , "c2_dtf": [0, 4]
                 , "dll_min": [0, null]
@@ -83,12 +84,12 @@
        "ups3s": {
             "cut": {
                 "dm": [0, 0.5]
-                , "pt_ups": [25, 40]
-                , "mups_dtf": [10.3, 10.526]
+                , "pt_ups": [24, 40]
+                , "mups_dtf": [10.220, 10.520]
                 , "pt_g": [0.6, null]
+                , "cl_g": [0.01, null]
                 , "lv01": [0, null]
                 , "c2_dtf": [0, 4]
-                , "dll_min": [0, null]
                 , "y":[2, 4.5]
                 , "minprob": [0.5, null]
                 , "true_cb_ups3s": 1
@@ -100,8 +101,7 @@
             },
             "ucut": {
                 "c2_dtf": [0, 4]
-                , "pt_ups": [25, 40]
-                , "dll_min": [0, null]
+                , "pt_ups": [24, 40]
                 , "y":[2, 4.5]
                 , "true_y3s": 1
                 , "minprob": [0.5, null]
@@ -112,7 +112,7 @@
             "binning" : {
                "3": [22, 10.43, 10.65]
             },
-            "axis": [27, 40]
+            "axis": [24, 29, 40]
        }
    }
 

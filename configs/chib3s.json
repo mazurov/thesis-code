@@ -10,16 +10,22 @@
     "bgorder": 2,
     "lambda_b1b2": 0.5,
 
-    "fixed_mean_": 10.508,
-    "fixed_sigma": true,
+    "fixed_mean": 10.510,
+    "fixed_sigma": 0.01,
+
+    "fixed_bg": {
+        "tau": -2.12,
+        "phi1": 0.61,
+        "phi2": -0.41
+    },
     
     "cut": {
         "dmplusm3s": [10.44, 10.76]
-        , "mups_dtf": [10.3, 10.526]
-        , "pt_ups": [25, null]
+        , "mups_dtf": [10.220, 10.520]
+        , "pt_ups": [24, null]
         , "pt_g": [0.6, null]
         , "lv01": [0, null]
-        , "cl_g": [0.2, null]
+        , "cl_g": [0.01, null]
         , "c2_dtf": [0, 4]
         , "dll_min": [0, null]
         , "minprob": [0.5, null]
@@ -31,17 +37,35 @@
 
     "profiles": {
         "default": {},
+        "freems": {
+            "name": "ups3s/freem",
+            "fixed_mean": false,
+            "fixed_sigma": false
+        },
         "freem": {
             "name": "ups3s/freem",
-            "fixed_mean": false
+            "fixed_mean": false,
+            "fixed_sigma": 0.01
         },
-        "mass3p_min": {
-            "name": "ups3s/syst/mass3p_10502",
-            "fixed_mean": 10.502
+        "mass_min": {
+            "name": "ups3s/syst/mass3p_10504",
+            "fixed_mean": 10.504
         },
-        "mass3p_max": {
-            "name": "ups3s/syst/mass3p_10518",
-            "fixed_mean": 10.518
+        "mass_max": {
+            "name": "ups3s/syst/mass3p_10516",
+            "fixed_mean": 10.516
+        },
+        "sigma_min": {
+            "name": "ups3s/syst/sigma_9",
+            "fixed_sigma": 0.009
+        },
+        "sigma_max": {
+            "name": "ups3s/syst/sigma_12",
+            "fixed_sigma": 0.012
+        },
+        "floating_bg": {
+            "name": "ups3s/syst/floating_bg",
+            "fixed_bg": false
         },
         "lambda0": {
             "name": "ups3s/syst/lambda0",

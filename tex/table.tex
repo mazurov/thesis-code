@@ -3,12 +3,18 @@
 \caption{\small {*title*}}
 \centering
 {*/caption?*}
+{*#resizebox*}
+\resizebox{{*resizebox*}\textwidth}{!}{
+{*/resizebox*}
+{*^resizebox*}
 \scalebox{{*scale*}}{
+{*/resizebox*}
+
 \begin{tabular}{l{*align*}}\toprule
 {*header*}\midrule
 {*rows*}\bottomrule
 \end{tabular}
-} % scalebox
+} % scalebox/resizebox
 {*#caption?*}
 \label{tab:{*label*}}
 \end{table}
