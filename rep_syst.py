@@ -21,7 +21,7 @@ def main():
     cli_args = docopt(__doc__, version="1.0")
     cfg = tools.load_config("rep_syst")
 
-    for ns in range(3, 4):
+    for ns in range(2, 3):
         cfg_decay = cfg["ups%ds" % ns]
         db_ref = tools.get_db(cfg_decay["db"])
 

@@ -29,7 +29,7 @@ def get_axises(cfg_axises):
     for np in cfg_axises:
         if isinstance(cfg_axises[np], list):
             bins_np = tools.axis2bins(cfg_axises[np])
-            year_bins[int(np)]["2011"] = year_bins[np]["2012"] = bins_np
+            year_bins[int(np)]["2011"] = year_bins[int(np)]["2012"] = bins_np
             bins.update(bins_np)
         else:
             bins_np_2011 = tools.axis2bins(cfg_axises[np]["2011"])

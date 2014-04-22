@@ -19,10 +19,12 @@
     },
     "chib2s": {
         "decay": "chib2s",
-        "binning": [[18, 20], [18, 24],  [20, 22], [22, 24], [24,28], [24, 40], [28,40]],
-        "profiles_": ["sigma_min", "sigma_max"],
+        "binning": [[18, 20], [18, 24], [18, 40],  [20, 22], [22, 24], [24,28], [24, 40], [28,40]],
+        "profiles": ["default"],
+        "profiles_": ["mass3p_max"],
         "profiles_": ["mass_var", "mass3p_min", "mass3p_max"],
-        "profiles": ["sigma_min", "sigma_max"]
+        "profiles_": ["mass3p_min", "mass3p_max"],
+        "profiles_": ["mass_min", "mass_max"]
     },
     
     "chib2s_freem": {

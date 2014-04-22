@@ -68,8 +68,8 @@
     },
     "ups2s": {
         "bins": {
-            "2": [18,22,24,40],
-            "3": [18,24,40]
+            "2": [18,20,22,24,28,40],
+            "3": [18,40]
         },
         "db_ref": "data/ups2s/nominal.db",
         "nchib": [
@@ -77,9 +77,12 @@
             "data/ups2s/syst/lambda4.db",
             "data/ups2s/syst/lambda6.db",
             "data/ups2s/syst/lambda7.db",
-            "data/ups2s/syst/mass_var.db",
-            "data/ups2s/syst/mass3p_10502.db",
-            "data/ups2s/syst/mass3p_10518.db"
+            "data/ups2s/syst/mass_10245.db",
+            "data/ups2s/syst/mass_10255.db",
+            "data/ups2s/syst/mass3p_10504.db",
+            "data/ups2s/syst/mass3p_10516.db",
+            "data/ups2s/syst/sigma_11.db",
+            "data/ups2s/syst/sigma_13.db"
         ],
         "graphs": {
             "2": {"ymax": 50},

@@ -126,8 +126,8 @@
         "ns": 2,
         "scale": 0.65,
         "axis": {
-            "2": [18,22,24,40],
-            "3": [18, 24, 40]
+            "2": [18,20,22,24,28,40],
+            "3": [18, 40]
         },
         "maxbins": 3,
 
@@ -196,31 +196,51 @@
                 ]
             },
             {
-                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneTwoP mass uncertainty in the fit model for $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
-                "label": "syst:m_ups2s",
-                "scale": 0.6,
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneTwoP mass uncertainty in the fit model for  $\\chi_b(2,P) \\to \\TwoS \\gamma$ decays",
+                "label": "syst:m2p_ups2s",
                 "rows": [
                     {
-                        "title": "Maximum uncertainty",
+                        "title": "$m_{\\chiboneTwoP} = 10{,}245 \\mevcc$",
+                        "key": "min",
+                        "db": "data/ups2s/syst/mass_10245.db"
+                    },
+                    {
+                        "title": "$m_{\\chiboneTwoP} = 10{,}255 \\mevcc$",
                         "key": "max",
-                        "db": "data/ups2s/syst/mass_var.db"
+                        "db": "data/ups2s/syst/mass_10255.db"
                     }
                 ]
             },
+            {
+                "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneTwoP signal width uncertainty in the fit model for  $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
+                "label": "syst:sigma2p_ups2s",
+                "rows": [
+                    {
+                        "title": "$\\sigma_{\\chiboneTwoP} = 11 \\mevcc$",
+                        "key": "min",
+                        "db": "data/ups2s/syst/sigma_11.db"
+                    },
+                    {
+                        "title": "$sigma_{\\chiboneTwoP} = 13 \\mevcc$",
+                        "key": "max",
+                        "db": "data/ups2s/syst/sigma_13.db"
+                    }
+                ]
+            },            
             {
                 "title": "$\\chi_b$ yields systematic uncertainties (\\%) related to \\chiboneThreeP mass uncertainty in the fit model for  $\\chi_b(2,3P) \\to \\TwoS \\gamma$ decays",
                 "label": "syst:m3p_ups2s",
                 "scale": 0.6,
                 "rows": [
                     {
-                        "title": "$m_{\\chiboneThreeP} = 10,502 \\mevcc$",
+                        "title": "$m_{\\chiboneThreeP} = 10{,}504 \\mevcc$",
                         "key": "min",
-                        "db": "data/ups2s/syst/mass3p_10502.db"
+                        "db": "data/ups2s/syst/mass3p_10504.db"
                     },
                     {
-                        "title": "$m_{\\chiboneThreeP} = 10,518 \\mevcc$",
+                        "title": "$m_{\\chiboneThreeP} = 10{,}516 \\mevcc$",
                         "key": "max",
-                        "db": "data/ups2s/syst/mass3p_10518.db"
+                        "db": "data/ups2s/syst/mass3p_10516.db"
                     }
                 ]
             }

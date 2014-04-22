@@ -19,7 +19,7 @@
     "mc_sigma_3p_2p": 1.65,
     
     "cut": {
-        "dmplusm2s": [10.155, 11.04],
+        "dmplusm2s": [10.160, 11.04],
         "mups_dtf": [9.860, 10.155]
         , "pt_ups": [14, null]
         , "pt_g": [0.6, null]
@@ -50,22 +50,32 @@
             "name": "ups2s/syst/mass_var",
             "fixed_mean_db": "data/ups2s/freem.db"
         },
+        
         "mass3p_min": {
-            "name": "ups2s/syst/mass3p_10502",
-            "fixed_mean_3p": 10.502
+            "name": "ups2s/syst/mass3p_10504",
+            "fixed_mean_3p": 10.504
         },
         "mass3p_max": {
-            "name": "ups2s/syst/mass3p_10518",
-            "fixed_mean_3p": 10.518
+            "name": "ups2s/syst/mass3p_10516",
+            "fixed_mean_3p": 10.516
         },
 
+        "mass_min": {
+            "name": "ups2s/syst/mass_10245",
+            "fixed_mean": 10.245
+        },
+        "mass_max": {
+            "name": "ups2s/syst/mass_10255",
+            "fixed_mean": 10.255
+        },        
+
         "sigma_min": {
-            "name": "ups2s/syst/sigma_10",
-            "fixed_sigma": 0.01
+            "name": "ups2s/syst/sigma_11",
+            "fixed_sigma": 0.011
         },
         "sigma_max": {
-            "name": "ups2s/syst/sigma_14",
-            "fixed_sigma": 0.014
+            "name": "ups2s/syst/sigma_13",
+            "fixed_sigma": 0.013
         },
 
 

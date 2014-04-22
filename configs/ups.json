@@ -5,7 +5,7 @@
     "field": "m_dtf",
     "nbins": 250,
     "name": "ups/nominal",
-    "save?": false,
+    "save?": true,
     "fixed_m1s_": 9.456,
     "cut": {
         "m_dtf": [8.5, 11.5],

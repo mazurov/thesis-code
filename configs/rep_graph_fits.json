@@ -69,7 +69,7 @@
         "ups2s": {
             "db": "data/ups2s/freem.db",
             "output_dir": "ups2s/freem",
-            "axis": [18, 22, 24, 40],
+            "axis": [18, 20, 22, 24, 40],
             "plots": [
                 {
                     "key": "mean_b1_2p",
